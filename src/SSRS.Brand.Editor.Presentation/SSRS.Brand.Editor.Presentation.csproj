@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Platforms>x64</Platforms>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
+	</ItemGroup>
+
+</Project>

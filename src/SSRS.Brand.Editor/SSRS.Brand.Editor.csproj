@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Platforms>x64</Platforms>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SSRS.Brand.Editor.Infrastructure\SSRS.Brand.Editor.Infrastructure.csproj" />
+		<ProjectReference Include="..\SSRS.Brand.Editor.Presentation\SSRS.Brand.Editor.Presentation.csproj" />
+	</ItemGroup>
+
+</Project>
