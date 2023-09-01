@@ -1,34 +1,23 @@
 ﻿using System.Text.Json.Serialization;
 
+
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public class Root : IRoot
+public class Root
 {
-	public Root(string name, string version, Interface @interface, Theme theme)
+	public Root()
 	{
-		Name = name;
-		Version = version;
-		Interface = @interface;
-		Theme = theme;
-	}
-
-	public Root(IRoot root)
-	{
-		Name = root.Name;
-		Version = root.Version;
-		Interface = root.Interface;
-		Theme = root.Theme;
 	}
 
 	[JsonPropertyName("name")]
-	public string Name { get; set; }
+	public string Name { get; set; } = string.Empty;
 
 	[JsonPropertyName("version")]
-	public string Version { get; set; }
+	public string Version { get; set; } = string.Empty;
 
 	[JsonPropertyName("interface")]
-	public Interface Interface { get; set; }
+	public Interface Interface { get; set; } = new Interface();
 
 	[JsonPropertyName("theme")]
-	public Theme Theme { get; set; }
+	public Theme Theme { get; set; } = new Theme();
 }

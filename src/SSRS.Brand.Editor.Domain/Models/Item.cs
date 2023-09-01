@@ -1,20 +1,12 @@
 ﻿using System.Xml.Serialization;
 
-using SSRS.Brand.Editor.Domain.Interfaces.Models;
-
 namespace SSRS.Brand.Editor.Domain.Models;
 
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class Item : IItem
+public sealed class Item
 {
 	public Item()
 	{ }
-
-	public Item(IItem item)
-	{
-		Key = item.Key;
-		Path = item.Path;
-	}
 
 	public Item(string key, string path)
 	{

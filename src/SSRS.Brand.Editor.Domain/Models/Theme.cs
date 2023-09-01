@@ -1,109 +1,69 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Drawing;
+using System.Text.Json.Serialization;
+
+using SSRS.Brand.Editor.Domain.Converters;
 
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public sealed class Theme : ITheme
+public sealed class Theme
 {
-	public Theme(List<string> dataPoints, string good, string bad, string neutral, string none, string background, string foreground, string mapBase, string panelBackground, string panelForeground, string panelAccent, string tableAccent, string altBackground, string altForeground, string altMapBase, string altPanelBackground, string altPanelForeground, string altPanelAccent, string altTableAccent)
-	{
-		DataPoints = dataPoints;
-		Good = good;
-		Bad = bad;
-		Neutral = neutral;
-		None = none;
-		Background = background;
-		Foreground = foreground;
-		MapBase = mapBase;
-		PanelBackground = panelBackground;
-		PanelForeground = panelForeground;
-		PanelAccent = panelAccent;
-		TableAccent = tableAccent;
-		AltBackground = altBackground;
-		AltForeground = altForeground;
-		AltMapBase = altMapBase;
-		AltPanelBackground = altPanelBackground;
-		AltPanelForeground = altPanelForeground;
-		AltPanelAccent = altPanelAccent;
-		AltTableAccent = altTableAccent;
-	}
-
-	public Theme(ITheme theme)
-	{
-		DataPoints = theme.DataPoints;
-		Good = theme.Good;
-		Bad = theme.Bad;
-		Neutral = theme.Neutral;
-		None = theme.None;
-		Background = theme.Background;
-		Foreground = theme.Foreground;
-		MapBase = theme.MapBase;
-		PanelBackground = theme.PanelBackground;
-		PanelForeground = theme.PanelForeground;
-		PanelAccent = theme.PanelAccent;
-		TableAccent = theme.TableAccent;
-		AltBackground = theme.AltBackground;
-		AltForeground = theme.AltForeground;
-		AltMapBase = theme.AltMapBase;
-		AltPanelBackground = theme.AltPanelBackground;
-		AltPanelForeground = theme.AltPanelForeground;
-		AltPanelAccent = theme.AltPanelAccent;
-		AltTableAccent = theme.AltTableAccent;
-	}
+	public Theme()
+	{ }
 
 	[JsonPropertyName("dataPoints")]
-	public List<string> DataPoints { get; set; }
+	public List<Color> DataPoints { get; set; } = new();
 
-	[JsonPropertyName("good")]
-	public string Good { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("good")]
+	public Color Good { get; set; }
 
-	[JsonPropertyName("bad")]
-	public string Bad { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("bad")]
+	public Color Bad { get; set; }
 
-	[JsonPropertyName("neutral")]
-	public string Neutral { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("neutral")]
+	public Color Neutral { get; set; }
 
-	[JsonPropertyName("none")]
-	public string None { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("none")]
+	public Color None { get; set; }
 
-	[JsonPropertyName("background")]
-	public string Background { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("background")]
+	public Color Background { get; set; }
 
-	[JsonPropertyName("foreground")]
-	public string Foreground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("foreground")]
+	public Color Foreground { get; set; }
 
-	[JsonPropertyName("mapBase")]
-	public string MapBase { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("mapBase")]
+	public Color MapBase { get; set; }
 
-	[JsonPropertyName("panelBackground")]
-	public string PanelBackground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("panelBackground")]
+	public Color PanelBackground { get; set; }
 
-	[JsonPropertyName("panelForeground")]
-	public string PanelForeground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("panelForeground")]
+	public Color PanelForeground { get; set; }
 
-	[JsonPropertyName("panelAccent")]
-	public string PanelAccent { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("panelAccent")]
+	public Color PanelAccent { get; set; }
 
-	[JsonPropertyName("tableAccent")]
-	public string TableAccent { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("tableAccent")]
+	public Color TableAccent { get; set; }
 
-	[JsonPropertyName("altBackground")]
-	public string AltBackground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altBackground")]
+	public Color AltBackground { get; set; }
 
-	[JsonPropertyName("altForeground")]
-	public string AltForeground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altForeground")]
+	public Color AltForeground { get; set; }
 
-	[JsonPropertyName("altMapBase")]
-	public string AltMapBase { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altMapBase")]
+	public Color AltMapBase { get; set; }
 
-	[JsonPropertyName("altPanelBackground")]
-	public string AltPanelBackground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altPanelBackground")]
+	public Color AltPanelBackground { get; set; }
 
-	[JsonPropertyName("altPanelForeground")]
-	public string AltPanelForeground { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altPanelForeground")]
+	public Color AltPanelForeground { get; set; }
 
-	[JsonPropertyName("altPanelAccent")]
-	public string AltPanelAccent { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altPanelAccent")]
+	public Color AltPanelAccent { get; set; }
 
-	[JsonPropertyName("altTableAccent")]
-	public string AltTableAccent { get; set; }
+	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("altTableAccent")]
+	public Color AltTableAccent { get; set; }
 }
