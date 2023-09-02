@@ -20,7 +20,12 @@ namespace SSRS.Brand.Editor.Application.ViewModels.Base;
 /// </remarks>
 public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
 {
-	#region Property access methods
+	#region private members
+	private static readonly Dictionary<string, string[]> PropertyChangingSubscribers = new();
+	private static readonly Dictionary<string, string[]> PropertyChangedSubscribers = new();
+	#endregion
+
+	#region property access methods
 	/// <summary>
 	/// Sets a new value for a property and notifies about the change.
 	/// </summary>
@@ -30,19 +35,20 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	/// <param name="propertyName">The property name.</param>
 	protected void SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "")
 	{
-		if (!EqualityComparer<T>.Default.Equals(field, newValue))
-		{
-			NotifyPropertyChanging(propertyName);
-			NotifyPropertyChangingAttribute(propertyName);
-			field = newValue;
-			NotifyPropertyChanged(propertyName);
-			NotifyPropertyChangedAttribute(propertyName);
-		}
+		if (EqualityComparer<T>.Default.Equals(field, newValue))
+			return;
+
+		NotifyPropertyChanging(propertyName);
+		NotifyPropertyChangingAttribute(propertyName);
+		field = newValue;
+		NotifyPropertyChanged(propertyName);
+		NotifyPropertyChangedAttribute(propertyName);
 	}
 
 	#endregion
 
 	#region INotifyPropertyChanged members
+
 	/// <inheritdoc/>
 	public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -55,9 +61,11 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	/// <param name="propertyName">The name of the property, can be <see langword="null"/>.</param>
 	protected virtual void NotifyPropertyChanged([CallerMemberName] string? propertyName = null) =>
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
 	#endregion
 
 	#region INotifyPropertyChanging members
+
 	/// <inheritdoc/>
 	public event PropertyChangingEventHandler? PropertyChanging;
 
@@ -70,9 +78,41 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	/// <param name="propertyName">The name of the property, can be <see langword="null"/>.</param>
 	protected virtual void NotifyPropertyChanging([CallerMemberName] string? propertyName = null) =>
 		PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+
 	#endregion
 
-	#region Notify property attribute methods
+	#region Notify property changing attribute methods
+
+	/// <summary>
+	/// The <see cref="NotifyPropertyChangingAttribute(string)"/> method will notify all properties
+	/// which have been defined by the <see cref="Attributes.NotifyPropertyChangingAttribute"/> as to be informed.
+	/// </summary>
+	/// <remarks>
+	/// To avoid to much reflection, the properties and their subscribers are stored in a static dictionary
+	/// when they are accessed for the first time.
+	/// </remarks>
+	/// <param name="propertyName">The property name.</param>
+	private void NotifyPropertyChangingAttribute(string propertyName)
+	{
+		if (!PropertyChangingSubscribers.ContainsKey(propertyName))
+		{
+			PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
+
+			NotifyPropertyChangingAttribute? attribute =
+				propertyInfo?.GetCustomAttribute<NotifyPropertyChangingAttribute>();
+
+			if (attribute is not null && attribute.PropertyNames.Length > 0)
+				PropertyChangingSubscribers.Add(propertyName, attribute.PropertyNames);
+			else
+				PropertyChangingSubscribers.Add(propertyName, Array.Empty<string>());
+		}
+
+		string[] subscribers = PropertyChangingSubscribers[propertyName];
+		
+		foreach (string subscriber in subscribers)
+			NotifyPropertyChanging(subscriber);
+	}
+
 	/// <summary>
 	/// The <see cref="NotifyPropertyChangedAttribute(string)"/> method will notify all properties
 	/// which have been defined by the <see cref="Attributes.NotifyPropertyChangedAttribute"/> as to be informed.
@@ -80,50 +120,36 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	/// <param name="propertyName">The property name.</param>
 	private void NotifyPropertyChangedAttribute(string propertyName)
 	{
-		PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
-
-		NotifyPropertyChangedAttribute? attribute =
-			propertyInfo?.GetCustomAttribute<NotifyPropertyChangedAttribute>();
-
-		if (attribute is not null && attribute.PropertyNames.Length > 0)
+		if (!PropertyChangedSubscribers.ContainsKey(propertyName))
 		{
-			foreach (string property in attribute.PropertyNames)
-				NotifyPropertyChanged(property);
+			PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
+
+			NotifyPropertyChangedAttribute? attribute =
+				propertyInfo?.GetCustomAttribute<NotifyPropertyChangedAttribute>();
+
+			if (attribute is not null && attribute.PropertyNames.Length > 0)
+				PropertyChangedSubscribers.Add(propertyName, attribute.PropertyNames);
+			else
+				PropertyChangedSubscribers.Add(propertyName, Array.Empty<string>());
 		}
+
+		string[] subscribers = PropertyChangedSubscribers[propertyName];
+
+		foreach (string subscriber in subscribers)
+			NotifyPropertyChanged(subscriber);
 	}
 
-	/// <summary>
-	/// The <see cref="NotifyPropertyChangingAttribute(string)"/> method will notify all properties
-	/// which have been defined by the <see cref="Attributes.NotifyPropertyChangingAttribute"/> as to be informed.
-	/// </summary>
-	/// <param name="propertyName">The property name.</param>
-	private void NotifyPropertyChangingAttribute(string propertyName)
-	{
-		PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
-
-		NotifyPropertyChangingAttribute? attribute =
-			propertyInfo?.GetCustomAttribute<NotifyPropertyChangingAttribute>();
-
-		if (attribute is not null && attribute.PropertyNames.Length > 0)
-		{
-			foreach (string property in attribute.PropertyNames)
-				NotifyPropertyChanging(property);
-		}
-	}
 	#endregion
 }
 
 /// <summary>
-/// The <see langword="abstract"/> <see cref="ViewModelBase{TModel}"/> class.
+/// The <see langword="abstract"/> view model base class of <typeparamref name="TModel"/>
 /// </summary>
 /// <remarks>
-/// The <see cref="ViewModelBase{TModel}"/> class implements the following interfaces:
-/// <list type="bullet">
-///		<item>The members of the <see cref="INotifyDataErrorInfo"/> interface.</item>
-/// </list>
-/// It inherits the fields and methods from the <see cref="ViewModelBase"/> class.
+/// The view model base class of <typeparamref name="TModel"/> inherits from the <see cref="ViewModelBase"/>
+/// class and implements the <see cref="INotifyDataErrorInfo"/> interface.
 /// </remarks>
-/// <typeparam name="TModel">The domain model class.</typeparam>
+/// <typeparam name="TModel">The model class to validate against.</typeparam>
 public abstract class ViewModelBase<TModel> : ViewModelBase, INotifyDataErrorInfo where TModel : class
 {
 	private TModel _model;
@@ -156,16 +182,16 @@ public abstract class ViewModelBase<TModel> : ViewModelBase, INotifyDataErrorInf
 	/// The method can only / should be called from the derived class.
 	/// </remarks>
 	/// <param name="sender">The sender will/should be <see cref="ViewModelBase{TModel}"/>.</param>
-	/// <param name="e"></param>
-	protected virtual void OnPropertyChangedPropagate(object? sender, PropertyChangedEventArgs e)
+	/// <param name="args"></param>
+	protected virtual void OnPropertyChangedPropagate(object? sender, PropertyChangedEventArgs args)
 	{
 		if (sender is not ViewModelBase<TModel> viewModelBase)
 			return;
 
-		if (e.PropertyName is not null)
+		if (args.PropertyName is not null)
 		{
-			object? propertyValue = viewModelBase.GetType().GetProperty(e.PropertyName)!.GetValue(viewModelBase, null);
-			viewModelBase.Model.GetType().GetProperty(e.PropertyName)!.SetValue(viewModelBase.Model, propertyValue, null);
+			object? propertyValue = viewModelBase.GetType().GetProperty(args.PropertyName)!.GetValue(viewModelBase, null);
+			viewModelBase.Model.GetType().GetProperty(args.PropertyName)!.SetValue(viewModelBase.Model, propertyValue, null);
 		}
 	}
 
@@ -181,11 +207,11 @@ public abstract class ViewModelBase<TModel> : ViewModelBase, INotifyDataErrorInf
 	/// <param name="propertyName">The property name.</param>
 	protected void SetPropertyAndValidate<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "")
 	{
-		if (!EqualityComparer<T>.Default.Equals(field, newValue))
-		{
-			SetProperty(ref field, newValue, propertyName);
-			Validate(newValue, propertyName);
-		}
+		if (EqualityComparer<T>.Default.Equals(field, newValue))
+			return;
+
+		SetProperty(ref field, newValue, propertyName);
+		Validate(newValue, propertyName);
 	}
 
 	/// <summary>
@@ -199,11 +225,11 @@ public abstract class ViewModelBase<TModel> : ViewModelBase, INotifyDataErrorInf
 	/// <returns><see langword="true"/> or <see langword="false"/> if the property has been set.</returns>
 	protected void SetPropertyNoNotifyAndValidate<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "")
 	{
-		if (!EqualityComparer<T>.Default.Equals(field, newValue))
-		{
-			field = newValue;
-			Validate(newValue, propertyName);
-		}
+		if (EqualityComparer<T>.Default.Equals(field, newValue))
+			return;
+
+		field = newValue;
+		Validate(newValue, propertyName);
 	}
 
 	#endregion
