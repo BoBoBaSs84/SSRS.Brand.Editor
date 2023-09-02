@@ -26,6 +26,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Presentat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor", "src\SSRS.Brand.Editor\SSRS.Brand.Editor.csproj", "{D552BFDA-427F-4294-A547-5C96099F645C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.DomainTests", "tests\SSRS.Brand.Editor.DomainTests\SSRS.Brand.Editor.DomainTests.csproj", "{36F105C2-07AA-49CA-85E3-5A49814289DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.ApplicationTests", "tests\SSRS.Brand.Editor.ApplicationTests\SSRS.Brand.Editor.ApplicationTests.csproj", "{74AC0891-75F3-4EC1-B96C-1147931D1136}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -52,6 +58,14 @@ Global
 		{D552BFDA-427F-4294-A547-5C96099F645C}.Debug|x64.Build.0 = Debug|x64
 		{D552BFDA-427F-4294-A547-5C96099F645C}.Release|x64.ActiveCfg = Release|x64
 		{D552BFDA-427F-4294-A547-5C96099F645C}.Release|x64.Build.0 = Release|x64
+		{36F105C2-07AA-49CA-85E3-5A49814289DD}.Debug|x64.ActiveCfg = Debug|x64
+		{36F105C2-07AA-49CA-85E3-5A49814289DD}.Debug|x64.Build.0 = Debug|x64
+		{36F105C2-07AA-49CA-85E3-5A49814289DD}.Release|x64.ActiveCfg = Release|x64
+		{36F105C2-07AA-49CA-85E3-5A49814289DD}.Release|x64.Build.0 = Release|x64
+		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Debug|x64.ActiveCfg = Debug|x64
+		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Debug|x64.Build.0 = Debug|x64
+		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Release|x64.ActiveCfg = Release|x64
+		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +76,8 @@ Global
 		{CDE3C3A4-CE05-405A-A49A-BC99D3CE762B} = {FD4098AF-3502-475B-86B1-B122CCE1042D}
 		{F31264E1-5E52-478E-9FAD-2DC26E0464F0} = {FD4098AF-3502-475B-86B1-B122CCE1042D}
 		{D552BFDA-427F-4294-A547-5C96099F645C} = {FD4098AF-3502-475B-86B1-B122CCE1042D}
+		{36F105C2-07AA-49CA-85E3-5A49814289DD} = {7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}
+		{74AC0891-75F3-4EC1-B96C-1147931D1136} = {7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91420860-34D6-42D4-BAED-D3B7CC7E8742}
