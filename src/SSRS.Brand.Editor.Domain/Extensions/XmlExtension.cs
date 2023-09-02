@@ -86,7 +86,8 @@ public static class XmlExtension
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StringWriterWithEncoding"/> class.
 		/// </summary>
-		public StringWriterWithEncoding() { }
+		public StringWriterWithEncoding()
+		{ }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StringWriterWithEncoding"/> class.

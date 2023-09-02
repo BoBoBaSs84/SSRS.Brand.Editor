@@ -4,32 +4,32 @@ using SSRS.Brand.Editor.Domain.Models;
 namespace SSRS.Brand.Editor.DomainTests.Models;
 
 [TestClass, ExcludeFromCodeCoverage]
-public class RootTests
+public class ColorsTests
 {
 	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFiles");
 	private readonly string _fileName = "colors.json";
 	private readonly string _jsonContent;
 
-	public RootTests()
+	public ColorsTests()
 		=> _jsonContent = File.ReadAllText(Path.Combine(_filePath, _fileName));
 
 	[TestMethod]
-	public void RootToJsonTest()
+	public void ColorsToJsonTest()
 	{
-		Root root = new();
+		Colors colors = new();
 
-		string jsonString = root.ToJsonString();
+		string jsonString = colors.ToJsonString();
 
 		Assert.IsFalse(string.IsNullOrWhiteSpace(jsonString));
 	}
 
 	[TestMethod]
-	public void RootFromJsonTest()
+	public void ColorsFromJsonTest()
 	{
-		Root r = new();
+		Colors colors = new();
 
-		r = r.FromJsonString(_jsonContent);
+		colors = colors.FromJsonString(_jsonContent);		
 
-		Assert.IsFalse(string.IsNullOrWhiteSpace(r.Name));
+		Assert.IsFalse(string.IsNullOrWhiteSpace(colors.Name));
 	}
 }

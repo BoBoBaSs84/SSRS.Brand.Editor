@@ -1,4 +1,4 @@
-﻿namespace SSRS.Brand.Editor.Presentation.Attributes;
+﻿namespace SSRS.Brand.Editor.Application.Attributes;
 
 /// <summary>
 /// The notify property changed attribute class.
@@ -21,7 +21,7 @@ public sealed class NotifyPropertyChangedAttribute : Attribute
 	/// Initializes a new instance of the notify property changed attribute class.
 	/// </summary>
 	/// <param name="propertyNames">The names of the properties to notify.</param>
-	public NotifyPropertyChangedAttribute(string[] propertyNames)
+	public NotifyPropertyChangedAttribute(params string[] propertyNames)
 		=> PropertyNames = propertyNames;
 
 	/// <summary>

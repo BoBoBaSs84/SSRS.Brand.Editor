@@ -8,16 +8,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="TestFiles\colors.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="TestFiles\metadata.xml">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+	  <ProjectReference Include="..\..\src\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
 	</ItemGroup>
 
 </Project>

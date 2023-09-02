@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using SSRS.Brand.Editor.Presentation.Attributes;
+using SSRS.Brand.Editor.Application.Attributes;
 
-namespace SSRS.Brand.Editor.Presentation.ViewModels.Base;
+namespace SSRS.Brand.Editor.Application.ViewModels.Base;
 
 /// <summary>
 /// The <see langword="abstract"/> view model base class.
@@ -32,26 +32,14 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	{
 		if (!EqualityComparer<T>.Default.Equals(field, newValue))
 		{
-			RaisePropertyChanging(propertyName);
-			NotifyAttributeChangingProperty(propertyName);
+			NotifyPropertyChanging(propertyName);
+			NotifyPropertyChangingAttribute(propertyName);
 			field = newValue;
-			RaisePropertyChanged(propertyName);
-			NotifyAttributeChangedProperty(propertyName);
+			NotifyPropertyChanged(propertyName);
+			NotifyPropertyChangedAttribute(propertyName);
 		}
 	}
 
-	/// <summary>
-	/// Sets a new value for a property and does not notify about the change.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <param name="field">The referenced field.</param>
-	/// <param name="newValue">The new value for the property.</param>
-	/// <returns><see langword="true"/> or <see langword="false"/> if the property has been set.</returns>
-	protected static void SetPropertyNoNotify<T>(ref T field, T newValue)
-	{
-		if (!EqualityComparer<T>.Default.Equals(field, newValue))
-			field = newValue;
-	}
 	#endregion
 
 	#region INotifyPropertyChanged members
@@ -59,13 +47,13 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	public event PropertyChangedEventHandler? PropertyChanged;
 
 	/// <summary>
-	/// The <see cref="RaisePropertyChanged(string?)"/> method to raise the changed event.
+	/// The <see cref="NotifyPropertyChanged(string?)"/> method to raise the changed event.
 	/// </summary>
 	/// <remarks>
 	/// The calling member's name will be used as the parameter.
 	/// </remarks>
 	/// <param name="propertyName">The name of the property, can be <see langword="null"/>.</param>
-	protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null) =>
+	protected virtual void NotifyPropertyChanged([CallerMemberName] string? propertyName = null) =>
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	#endregion
 
@@ -74,58 +62,52 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 	public event PropertyChangingEventHandler? PropertyChanging;
 
 	/// <summary>
-	/// The <see cref="RaisePropertyChanging(string?)"/> method to raise the changing event.
+	/// The <see cref="NotifyPropertyChanging(string?)"/> method to raise the changing event.
 	/// </summary>
 	/// <remarks>
 	/// The calling member's name will be used as the parameter.
 	/// </remarks>
 	/// <param name="propertyName">The name of the property, can be <see langword="null"/>.</param>
-	protected virtual void RaisePropertyChanging([CallerMemberName] string? propertyName = null) =>
+	protected virtual void NotifyPropertyChanging([CallerMemberName] string? propertyName = null) =>
 		PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
 	#endregion
 
 	#region Notify property attribute methods
 	/// <summary>
-	/// The <see cref="NotifyAttributeChangedProperty(string)"/> method will notify all properties
-	/// which have been defined by the <see cref="NotifyPropertyChangedAttribute"/> as to be informed.
+	/// The <see cref="NotifyPropertyChangedAttribute(string)"/> method will notify all properties
+	/// which have been defined by the <see cref="Attributes.NotifyPropertyChangedAttribute"/> as to be informed.
 	/// </summary>
 	/// <param name="propertyName">The property name.</param>
-	private void NotifyAttributeChangedProperty(string propertyName)
+	private void NotifyPropertyChangedAttribute(string propertyName)
 	{
 		PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
 
-		if (propertyInfo is null)
-			return;
-
 		NotifyPropertyChangedAttribute? attribute =
-			propertyInfo.GetCustomAttribute<NotifyPropertyChangedAttribute>();
+			propertyInfo?.GetCustomAttribute<NotifyPropertyChangedAttribute>();
 
 		if (attribute is not null && attribute.PropertyNames.Length > 0)
 		{
 			foreach (string property in attribute.PropertyNames)
-				RaisePropertyChanged(property);
+				NotifyPropertyChanged(property);
 		}
 	}
 
 	/// <summary>
-	/// The <see cref="NotifyAttributeChangingProperty(string)"/> method will notify all properties
-	/// which have been defined by the <see cref="NotifyPropertyChangingAttribute"/> as to be informed.
+	/// The <see cref="NotifyPropertyChangingAttribute(string)"/> method will notify all properties
+	/// which have been defined by the <see cref="Attributes.NotifyPropertyChangingAttribute"/> as to be informed.
 	/// </summary>
 	/// <param name="propertyName">The property name.</param>
-	private void NotifyAttributeChangingProperty(string propertyName)
+	private void NotifyPropertyChangingAttribute(string propertyName)
 	{
 		PropertyInfo? propertyInfo = GetType().GetProperty(propertyName);
 
-		if (propertyInfo is null)
-			return;
-
 		NotifyPropertyChangingAttribute? attribute =
-			propertyInfo.GetCustomAttribute<NotifyPropertyChangingAttribute>();
+			propertyInfo?.GetCustomAttribute<NotifyPropertyChangingAttribute>();
 
 		if (attribute is not null && attribute.PropertyNames.Length > 0)
 		{
 			foreach (string property in attribute.PropertyNames)
-				RaisePropertyChanged(property);
+				NotifyPropertyChanging(property);
 		}
 	}
 	#endregion
