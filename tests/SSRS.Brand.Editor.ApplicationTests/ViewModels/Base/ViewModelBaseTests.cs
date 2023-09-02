@@ -100,6 +100,6 @@ public class ViewModelBaseTests
 			set => SetProperty(ref _price, value);
 		}
 
-		public float TotalPrice => Quantity * Price;		
+		public float TotalPrice => Quantity * Price;
 	}
 }
