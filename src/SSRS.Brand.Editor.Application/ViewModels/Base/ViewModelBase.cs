@@ -108,7 +108,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
 		}
 
 		string[] subscribers = PropertyChangingSubscribers[propertyName];
-		
+
 		foreach (string subscriber in subscribers)
 			NotifyPropertyChanging(subscriber);
 	}

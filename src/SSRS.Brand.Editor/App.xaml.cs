@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
 using SSRS.Brand.Editor.Infrastructure.Installer;
 using SSRS.Brand.Editor.Presentation.Installer;
 using SSRS.Brand.Editor.Presentation.Windows;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 using WinApplication = System.Windows.Application;
 
@@ -45,7 +46,7 @@ public partial class App : WinApplication
 	/// <returns>The registered service.</returns>
 	/// <exception cref="ArgumentException">If a service is not registered.</exception>
 	public static T GetService<T>() where T : class =>
-		(Current as App)!._host.Services.GetService(typeof(T)) is not T service
+		(Current as App)!._host.Services.GetRequiredService(typeof(T)) is not T service
 		? throw new ArgumentException($"{typeof(T)} needs to be registered.")
 		: service;
 
