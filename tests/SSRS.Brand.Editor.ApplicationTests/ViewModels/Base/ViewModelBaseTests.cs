@@ -60,7 +60,7 @@ public class ViewModelBaseTests
 		Assert.AreEqual(nameof(_product.Price), propertiesChanged.Last());
 	}
 
-	private class ProductViewModel : ViewModelBase
+	private sealed class ProductViewModel : ViewModelBase
 	{
 		private int _quantity;
 		private float _price;
