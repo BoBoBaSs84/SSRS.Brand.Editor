@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.DomainTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.ApplicationTests", "tests\SSRS.Brand.Editor.ApplicationTests\SSRS.Brand.Editor.ApplicationTests.csproj", "{74AC0891-75F3-4EC1-B96C-1147931D1136}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.InfrastructureTests", "tests\SSRS.Brand.Editor.InfrastructureTests\SSRS.Brand.Editor.InfrastructureTests.csproj", "{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -66,6 +68,10 @@ Global
 		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Debug|x64.Build.0 = Debug|x64
 		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Release|x64.ActiveCfg = Release|x64
 		{74AC0891-75F3-4EC1-B96C-1147931D1136}.Release|x64.Build.0 = Release|x64
+		{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}.Debug|x64.ActiveCfg = Debug|x64
+		{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}.Debug|x64.Build.0 = Debug|x64
+		{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}.Release|x64.ActiveCfg = Release|x64
+		{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{D552BFDA-427F-4294-A547-5C96099F645C} = {FD4098AF-3502-475B-86B1-B122CCE1042D}
 		{36F105C2-07AA-49CA-85E3-5A49814289DD} = {7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}
 		{74AC0891-75F3-4EC1-B96C-1147931D1136} = {7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}
+		{3938770D-05A0-4AC1-B9C2-69CEC3E0165D} = {7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91420860-34D6-42D4-BAED-D3B7CC7E8742}
