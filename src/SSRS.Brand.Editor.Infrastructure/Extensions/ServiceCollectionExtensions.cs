@@ -30,4 +30,16 @@ internal static class ServiceCollectionExtensions
 
 		return services;
 	}
+
+	/// <summary>
+	/// Adds the singleton services to the service collection.
+	/// </summary>
+	/// <param name="services">The service collection to enrich.</param>
+	/// <returns>The enriched service collection.</returns>
+	internal static IServiceCollection AddSingletonServices(this IServiceCollection services)
+	{
+		services.TryAddSingleton<IFileService, FileService>();
+
+		return services;
+	}
 }
