@@ -22,8 +22,6 @@ public class InfrastructureTestBase
 
 	private static IHostBuilder CreateHostBuilder()
 		=> Host.CreateDefaultBuilder()
-		.ConfigureServices((context, services) =>
-		{
-			_ = services.AddInfrastructureServices();
-		});
+		.ConfigureServices((context, services)
+			=> services.AddInfrastructureServices());
 }
