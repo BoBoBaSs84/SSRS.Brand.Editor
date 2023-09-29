@@ -19,33 +19,26 @@ public class FileServiceTests : InfrastructureTestBase
 	[TestMethod]
 	public void LoadTest()
 	{
-		string filePath = Path.Combine(TestFileFolder, TestFileName);
-
-		byte[] content = _fileService.Load(filePath);
+		byte[] content = _fileService.Load(TestFileFolder, TestFileName);
 
 		Assert.IsNotNull(content);
 	}
 
 	[TestMethod]
 	public void LoadExceptionTest()
-	{
-		_ = Assert.ThrowsException<FileServiceException>(() => _fileService.Load(string.Empty));
-	}
+		=> Assert.ThrowsException<FileServiceException>(() => _fileService.Load(string.Empty));
 
 	[TestMethod]
 	public void SaveTest()
 	{
 		byte[] content = Encoding.UTF8.GetBytes("UnitTest");
-		string filePath = Path.Combine(TestFileFolder, TestFileName);
 
-		bool success = _fileService.Save(filePath, content);
+		bool success = _fileService.Save(TestFileFolder, TestFileName, content);
 
 		Assert.IsTrue(success);
 	}
 
 	[TestMethod]
 	public void SaveExceptionTest()
-	{
-		_ = Assert.ThrowsException<FileServiceException>(() => _fileService.Save(string.Empty, Array.Empty<byte>()));
-	}
+		=> Assert.ThrowsException<FileServiceException>(() => _fileService.Save(string.Empty, Array.Empty<byte>()));
 }
