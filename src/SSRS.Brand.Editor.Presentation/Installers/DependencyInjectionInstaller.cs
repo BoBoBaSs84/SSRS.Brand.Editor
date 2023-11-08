@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SSRS.Brand.Editor.Presentation.Installer;
 
 /// <summary>
-/// The presentation dependency injection class.
+/// The presentation dependency injection installer class.
 /// </summary>
-public static class DependencyInjection
+public static class DependencyInjectionInstaller
 {
 	/// <summary>
 	/// Adds the presentation services to the service collection.

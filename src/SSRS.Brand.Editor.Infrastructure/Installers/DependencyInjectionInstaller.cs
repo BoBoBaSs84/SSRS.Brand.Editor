@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SSRS.Brand.Editor.Infrastructure.Installer;
 
 /// <summary>
-/// The infrastructure dependency injection class.
+/// The infrastructure dependency injection installer class.
 /// </summary>
-public static class DependencyInjection
+public static class DependencyInjectionInstaller
 {
 	/// <summary>
 	/// Adds the infrastructure services to the service collection.

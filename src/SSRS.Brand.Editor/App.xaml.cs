@@ -21,6 +21,7 @@ public partial class App : WinApplication
 {
 	private readonly IHost _host;
 	private readonly ILoggerService<App> _loggerService;
+	private readonly IServiceProvider _serviceProvider;
 
 	private static readonly Action<ILogger, string, Exception?> LogInformation =
 		LoggerMessage.Define<string>(LogLevel.Information, 0, "{Information}");
@@ -34,6 +35,7 @@ public partial class App : WinApplication
 	public App()
 	{
 		_host = CreateHostBuilder().Build();
+		_serviceProvider = _host.Services;
 		_loggerService = GetService<ILoggerService<App>>();
 
 		DispatcherUnhandledException += OnUnhandledException;
@@ -46,7 +48,7 @@ public partial class App : WinApplication
 	/// <returns>The registered service.</returns>
 	/// <exception cref="ArgumentException">If a service is not registered.</exception>
 	public static T GetService<T>() where T : class =>
-		(Current as App)!._host.Services.GetRequiredService(typeof(T)) is not T service
+		(Current as App)!._serviceProvider.GetRequiredService(typeof(T)) is not T service
 		? throw new ArgumentException($"{typeof(T)} needs to be registered.")
 		: service;
 
