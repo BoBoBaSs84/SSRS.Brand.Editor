@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Title>SSRS.Brand.Editor.Infrastructure</Title>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
 	</ItemGroup>

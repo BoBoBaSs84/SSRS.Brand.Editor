@@ -1,4 +1,6 @@
-﻿using SSRS.Brand.Editor.Domain.Extensions;
+﻿using BB84.Extensions.Serialization;
+
+using SSRS.Brand.Editor.Domain.Common;
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.DomainTests.Models;
@@ -18,7 +20,7 @@ public class ColorsTests
 	{
 		Colors colors = new();
 
-		string jsonString = colors.ToJsonString();
+		string jsonString = colors.ToJson(DomainStatics.SerializerOptions);
 
 		Assert.IsFalse(string.IsNullOrWhiteSpace(jsonString));
 	}
@@ -26,9 +28,9 @@ public class ColorsTests
 	[TestMethod]
 	public void ColorsFromJsonTest()
 	{
-		Colors colors = new();
+		Colors colors;
 
-		colors = colors.FromJsonString(_jsonContent);		
+		colors = _jsonContent.FromJson<Colors>(DomainStatics.SerializerOptions);
 
 		Assert.IsFalse(string.IsNullOrWhiteSpace(colors.Name));
 	}

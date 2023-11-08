@@ -44,6 +44,7 @@
 		<Product>SSRS.Brand.Editor</Product>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/BoBoBaSs84/SSRS.Brand.Editor</RepositoryUrl>
+		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">

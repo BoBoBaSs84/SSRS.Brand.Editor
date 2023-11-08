@@ -1,4 +1,5 @@
-﻿using SSRS.Brand.Editor.Domain.Extensions;
+﻿using BB84.Extensions.Serialization;
+
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.DomainTests.Models;
@@ -18,7 +19,7 @@ public class MetadataTests
 	{
 		Metadata metadata = new();
 
-		string xmlString = metadata.ToXmlString();
+		string xmlString = metadata.ToXml();
 
 		Assert.IsFalse(string.IsNullOrWhiteSpace(xmlString));
 	}
@@ -26,9 +27,9 @@ public class MetadataTests
 	[TestMethod]
 	public void MetadataFromXmlTest()
 	{
-		Metadata metadata = new();
+		Metadata metadata;
 
-		metadata = metadata.FromXmlString(_xmlContent);
+		metadata = _xmlContent.FromXml<Metadata>();
 
 		Assert.IsFalse(string.IsNullOrWhiteSpace(metadata.Name));
 	}

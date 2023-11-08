@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Title>SSRS.Brand.Editor.Application</Title>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />
 	</ItemGroup>
@@ -15,6 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BB84.Notifications" Version="1.5.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 	</ItemGroup>
 

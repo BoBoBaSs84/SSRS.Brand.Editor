@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
-		<Title>SSRS.Brand.Editor</Title>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
