@@ -4,7 +4,12 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<ApplicationIcon>SSRS.Brand.Editor.ico</ApplicationIcon>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="SSRS.Brand.Editor.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Infrastructure\SSRS.Brand.Editor.Infrastructure.csproj" />
