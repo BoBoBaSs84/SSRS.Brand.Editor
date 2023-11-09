@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using SSRS.Brand.Editor.Infrastructure.Installer;
+using SSRS.Brand.Editor.Infrastructure.Installers;
 
 namespace SSRS.Brand.Editor.InfrastructureTests;
 

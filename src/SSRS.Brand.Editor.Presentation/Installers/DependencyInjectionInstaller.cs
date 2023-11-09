@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SSRS.Brand.Editor.Presentation.Installer;
+namespace SSRS.Brand.Editor.Presentation.Installers;
 
 /// <summary>
 /// The presentation dependency injection installer class.

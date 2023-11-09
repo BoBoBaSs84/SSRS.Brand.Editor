@@ -6,8 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
-using SSRS.Brand.Editor.Infrastructure.Installer;
-using SSRS.Brand.Editor.Presentation.Installer;
+using SSRS.Brand.Editor.Infrastructure.Installers;
+using SSRS.Brand.Editor.Presentation.Installers;
 using SSRS.Brand.Editor.Presentation.Windows;
 
 using WinApplication = System.Windows.Application;

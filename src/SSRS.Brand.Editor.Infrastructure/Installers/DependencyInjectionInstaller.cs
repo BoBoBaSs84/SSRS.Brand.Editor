@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SSRS.Brand.Editor.Infrastructure.Installer;
+namespace SSRS.Brand.Editor.Infrastructure.Installers;
 
 /// <summary>
 /// The infrastructure dependency injection installer class.
