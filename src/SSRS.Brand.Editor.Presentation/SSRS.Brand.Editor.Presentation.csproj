@@ -6,6 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.106" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
 	</ItemGroup>
 
