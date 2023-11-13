@@ -1,14 +1,15 @@
 ﻿using System.Windows.Input;
 
+using BB84.Notifications;
+
 using SSRS.Brand.Editor.Application.Common;
-using SSRS.Brand.Editor.Application.ViewModels.Base;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
 /// <summary>
 /// The main view model class.
 /// </summary>
-public sealed class MainViewModel : ViewModelBase
+public sealed class MainViewModel : NotifyPropertyBase
 {
 	private string _text;
 	private ICommand? _getTextCommand;
