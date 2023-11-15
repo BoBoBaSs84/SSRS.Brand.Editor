@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-		<ProjectReference Include="..\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />
+		<ProjectReference Include="..\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />		
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-using BB84.Notifications;
+﻿using BB84.Notifications;
 
 using SSRS.Brand.Editor.Application.Common;
 
@@ -12,8 +10,8 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 public sealed class MainViewModel : NotifyPropertyBase
 {
 	private string _text;
-	private ICommand? _getTextCommand;
-	private ICommand? _setTextCommand;
+	private IRelayCommand? _getTextCommand;
+	private IRelayCommand? _setTextCommand;
 
 	/// <summary>
 	/// 
@@ -31,13 +29,13 @@ public sealed class MainViewModel : NotifyPropertyBase
 	/// <summary>
 	/// Gets the text.
 	/// </summary>
-	public ICommand GetTextCommand
+	public IRelayCommand GetTextCommand
 		=> _getTextCommand ??= new RelayCommand(GetText);
 
 	/// <summary>
 	/// Sets the text.
 	/// </summary>
-	public ICommand SetTextCommand
+	public IRelayCommand SetTextCommand
 		=> _setTextCommand ??= new RelayCommand(SetText);
 
 	private void SetText()

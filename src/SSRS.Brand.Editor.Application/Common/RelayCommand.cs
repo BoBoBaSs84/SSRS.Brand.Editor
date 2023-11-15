@@ -1,68 +1,95 @@
-﻿using System.Windows.Input;
-
-namespace SSRS.Brand.Editor.Application.Common;
+﻿namespace SSRS.Brand.Editor.Application.Common;
 
 /// <summary>
-/// The <see cref="RelayCommand"/> class. Implements the mebmer of the <see cref="ICommand"/> interface.
+/// The <see cref="RelayCommand"/> class.
 /// </summary>
 /// <remarks>
 /// A command whose sole purpose is to relay its functionality to other objects by invoking delegates.
 /// The default return value for the CanExecute method is <see langword="true"/>.
-/// RaiseCanExecuteChanged needs to be called whenever CanExecute is expected to return a different value.
 /// </remarks>
-internal sealed class RelayCommand : ICommand
+internal sealed class RelayCommand : IRelayCommand
 {
 	private readonly Action _execute;
 	private readonly Func<bool>? _canExecute;
 
-	/// <inheritdoc/>
-	public event EventHandler? CanExecuteChanged;
-
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RelayCommand"/> class that can always execute.
 	/// </summary>
-	/// <param name="execute">The execution logic.</param>
+	/// <param name="execute">The action to execute.</param>
 	public RelayCommand(Action execute) : this(execute, null)
-	{
-	}
+	{ }
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RelayCommand"/> class.
 	/// </summary>
-	/// <param name="execute">The execution logic.</param>
-	/// <param name="canExecute">The execution status logic.</param>
+	/// <param name="execute">The action to execute.</param>
+	/// <param name="canExecute">The condition to execute.</param>
 	public RelayCommand(Action execute, Func<bool>? canExecute)
 	{
-		if (execute is null)
-			throw new ArgumentNullException(nameof(execute));
-
 		_execute = execute;
 		_canExecute = canExecute;
 	}
 
-	/// <summary>
-	/// Determines whether this RelayCommand can execute in its current state.
-	/// </summary>
-	/// <param name="parameter">
-	/// Data used by the command. If the command does not require data to be passed,
-	/// this object can be set to null.
-	/// </param>
-	/// <returns>true if this command can be executed; otherwise, false.</returns>
-	public bool CanExecute(object? parameter) => _canExecute is null || _canExecute();
+	/// <inheritdoc/>
+	public event EventHandler? CanExecuteChanged;
+
+	/// <inheritdoc/>
+	public bool CanExecute(object? parameter)
+		=> _canExecute is null || _canExecute.Invoke();
+
+	/// <inheritdoc/>
+	public void Execute(object? parameter)
+		=> _execute.Invoke();
+
+	/// <inheritdoc/>
+	public void NotifyCanExecuteChanged()
+		=> CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+}
+
+/// <summary>
+/// The <see cref="RelayCommand{T}"/> class.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <remarks>
+/// A command whose sole purpose is to relay its functionality to other objects by invoking delegates.
+/// The default return value for the CanExecute method is <see langword="true"/>.
+/// </remarks>
+internal sealed class RelayCommand<T> : IRelayCommand
+{
+	private readonly Action<T> _execute;
+	private readonly Func<T, bool>? _canExecute;
 
 	/// <summary>
-	/// Executes the RelayCommand on the current command target.
+	/// Initializes a new instance of <see cref="RelayCommand{T}"/> class that can always execute.
 	/// </summary>
-	/// <param name="parameter">
-	/// Data used by the command. If the command does not require data to be passed,
-	/// this object can be set to null.
-	/// </param>
-	public void Execute(object? parameter) => _execute();
+	/// <param name="execute">Delegate to execute when Execute is called on the command.
+	/// This can be null to just hook up a CanExecute delegate.</param>
+	public RelayCommand(Action<T> execute) : this(execute, null)
+	{ }
 
 	/// <summary>
-	/// Method used to raise the CanExecuteChanged event
-	/// to indicate that the return value of the CanExecute
-	/// method has changed.
+	/// Initializes a new instance of <see cref="RelayCommand{T}"/> class.
 	/// </summary>
-	public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+	/// <param name="execute">The action to execute.</param>
+	/// <param name="canExecute">The condition to execute.</param>
+	public RelayCommand(Action<T> execute, Func<T, bool>? canExecute)
+	{
+		_execute = execute;
+		_canExecute = canExecute;
+	}
+
+	/// <inheritdoc/>
+	public event EventHandler? CanExecuteChanged;
+
+	/// <inheritdoc/>
+	public bool CanExecute(object? parameter)
+		=> _canExecute is null || _canExecute((T)parameter!);
+
+	/// <inheritdoc/>
+	public void Execute(object? parameter)
+		=> _execute((T)parameter!);
+
+	/// <inheritdoc/>
+	public void NotifyCanExecuteChanged()
+		=> CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 }
