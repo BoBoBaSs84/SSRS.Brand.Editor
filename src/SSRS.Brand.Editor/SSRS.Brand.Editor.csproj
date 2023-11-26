@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>SSRS.Brand.Editor.ico</ApplicationIcon>
 	</PropertyGroup>
