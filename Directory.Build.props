@@ -29,7 +29,7 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<Platforms>x64</Platforms>
 		<SignAssembly>true</SignAssembly>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
