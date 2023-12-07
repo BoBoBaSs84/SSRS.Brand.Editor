@@ -3,17 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73B67721-5EFA-4BA3-9927-FC4F4B9D7192}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitignore = .gitignore
-		Directory.Build.props = Directory.Build.props
-		Directory.Build.targets = Directory.Build.targets
-		LICENSE = LICENSE
-		PublicKey.snk = PublicKey.snk
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FD4098AF-3502-475B-86B1-B122CCE1042D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Domain", "src\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj", "{DE7C8009-472F-49CF-96B5-2CFF38F04AC0}"
@@ -33,6 +22,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.ApplicationTests", "tests\SSRS.Brand.Editor.ApplicationTests\SSRS.Brand.Editor.ApplicationTests.csproj", "{74AC0891-75F3-4EC1-B96C-1147931D1136}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.InfrastructureTests", "tests\SSRS.Brand.Editor.InfrastructureTests\SSRS.Brand.Editor.InfrastructureTests.csproj", "{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A0F1CAA-4EA0-4C1C-8DBD-3F16E0C90D07}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		global.json = global.json
+		LICENSE = LICENSE
+		PublicKey.snk = PublicKey.snk
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
