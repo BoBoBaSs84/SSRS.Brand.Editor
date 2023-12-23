@@ -4,7 +4,6 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
-				xmlns:wet="http://schemas.xceed.com/wpf/xaml/toolkit"
 				d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
 				mc:Ignorable="d"
 				Title="SSRS.Brand.Editor"
@@ -40,11 +39,6 @@
 							HorizontalAlignment="Left"
 							Margin="360,135,0,0"
 							VerticalAlignment="Top" />
-			<wet:ColorPicker x:Name="colorPicker"
-											 HorizontalAlignment="Left"
-											 Margin="450, 135, 0, 0"
-											 VerticalAlignment="Top"
-											 Width="98" />
 		</Grid>
 	</DockPanel>
 </Window>
