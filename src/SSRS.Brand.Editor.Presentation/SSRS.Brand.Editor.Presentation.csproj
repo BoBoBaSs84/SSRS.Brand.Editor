@@ -5,6 +5,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
 	</ItemGroup>
 

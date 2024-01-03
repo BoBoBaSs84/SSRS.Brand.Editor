@@ -4,6 +4,7 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
+				xmlns:p="clr-namespace:PropertyTools.Wpf;assembly=PropertyTools.Wpf"
 				d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
 				mc:Ignorable="d"
 				Title="SSRS.Brand.Editor"
@@ -19,6 +20,21 @@
 				<MenuItem Header="_Quit" />
 			</MenuItem>
 		</Menu>
+		<StackPanel Width="250" VerticalAlignment="Center">
+			<GroupBox Header="ColorPickers">
+				<StackPanel>
+					<p:ColorPicker SelectedColor="Red"
+												 IsEnabled="True"
+												 Margin="4" />
+					<p:ColorPicker SelectedColor="Green"
+												 IsEnabled="True"
+												 Margin="4" />
+					<p:ColorPicker SelectedColor="Blue"
+												 IsEnabled="True"
+												 Margin="4" />
+				</StackPanel>
+			</GroupBox>			
+		</StackPanel>
 		<Grid>
 			<TextBox x:Name="textBox"
 							 HorizontalAlignment="Left"
