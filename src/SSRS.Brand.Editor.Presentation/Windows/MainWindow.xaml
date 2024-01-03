@@ -20,7 +20,8 @@
 				<MenuItem Header="_Quit" />
 			</MenuItem>
 		</Menu>
-		<StackPanel Width="250" VerticalAlignment="Center">
+		<StackPanel Width="250"
+								VerticalAlignment="Center">
 			<GroupBox Header="ColorPickers">
 				<StackPanel>
 					<p:ColorPicker SelectedColor="Red"
@@ -33,7 +34,7 @@
 												 IsEnabled="True"
 												 Margin="4" />
 				</StackPanel>
-			</GroupBox>			
+			</GroupBox>
 		</StackPanel>
 		<Grid>
 			<TextBox x:Name="textBox"
