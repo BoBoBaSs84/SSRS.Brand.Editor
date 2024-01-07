@@ -2,52 +2,65 @@
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
-using SSRS.Brand.Editor.Domain.Converters;
+using BB84.Notifications;
 
-using SSRS.Brand.Editor.Domain.Interfaces.Models;
+using SSRS.Brand.Editor.Domain.Converters;
 
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public sealed class Branding : IBranding
+public sealed class BrandingModel : NotifyPropertyBase
 {
-	public Branding()
+	private ColorsModel _colors;
+	private MetadataModel _metadata;
+
+	public BrandingModel()
 	{
-		Colors = new();
-		Metadata = new();
+		_colors = new();
+		_metadata = new();
 	}
 
-	public Colors Colors { get; set; }
-	public Metadata Metadata { get; set; }
+	public ColorsModel Colors { get => _colors; set => SetProperty(ref _colors, value); }
+	public MetadataModel Metadata { get => _metadata; set => SetProperty(ref _metadata, value); }
 }
 
-public class Colors : IColors
+public class ColorsModel : NotifyPropertyBase
 {
-	public Colors()
+	private string _name;
+	private string _version;
+	private InterfaceModel _interface;
+	private ThemeModel _theme;
+
+	public ColorsModel()
 	{
-		Name = string.Empty;
-		Version = string.Empty;
-		Interface = new();
-		Theme = new();
+		_name = string.Empty;
+		_version = string.Empty;
+		_interface = new();
+		_theme = new();
+	}
+
+	public ColorsModel(string name, string version)
+	{
+		_name = name;
+		_version = version;
+		_interface = new();
+		_theme = new();
 	}
 
 	[JsonPropertyName("name")]
-	public string Name { get; set; }
+	public string Name { get => _name; set => SetProperty(ref _name, value); }
 
 	[JsonPropertyName("version")]
-	public string Version { get; set; }
+	public string Version { get => _version; set => SetProperty(ref _version, value); }
 
 	[JsonPropertyName("interface")]
-	public Interface Interface { get; set; }
+	public InterfaceModel Interface { get => _interface; set => SetProperty(ref _interface, value); }
 
 	[JsonPropertyName("theme")]
-	public Theme Theme { get; set; }
+	public ThemeModel Theme { get => _theme; set => SetProperty(ref _theme, value); }
 }
 
-public sealed class Interface : IInterface
+public sealed class InterfaceModel : NotifyPropertyBase
 {
-	public Interface()
-	{ }
-
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primary")]
 	public Color Primary { get; set; }
 
@@ -175,13 +188,13 @@ public sealed class Interface : IInterface
 	public Color KpiNoneContrast { get; set; }
 }
 
-public sealed class Theme : ITheme
+public sealed class ThemeModel : NotifyPropertyBase
 {
-	public Theme()
-	{ }
+	public ThemeModel()
+		=> DataPoints = [];
 
 	[JsonPropertyName("dataPoints")]
-	public List<Color> DataPoints { get; set; } = new();
+	public List<Color> DataPoints { get; set; }
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("good")]
 	public Color Good { get; set; }
@@ -238,55 +251,65 @@ public sealed class Theme : ITheme
 	public Color AltTableAccent { get; set; }
 }
 
-
 [XmlRoot(ElementName = "SystemResourcePackage", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public class Metadata : IMetadata
+public class MetadataModel : NotifyPropertyBase
 {
-	public Metadata()
+	private string _type;
+	private string _version;
+	private string _name;
+	private List<ItemModel> _items;
+
+	public MetadataModel()
 	{
-		Type = string.Empty;
-		Version = string.Empty;
-		Name = string.Empty;
-		Contents = new();
+		_type = string.Empty;
+		_version = string.Empty;
+		_name = string.Empty;
+		_items = [];
+	}
+
+	public MetadataModel(string type, string version, string name)
+	{
+		_type = type;
+		_version = version;
+		_name = name;
+		_items = [];
 	}
 
 	[XmlAttribute(AttributeName = "type", Namespace = "")]
-	public string Type { get; set; }
+	public string Type { get => _type; set => SetProperty(ref _type, value); }
 
 	[XmlAttribute(AttributeName = "version", Namespace = "")]
-	public string Version { get; set; }
+	public string Version { get => _version; set => SetProperty(ref _version, value); }
 
 	[XmlAttribute(AttributeName = "name", Namespace = "")]
-	public string Name { get; set; }
+	public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-	[XmlElement(ElementName = "Contents", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-	public Contents Contents { get; set; }
-}
-
-[XmlRoot(ElementName = "Contents", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class Contents : IContents
-{
-	public Contents()
-	{
-		Item = new();
-	}
-
-	[XmlElement(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-	public List<Item> Item { get; set; }
+	[XmlArray(ElementName = "Contents", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
+	[XmlArrayItem(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
+	public List<ItemModel> Items { get => _items; set => SetProperty(ref _items, value); }
 }
 
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class Item : IItem
+public sealed class ItemModel : NotifyPropertyBase
 {
-	public Item()
+	private string _key;
+	private string _path;
+
+	public ItemModel()
 	{
-		Key = string.Empty;
-		Path = string.Empty;
+		_key = string.Empty;
+		_path = string.Empty;
+	}
+
+	public ItemModel(string key, string path)
+	{
+		_key = key;
+		_path = path;
 	}
 
 	[XmlAttribute(AttributeName = "key", Namespace = "")]
-	public string Key { get; set; }
+	public string Key { get => _key; set => SetProperty(ref _key, value); }
 
 	[XmlAttribute(AttributeName = "path", Namespace = "")]
-	public string Path { get; set; }
+	public string Path { get => _path; set => SetProperty(ref _path, value); }
 }

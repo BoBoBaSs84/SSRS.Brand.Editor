@@ -10,38 +10,38 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// </summary>
 public sealed class MainViewModel : NotifyPropertyBase
 {
-	private string _text;
-	private IRelayCommand? _getTextCommand;
-	private IRelayCommand? _setTextCommand;
+	private IRelayCommand _aboutCommand;
+	private IRelayCommand _exitCommand;
+	private IRelayCommand _newCommand;
+	private IRelayCommand _saveCommand;
 
 	/// <summary>
-	/// 
+	/// Initilizes an instance of the <see cref="MainViewModel"/> class.
 	/// </summary>
 	public MainViewModel()
-	{
-		_text = string.Empty;
-	}
+	{ }
 
 	/// <summary>
-	/// The text property.
+	/// The command to show the about window.
 	/// </summary>
-	public string Text { get => _text; set => SetProperty(ref _text, value); }
+	public IRelayCommand AboutCommand
+		=> _aboutCommand ??= new RelayCommand(() => { });
 
 	/// <summary>
-	/// Gets the text.
+	/// The command to exit the application.
 	/// </summary>
-	public IRelayCommand GetTextCommand
-		=> _getTextCommand ??= new RelayCommand(GetText);
+	public IRelayCommand ExitCommand
+		=> _exitCommand ??= new RelayCommand(() => Environment.Exit(0));
 
 	/// <summary>
-	/// Sets the text.
+	/// The command to create a new brand.
 	/// </summary>
-	public IRelayCommand SetTextCommand
-		=> _setTextCommand ??= new RelayCommand(SetText);
+	public IRelayCommand NewCommand
+		=> _newCommand ??= new RelayCommand(() => { });
 
-	private void SetText()
-		=> Text = "This is the set text.";
-
-	private void GetText()
-		=> Text = "This is the get text.";
+	/// <summary>
+	/// The command to save the current brand.
+	/// </summary>
+	public IRelayCommand SaveCommand
+		=> _saveCommand ??= new RelayCommand(() => { });
 }

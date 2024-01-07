@@ -9,7 +9,7 @@ namespace SSRS.Brand.Editor.Infrastructure.Services;
 /// The file service class.
 /// </summary>
 /// <remarks>
-/// Initilizes an instance of the file service class.
+/// Initilizes an instance of the <see cref="FileService"/> class.
 /// </remarks>
 /// <param name="loggerService">The logger service to use.</param>
 internal sealed class FileService(ILoggerService<FileService> loggerService) : IFileService

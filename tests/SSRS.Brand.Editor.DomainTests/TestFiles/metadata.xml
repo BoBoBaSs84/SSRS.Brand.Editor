@@ -4,8 +4,8 @@
   version="2.0.2"
   name="Example brand with logo"
   >
-  <Contents>
-    <Item key="colors" path="colors.json" />
-    <Item key="logo" path="logo.png" />
-  </Contents>
+	<Contents>
+		<Item key="colors" path="colors.json" />
+		<Item key="logo" path="logo.png" />
+	</Contents>
 </SystemResourcePackage>

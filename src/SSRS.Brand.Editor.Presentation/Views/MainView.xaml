@@ -12,33 +12,17 @@
 	<DockPanel LastChildFill="True">
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_New" />
+				<MenuItem Header="_New"
+									Command="{Binding NewCommand}" />
 				<MenuItem Header="_Open" />
-				<MenuItem Header="_Save" />
+				<MenuItem Header="_Save"
+									Command="{Binding SaveCommand}" />
 				<Separator />
-				<MenuItem Header="_Quit" />
+				<MenuItem Header="_About"
+									Command="{Binding AboutCommand}" />
+				<MenuItem Header="_Quit"
+									Command="{Binding ExitCommand}" />
 			</MenuItem>
 		</Menu>
-		<Grid>
-			<TextBox x:Name="textBox"
-							 HorizontalAlignment="Left"
-							 Margin="183,135,0,0"
-							 TextWrapping="Wrap"
-							 Text="{Binding Text}"
-							 VerticalAlignment="Top"
-							 Width="120" />
-			<Button x:Name="getTextButton"
-							Content="Get Text"
-							Command="{Binding Path=GetTextCommand}"
-							HorizontalAlignment="Left"
-							Margin="308,135,0,0"
-							VerticalAlignment="Top" />
-			<Button x:Name="setTextButton"
-							Content="Set Text"
-							Command="{Binding Path=SetTextCommand}"
-							HorizontalAlignment="Left"
-							Margin="360,135,0,0"
-							VerticalAlignment="Top" />
-		</Grid>
 	</DockPanel>
 </Window>

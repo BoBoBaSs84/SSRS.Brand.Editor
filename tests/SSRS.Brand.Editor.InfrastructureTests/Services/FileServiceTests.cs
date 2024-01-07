@@ -7,7 +7,7 @@ using SSRS.Brand.Editor.Infrastructure.Helpers;
 namespace SSRS.Brand.Editor.InfrastructureTests.Services;
 
 [TestClass]
-public class FileServiceTests : InfrastructureTestBase
+public sealed class FileServiceTests : InfrastructureTestBase
 {
 	private static readonly string TestFileContent = "UnitTest";
 	private static readonly string TestFileName = "TestFile.txt";
