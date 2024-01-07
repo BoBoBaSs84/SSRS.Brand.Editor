@@ -1,9 +1,11 @@
-﻿using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
-using SSRS.Brand.Editor.Infrastructure.Services;
+﻿using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+
+using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
+using SSRS.Brand.Editor.Infrastructure.Services;
 
 namespace SSRS.Brand.Editor.Infrastructure.Extensions;
 
@@ -12,19 +14,22 @@ namespace SSRS.Brand.Editor.Infrastructure.Extensions;
 /// </summary>
 internal static class ServiceCollectionExtensions
 {
+	private const string EventSourceName = "SSRS.Brand.Editor";
+
 	/// <summary>
 	/// Adds the logger service to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
+	[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here.")]
 	internal static IServiceCollection AddLoggerService(this IServiceCollection services)
 	{
 		services.TryAddSingleton(typeof(ILoggerService<>), typeof(LoggerService<>));
 
 		services.AddLogging(config =>
 		{
-			config.AddEventLog(settings => settings.SourceName = "SSRS.Brand.Editor");
-			config.SetMinimumLevel(LogLevel.Error);
+			config.AddEventLog(settings => settings.SourceName = EventSourceName);
+			config.SetMinimumLevel(LogLevel.Warning);
 		});
 
 		return services;
