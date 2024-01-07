@@ -16,7 +16,10 @@ public sealed class FileServiceTests : InfrastructureTestBase
 	private readonly IFileService _fileService;
 
 	public FileServiceTests()
-		=> _fileService = DependencyInjectionHelper.GetService<IFileService>();
+	{
+		_fileService = DependencyInjectionHelper.GetService<IFileService>();
+		File.WriteAllText(Path.Combine(TestFileFolder, TestFileName), TestFileContent);
+	}
 
 	[TestMethod]
 	public void LoadTest()
@@ -29,8 +32,9 @@ public sealed class FileServiceTests : InfrastructureTestBase
 	}
 
 	[TestMethod]
+	[ExpectedException(typeof(FileServiceException))]
 	public void LoadExceptionTest()
-		=> Assert.ThrowsException<FileServiceException>(() => _fileService.Load(string.Empty));
+		=> _fileService.Load("Hallo");
 
 	[TestMethod]
 	public void SaveTest()
@@ -43,6 +47,7 @@ public sealed class FileServiceTests : InfrastructureTestBase
 	}
 
 	[TestMethod]
+	[ExpectedException(typeof(FileServiceException))]
 	public void SaveExceptionTest()
-		=> Assert.ThrowsException<FileServiceException>(() => _fileService.Save(string.Empty, []));
+		=> _fileService.Save(string.Empty, null!);
 }
