@@ -1,37 +1,40 @@
-﻿using BB84.Extensions.Serialization;
+﻿using BB84.Extensions;
+using BB84.Extensions.Serialization;
 
 using SSRS.Brand.Editor.Domain.Common;
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.DomainTests.Models;
 
-[TestClass, ExcludeFromCodeCoverage]
-public class ColorsTests
+[TestClass]
+public sealed class ColorsModelTests : DomainTestBase
 {
 	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFiles");
 	private readonly string _fileName = "colors.json";
 	private readonly string _jsonContent;
 
-	public ColorsTests()
+	public ColorsModelTests()
 		=> _jsonContent = File.ReadAllText(Path.Combine(_filePath, _fileName));
 
 	[TestMethod]
 	public void ColorsToJsonTest()
 	{
-		Colors colors = new();
+		ColorsModel colors = new() { Version = "1.0.1", Name = "UnitTest" };
 
 		string jsonString = colors.ToJson(DomainStatics.SerializerOptions);
 
-		Assert.IsFalse(string.IsNullOrWhiteSpace(jsonString));
+		Assert.IsFalse(jsonString.IsNullOrWhiteSpace());
 	}
 
 	[TestMethod]
 	public void ColorsFromJsonTest()
 	{
-		Colors colors;
+		ColorsModel? colors;
 
-		colors = _jsonContent.FromJson<Colors>(DomainStatics.SerializerOptions);
+		colors = _jsonContent.FromJson<ColorsModel>(DomainStatics.SerializerOptions);
 
-		Assert.IsFalse(string.IsNullOrWhiteSpace(colors.Name));
+		Assert.IsNotNull(colors);
+		Assert.AreEqual("Default brand", colors.Name);
+		Assert.AreEqual("1.0", colors.Version);
 	}
 }

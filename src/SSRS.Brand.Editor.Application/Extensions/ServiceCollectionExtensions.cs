@@ -1,44 +1,44 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-using SSRS.Brand.Editor.Presentation.Views;
+using SSRS.Brand.Editor.Application.ViewModels;
 
-namespace SSRS.Brand.Editor.Presentation.Extensions;
+namespace SSRS.Brand.Editor.Application.Extensions;
 
 /// <summary>
-/// The presentation service collection extensions.
+/// The application service collection extensions.
 /// </summary>
 internal static class ServiceCollectionExtensions
 {
 	/// <summary>
-	/// Adds the scoped views to the service collection.
+	/// Adds the scoped view models to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddScopedViews(this IServiceCollection services)
+	internal static IServiceCollection AddScopedViewModels(this IServiceCollection services)
 	{
 
 		return services;
 	}
 
 	/// <summary>
-	/// Adds the singleton views to the service collection.
+	/// Adds the singleton view models to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddSingletonViews(this IServiceCollection services)
+	internal static IServiceCollection AddSingletonViewModels(this IServiceCollection services)
 	{
-		services.TryAddSingleton<MainView>();
+		services.TryAddSingleton<MainViewModel>();
 
 		return services;
 	}
 
 	/// <summary>
-	/// Adds the transient views to the service collection.
+	/// Adds the transient view models to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddTransientViews(this IServiceCollection services)
+	internal static IServiceCollection AddTransientViewModels(this IServiceCollection services)
 	{
 
 		return services;

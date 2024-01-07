@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace SSRS.Brand.Editor.Application.Common;
+namespace SSRS.Brand.Editor.Application.Interfaces.Application.Common;
 
 /// <summary>
 /// An interface expanding <see cref="ICommand"/> with the ability

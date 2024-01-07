@@ -8,19 +8,14 @@ namespace SSRS.Brand.Editor.Infrastructure.Services;
 /// <summary>
 /// The file service class.
 /// </summary>
-internal sealed class FileService : IFileService
+/// <remarks>
+/// Initilizes an instance of the <see cref="FileService"/> class.
+/// </remarks>
+/// <param name="loggerService">The logger service to use.</param>
+internal sealed class FileService(ILoggerService<FileService> loggerService) : IFileService
 {
-	private readonly ILoggerService<FileService> _loggerService;
-
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
-
-	/// <summary>
-	/// Initilizes an instance of the file service class.
-	/// </summary>
-	/// <param name="loggerService">The logger service to use.</param>
-	public FileService(ILoggerService<FileService> loggerService)
-		=> _loggerService = loggerService;
 
 	public byte[] Load(string filePath)
 	{
@@ -32,7 +27,7 @@ internal sealed class FileService : IFileService
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
+			loggerService.Log(LogException, ex);
 			throw new FileServiceException($"Could not load file: '{filePath}'", ex);
 		}
 	}
@@ -54,7 +49,7 @@ internal sealed class FileService : IFileService
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
+			loggerService.Log(LogException, ex);
 			throw new FileServiceException($"Could not save file: '{filePath}'", ex);
 		}
 	}

@@ -23,10 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.InfrastructureTests", "tests\SSRS.Brand.Editor.InfrastructureTests\SSRS.Brand.Editor.InfrastructureTests.csproj", "{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A0F1CAA-4EA0-4C1C-8DBD-3F16E0C90D07}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6254A74C-65A8-47C4-8C83-323AE717868A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
 		global.json = global.json

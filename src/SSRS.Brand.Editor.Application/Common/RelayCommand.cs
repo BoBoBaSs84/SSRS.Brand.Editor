@@ -1,4 +1,6 @@
-﻿namespace SSRS.Brand.Editor.Application.Common;
+﻿using SSRS.Brand.Editor.Application.Interfaces.Application.Common;
+
+namespace SSRS.Brand.Editor.Application.Common;
 
 /// <summary>
 /// The <see cref="RelayCommand"/> class.
@@ -7,11 +9,13 @@
 /// A command whose sole purpose is to relay its functionality to other objects by invoking delegates.
 /// The default return value for the CanExecute method is <see langword="true"/>.
 /// </remarks>
-internal sealed class RelayCommand : IRelayCommand
+/// <remarks>
+/// Initializes a new instance of the <see cref="RelayCommand"/> class.
+/// </remarks>
+/// <param name="execute">The action to execute.</param>
+/// <param name="canExecute">The condition to execute.</param>
+internal sealed class RelayCommand(Action execute, Func<bool>? canExecute) : IRelayCommand
 {
-	private readonly Action _execute;
-	private readonly Func<bool>? _canExecute;
-
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RelayCommand"/> class that can always execute.
 	/// </summary>
@@ -19,27 +23,16 @@ internal sealed class RelayCommand : IRelayCommand
 	public RelayCommand(Action execute) : this(execute, null)
 	{ }
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="RelayCommand"/> class.
-	/// </summary>
-	/// <param name="execute">The action to execute.</param>
-	/// <param name="canExecute">The condition to execute.</param>
-	public RelayCommand(Action execute, Func<bool>? canExecute)
-	{
-		_execute = execute;
-		_canExecute = canExecute;
-	}
-
 	/// <inheritdoc/>
 	public event EventHandler? CanExecuteChanged;
 
 	/// <inheritdoc/>
 	public bool CanExecute(object? parameter)
-		=> _canExecute is null || _canExecute.Invoke();
+		=> canExecute is null || canExecute.Invoke();
 
 	/// <inheritdoc/>
 	public void Execute(object? parameter)
-		=> _execute.Invoke();
+		=> execute.Invoke();
 
 	/// <inheritdoc/>
 	public void NotifyCanExecuteChanged()
@@ -54,11 +47,13 @@ internal sealed class RelayCommand : IRelayCommand
 /// A command whose sole purpose is to relay its functionality to other objects by invoking delegates.
 /// The default return value for the CanExecute method is <see langword="true"/>.
 /// </remarks>
-internal sealed class RelayCommand<T> : IRelayCommand
+/// <remarks>
+/// Initializes a new instance of <see cref="RelayCommand{T}"/> class.
+/// </remarks>
+/// <param name="execute">The action to execute.</param>
+/// <param name="canExecute">The condition to execute.</param>
+internal sealed class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute) : IRelayCommand
 {
-	private readonly Action<T> _execute;
-	private readonly Func<T, bool>? _canExecute;
-
 	/// <summary>
 	/// Initializes a new instance of <see cref="RelayCommand{T}"/> class that can always execute.
 	/// </summary>
@@ -67,27 +62,16 @@ internal sealed class RelayCommand<T> : IRelayCommand
 	public RelayCommand(Action<T> execute) : this(execute, null)
 	{ }
 
-	/// <summary>
-	/// Initializes a new instance of <see cref="RelayCommand{T}"/> class.
-	/// </summary>
-	/// <param name="execute">The action to execute.</param>
-	/// <param name="canExecute">The condition to execute.</param>
-	public RelayCommand(Action<T> execute, Func<T, bool>? canExecute)
-	{
-		_execute = execute;
-		_canExecute = canExecute;
-	}
-
 	/// <inheritdoc/>
 	public event EventHandler? CanExecuteChanged;
 
 	/// <inheritdoc/>
 	public bool CanExecute(object? parameter)
-		=> _canExecute is null || _canExecute((T)parameter!);
+		=> canExecute is null || canExecute((T)parameter!);
 
 	/// <inheritdoc/>
 	public void Execute(object? parameter)
-		=> _execute((T)parameter!);
+		=> execute((T)parameter!);
 
 	/// <inheritdoc/>
 	public void NotifyCanExecuteChanged()

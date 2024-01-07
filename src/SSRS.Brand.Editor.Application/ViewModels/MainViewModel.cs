@@ -1,6 +1,7 @@
 ﻿using BB84.Notifications;
 
 using SSRS.Brand.Editor.Application.Common;
+using SSRS.Brand.Editor.Application.Interfaces.Application.Common;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
@@ -9,38 +10,46 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// </summary>
 public sealed class MainViewModel : NotifyPropertyBase
 {
-	private string _text;
-	private IRelayCommand? _getTextCommand;
-	private IRelayCommand? _setTextCommand;
+	private IRelayCommand? _aboutCommand;
+	private IRelayCommand? _exitCommand;
+	private IRelayCommand? _openCommand;
+	private IRelayCommand? _newCommand;
+	private IRelayCommand? _saveCommand;
+	private string _status = string.Empty;
+
 
 	/// <summary>
-	/// 
+	/// The command to show the about window.
 	/// </summary>
-	public MainViewModel()
-	{
-		_text = string.Empty;
-	}
+	public IRelayCommand AboutCommand
+		=> _aboutCommand ??= new RelayCommand(() => { StatusText = "Abouting .."; });
 
 	/// <summary>
-	/// The text property.
+	/// The command to exit the application.
 	/// </summary>
-	public string Text { get => _text; set => SetProperty(ref _text, value); }
+	public IRelayCommand ExitCommand
+		=> _exitCommand ??= new RelayCommand(() => Environment.Exit(0));
 
 	/// <summary>
-	/// Gets the text.
+	/// The command to open an existing brand.
 	/// </summary>
-	public IRelayCommand GetTextCommand
-		=> _getTextCommand ??= new RelayCommand(GetText);
+	public IRelayCommand OpenCommand
+		=> _openCommand ??= new RelayCommand(() => { StatusText = "Opening .."; });
 
 	/// <summary>
-	/// Sets the text.
+	/// The command to create a new brand.
 	/// </summary>
-	public IRelayCommand SetTextCommand
-		=> _setTextCommand ??= new RelayCommand(SetText);
+	public IRelayCommand NewCommand
+		=> _newCommand ??= new RelayCommand(() => { StatusText = "Creating .."; });
 
-	private void SetText()
-		=> Text = "This is the set text.";
+	/// <summary>
+	/// The command to save the current brand.
+	/// </summary>
+	public IRelayCommand SaveCommand
+		=> _saveCommand ??= new RelayCommand(() => { StatusText = "Saving .."; });
 
-	private void GetText()
-		=> Text = "This is the get text.";
+	/// <summary>
+	/// The current status text of the view.
+	/// </summary>
+	public string StatusText { get => _status; private set => SetProperty(ref _status, value); }
 }

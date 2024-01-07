@@ -1,7 +1,7 @@
-﻿namespace SSRS.Brand.Editor.InfrastructureTests;
+﻿namespace SSRS.Brand.Editor.DomainTests;
 
 [TestClass]
-public abstract class InfrastructureTestBase
+public abstract class DomainTestBase
 {
 	private static TestContext s_context = default!;
 
