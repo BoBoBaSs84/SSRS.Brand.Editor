@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+	  <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.113" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -43,7 +43,6 @@ public class Colors : IColors
 	public Theme Theme { get; set; }
 }
 
-
 public sealed class Interface : IInterface
 {
 	public Interface()

@@ -1,27 +1,25 @@
 ﻿using System.Windows;
-using System.Windows.Threading;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
-using SSRS.Brand.Editor.Infrastructure.Installers;
-using SSRS.Brand.Editor.Presentation.Installers;
-using SSRS.Brand.Editor.Presentation.Windows;
+using SSRS.Brand.Editor.Infrastructure.Helpers;
+using SSRS.Brand.Editor.Presentation.Helpers;
+using SSRS.Brand.Editor.Presentation.Views;
 
-using WinApplication = System.Windows.Application;
+using IDIH = SSRS.Brand.Editor.Infrastructure.Helpers.DependencyInjectionHelper;
+using PDIH = SSRS.Brand.Editor.Presentation.Helpers.DependencyInjectionHelper;
 
 namespace SSRS.Brand.Editor;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : WinApplication
+public partial class App : System.Windows.Application
 {
 	private readonly IHost _host;
 	private readonly ILoggerService<App> _loggerService;
-	private readonly IServiceProvider _serviceProvider;
 
 	private static readonly Action<ILogger, string, Exception?> LogInformation =
 		LoggerMessage.Define<string>(LogLevel.Information, 0, "{Information}");
@@ -30,45 +28,35 @@ public partial class App : WinApplication
 		LoggerMessage.Define(LogLevel.Critical, 0, string.Empty);
 
 	/// <summary>
-	/// Initializes a new instance of the app class.
+	/// Initializes a new instance of the <see cref="App"/> class.
 	/// </summary>
 	public App()
 	{
 		_host = CreateHostBuilder().Build();
-		_serviceProvider = _host.Services;
-		_loggerService = GetService<ILoggerService<App>>();
+		_loggerService = IDIH.GetService<ILoggerService<App>>();
 
-		DispatcherUnhandledException += OnUnhandledException;
+		DispatcherUnhandledException += (s, e) => OnUnhandledException(e.Exception);
 	}
-
-	/// <summary>
-	/// The <see cref="GetService{T}"/> method should the requested registered service.
-	/// </summary>
-	/// <typeparam name="T">The requested service.</typeparam>
-	/// <returns>The registered service.</returns>
-	/// <exception cref="ArgumentException">If a service is not registered.</exception>
-	public static T GetService<T>() where T : class =>
-		(Current as App)!._serviceProvider.GetRequiredService(typeof(T)) is not T service
-		? throw new ArgumentException($"{typeof(T)} needs to be registered.")
-		: service;
 
 	private async void Application_Startup(object sender, StartupEventArgs e)
 	{
-		_loggerService.Log(LogInformation, "Apllication starting...");
+		_loggerService.Log(LogInformation, "Application starting...");
 		await _host.StartAsync().ConfigureAwait(false);
-		MainWindow mainWindow = GetService<MainWindow>();
+
+		MainView mainWindow = PDIH.GetService<MainView>();
 		mainWindow.Show();
 	}
 
 	private async void Application_Exit(object sender, ExitEventArgs e)
 	{
-		_loggerService.Log(LogInformation, "Apllication exiting...");
+		_loggerService.Log(LogInformation, "Application exiting...");
+
 		using (_host)
 			await _host.StopAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
 	}
 
-	private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
-		=> _loggerService.Log(LogCritical, args.Exception);
+	private void OnUnhandledException(Exception exception)
+		=> _loggerService.Log(LogCritical, exception);
 
 	private static IHostBuilder CreateHostBuilder()
 		=> Host.CreateDefaultBuilder()

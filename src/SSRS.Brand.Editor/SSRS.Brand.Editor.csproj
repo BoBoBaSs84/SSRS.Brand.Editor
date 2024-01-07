@@ -3,11 +3,12 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<UseWPF>true</UseWPF>
-		<ApplicationIcon>SSRS.Brand.Editor.ico</ApplicationIcon>
+		<ApplicationIcon>App.ico</ApplicationIcon>
+		<StartupObject>SSRS.Brand.Editor.App</StartupObject>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="SSRS.Brand.Editor.ico" />
+		<Content Include="App.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

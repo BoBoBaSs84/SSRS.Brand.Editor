@@ -1,26 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-using SSRS.Brand.Editor.Infrastructure.Installers;
-
-namespace SSRS.Brand.Editor.InfrastructureTests;
+﻿namespace SSRS.Brand.Editor.InfrastructureTests;
 
 [TestClass]
 public abstract class InfrastructureTestBase
 {
-	private readonly IServiceProvider _serviceProvider;
+	private static TestContext s_context = default!;
 
-	public InfrastructureTestBase()
-		=> _serviceProvider = CreateServiceProvider();
+	[AssemblyInitialize]
+	public static void AssemblyInitialize(TestContext context)
+		=> s_context = context;
 
-	public T GetService<T>() where T : class =>
-		_serviceProvider.GetRequiredService(typeof(T)) is not T service
-		? throw new ArgumentException($"{typeof(T)} needs to be registered.")
-		: service;
+	[TestInitialize]
+	public void TestInitialize()
+		=> s_context.WriteLine($"Initialize {s_context.TestName} ..");
 
-	private static ServiceProvider CreateServiceProvider()
-	{
-		ServiceCollection services = new();
-		_ = services.AddInfrastructureServices();
-		return services.BuildServiceProvider();
-	}
+	[TestCleanup]
+	public void TestCleanup()
+		=> s_context.WriteLine($"Cleanup {s_context.TestName} ..");
 }

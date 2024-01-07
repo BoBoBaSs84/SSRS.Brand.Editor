@@ -1,6 +1,7 @@
 ﻿using BB84.Notifications;
 
 using SSRS.Brand.Editor.Application.Common;
+using SSRS.Brand.Editor.Application.Interfaces.Application.Common;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
