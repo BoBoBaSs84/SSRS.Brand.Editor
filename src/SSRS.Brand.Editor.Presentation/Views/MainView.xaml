@@ -9,12 +9,13 @@
 				Title="SSRS.Brand.Editor"
 				Height="720"
 				Width="1280">
-	<DockPanel LastChildFill="True">
+	<DockPanel LastChildFill="False">
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
 				<MenuItem Header="_New"
 									Command="{Binding NewCommand}" />
-				<MenuItem Header="_Open" />
+				<MenuItem Header="_Open"
+									Command="{Binding OpenCommand}" />
 				<MenuItem Header="_Save"
 									Command="{Binding SaveCommand}" />
 				<Separator />
@@ -24,5 +25,11 @@
 									Command="{Binding ExitCommand}" />
 			</MenuItem>
 		</Menu>
+		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem>
+				<TextBlock x:Name="StatusTextBlock"
+									 Text="{Binding StatusText}" />
+			</StatusBarItem>
+		</StatusBar>
 	</DockPanel>
 </Window>
