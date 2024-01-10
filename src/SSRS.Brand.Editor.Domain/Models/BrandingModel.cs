@@ -8,7 +8,7 @@ using SSRS.Brand.Editor.Domain.Converters;
 
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public sealed class BrandingModel : NotifyPropertyBase
+public sealed class BrandingModel : NotificationObject
 {
 	private ColorsModel _colors;
 	private MetadataModel _metadata;
@@ -23,7 +23,7 @@ public sealed class BrandingModel : NotifyPropertyBase
 	public MetadataModel Metadata { get => _metadata; set => SetProperty(ref _metadata, value); }
 }
 
-public class ColorsModel : NotifyPropertyBase
+public class ColorsModel : NotificationObject
 {
 	private string _name;
 	private string _version;
@@ -59,7 +59,7 @@ public class ColorsModel : NotifyPropertyBase
 	public ThemeModel Theme { get => _theme; set => SetProperty(ref _theme, value); }
 }
 
-public sealed class InterfaceModel : NotifyPropertyBase
+public sealed class InterfaceModel : NotificationObject
 {
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primary")]
 	public Color Primary { get; set; }
@@ -188,7 +188,7 @@ public sealed class InterfaceModel : NotifyPropertyBase
 	public Color KpiNoneContrast { get; set; }
 }
 
-public sealed class ThemeModel : NotifyPropertyBase
+public sealed class ThemeModel : NotificationObject
 {
 	public ThemeModel()
 		=> DataPoints = [];
@@ -252,7 +252,7 @@ public sealed class ThemeModel : NotifyPropertyBase
 }
 
 [XmlRoot(ElementName = "SystemResourcePackage", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public class MetadataModel : NotifyPropertyBase
+public class MetadataModel : NotificationObject
 {
 	private string _type;
 	private string _version;
@@ -290,7 +290,7 @@ public class MetadataModel : NotifyPropertyBase
 }
 
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class ItemModel : NotifyPropertyBase
+public sealed class ItemModel : NotificationObject
 {
 	private string _key;
 	private string _path;
