@@ -1,14 +1,13 @@
 ﻿using BB84.Notifications;
+using BB84.Notifications.Interfaces;
 
-using SSRS.Brand.Editor.Application.Common;
-using SSRS.Brand.Editor.Application.Interfaces.Application.Common;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
 /// <summary>
 /// The main view model class.
 /// </summary>
-public sealed class MainViewModel : NotifyPropertyBase
+public sealed class MainViewModel : NotificationObject
 {
 	private IRelayCommand? _aboutCommand;
 	private IRelayCommand? _exitCommand;
@@ -22,31 +21,31 @@ public sealed class MainViewModel : NotifyPropertyBase
 	/// The command to show the about window.
 	/// </summary>
 	public IRelayCommand AboutCommand
-		=> _aboutCommand ??= new RelayCommand(() => { StatusText = "Abouting .."; });
+		=> _aboutCommand ??= new RelayCommand(x => StatusText = "Abouting ..");
 
 	/// <summary>
 	/// The command to exit the application.
 	/// </summary>
 	public IRelayCommand ExitCommand
-		=> _exitCommand ??= new RelayCommand(() => Environment.Exit(0));
+		=> _exitCommand ??= new RelayCommand(x => Environment.Exit(0));
 
 	/// <summary>
 	/// The command to open an existing brand.
 	/// </summary>
 	public IRelayCommand OpenCommand
-		=> _openCommand ??= new RelayCommand(() => { StatusText = "Opening .."; });
+		=> _openCommand ??= new RelayCommand(x => StatusText = "Opening ..");
 
 	/// <summary>
 	/// The command to create a new brand.
 	/// </summary>
 	public IRelayCommand NewCommand
-		=> _newCommand ??= new RelayCommand(() => { StatusText = "Creating .."; });
+		=> _newCommand ??= new RelayCommand(x => StatusText = "Creating ..");
 
 	/// <summary>
 	/// The command to save the current brand.
 	/// </summary>
 	public IRelayCommand SaveCommand
-		=> _saveCommand ??= new RelayCommand(() => { StatusText = "Saving .."; });
+		=> _saveCommand ??= new RelayCommand(x => StatusText = "Saving ..");
 
 	/// <summary>
 	/// The current status text of the view.
