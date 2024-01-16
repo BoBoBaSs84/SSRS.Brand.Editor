@@ -11,35 +11,13 @@ namespace SSRS.Brand.Editor.Presentation.Extensions;
 internal static class ServiceCollectionExtensions
 {
 	/// <summary>
-	/// Adds the scoped views to the service collection.
+	/// Registers the singleton views to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddScopedViews(this IServiceCollection services)
-	{
-
-		return services;
-	}
-
-	/// <summary>
-	/// Adds the singleton views to the service collection.
-	/// </summary>
-	/// <param name="services">The service collection to enrich.</param>
-	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddSingletonViews(this IServiceCollection services)
+	internal static IServiceCollection RegisterViews(this IServiceCollection services)
 	{
 		services.TryAddSingleton<MainWindow>();
-
-		return services;
-	}
-
-	/// <summary>
-	/// Adds the transient views to the service collection.
-	/// </summary>
-	/// <param name="services">The service collection to enrich.</param>
-	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddTransientViews(this IServiceCollection services)
-	{
 
 		return services;
 	}

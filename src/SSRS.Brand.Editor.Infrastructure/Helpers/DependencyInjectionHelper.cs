@@ -13,14 +13,14 @@ namespace SSRS.Brand.Editor.Infrastructure.Helpers;
 public static class DependencyInjectionHelper
 {
 	/// <summary>
-	/// Adds the infrastructure services to the service collection.
+	/// Registers the infrastructure services to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+	public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services)
 	{
-		services.AddLoggerService();
-		services.AddSingletonServices();
+		services.RegisterLoggerService();
+		services.RegisterSingletonServices();
 
 		return services;
 	}

@@ -2,12 +2,11 @@
 
 using SSRS.Brand.Editor.Application.Helpers;
 using SSRS.Brand.Editor.Domain.Helpers;
-using SSRS.Brand.Editor.Infrastructure.Helpers;
 
-namespace SSRS.Brand.Editor.InfrastructureTests;
+namespace SSRS.Brand.Editor.ApplicationTests;
 
 [TestClass]
-public abstract class InfrastructureTestBase
+public abstract class ApplicationTestBase
 {
 	private static TestContext? s_context;
 	private static IServiceProvider? s_serviceProvider;
@@ -44,11 +43,10 @@ public abstract class InfrastructureTestBase
 	private static ServiceProvider GetServiceProvider()
 	{
 		IServiceCollection services = new ServiceCollection();
-		
+
 		_ = services.RegisterApplicationServices();
 		_ = services.RegisterDomainServices();
-		_ = services.RegisterInfrastructureServices();
-		
+
 		return services.BuildServiceProvider();
 	}
 }

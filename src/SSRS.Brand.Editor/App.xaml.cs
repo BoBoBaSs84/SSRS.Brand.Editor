@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 using SSRS.Brand.Editor.Application.Helpers;
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
+using SSRS.Brand.Editor.Domain.Helpers;
 using SSRS.Brand.Editor.Infrastructure.Helpers;
 using SSRS.Brand.Editor.Presentation.Helpers;
 using SSRS.Brand.Editor.Presentation.Views;
@@ -61,8 +62,9 @@ public partial class App : System.Windows.Application
 		=> Host.CreateDefaultBuilder()
 		.ConfigureServices((context, services) =>
 		{
-			_ = services.AddApplicationServices();
-			_ = services.AddInfrastructureServices();
-			_ = services.AddPresentationServices();
+			_ = services.RegisterApplicationServices();
+			_ = services.RegisterDomainServices();
+			_ = services.RegisterInfrastructureServices();
+			_ = services.RegisterPresentationServices();
 		});
 }

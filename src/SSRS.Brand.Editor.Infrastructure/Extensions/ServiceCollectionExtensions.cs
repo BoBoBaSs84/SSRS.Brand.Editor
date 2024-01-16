@@ -17,12 +17,12 @@ internal static class ServiceCollectionExtensions
 	private const string EventSourceName = "SSRS.Brand.Editor";
 
 	/// <summary>
-	/// Adds the logger service to the service collection.
+	/// Registers the logger service to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
 	[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here.")]
-	internal static IServiceCollection AddLoggerService(this IServiceCollection services)
+	internal static IServiceCollection RegisterLoggerService(this IServiceCollection services)
 	{
 		services.TryAddSingleton(typeof(ILoggerService<>), typeof(LoggerService<>));
 
@@ -36,11 +36,11 @@ internal static class ServiceCollectionExtensions
 	}
 
 	/// <summary>
-	/// Adds the singleton services to the service collection.
+	/// Registers the singleton services to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection AddSingletonServices(this IServiceCollection services)
+	internal static IServiceCollection RegisterSingletonServices(this IServiceCollection services)
 	{
 		services.TryAddSingleton<IFileService, FileService>();
 

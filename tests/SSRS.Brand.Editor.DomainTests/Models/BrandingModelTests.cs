@@ -6,11 +6,27 @@ namespace SSRS.Brand.Editor.DomainTests.Models;
 public sealed class BrandingModelTests : DomainTestBase
 {
 	[TestMethod]
-	public void BrandingModelTest()
+	public void BrandingModelRegisterTest()
 	{
 		BrandingModel? model;
 
-		model = new();
+		model = GetService<BrandingModel>();
+
+		Assert.IsNotNull(model);
+		Assert.IsNotNull(model.Colors);
+		Assert.IsNotNull(model.Metadata);
+	}
+
+	[TestMethod]
+	public void BrandingModelConstructorTest()
+	{
+		BrandingModel? model;
+
+		model = new()
+		{
+			Colors = GetService<ColorsModel>(),
+			Metadata = GetService<MetadataModel>()
+		};
 
 		Assert.IsNotNull(model);
 		Assert.IsNotNull(model.Colors);

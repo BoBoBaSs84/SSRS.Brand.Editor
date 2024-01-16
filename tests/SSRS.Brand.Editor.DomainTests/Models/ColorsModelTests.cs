@@ -1,4 +1,6 @@
-﻿using BB84.Extensions;
+﻿using System.Reflection;
+
+using BB84.Extensions;
 using BB84.Extensions.Serialization;
 
 using SSRS.Brand.Editor.Domain.Common;
@@ -17,11 +19,38 @@ public sealed class ColorsModelTests : DomainTestBase
 		=> _jsonContent = File.ReadAllText(Path.Combine(_filePath, _fileName));
 
 	[TestMethod]
+	public void ColorsModelRegisterTest()
+	{
+		ColorsModel? model;
+
+		model = GetService<ColorsModel>();
+
+		Assert.IsNotNull(model);
+		Assert.IsNotNull(model.Interface);
+		Assert.IsNotNull(model.Theme);
+	}
+
+	[DataTestMethod]
+	[DataRow("UniversalBrand", "1.0.0")]
+	public void ColorsModelConstructorTest(string name, string version)
+	{
+		ColorsModel? model;
+
+		model = new(name, version);
+
+		Assert.IsNotNull(model);
+		Assert.AreEqual(name, model.Name);
+		Assert.AreEqual(version, model.Version);
+		Assert.IsNotNull(model.Interface);
+		Assert.IsNotNull(model.Theme);
+	}
+
+	[TestMethod]
 	public void ColorsToJsonTest()
 	{
-		ColorsModel colors = new() { Version = "1.0.1", Name = "UnitTest" };
+		ColorsModel model = new() { Version = "1.0.1", Name = "UnitTest" };
 
-		string jsonString = colors.ToJson(DomainStatics.SerializerOptions);
+		string jsonString = model.ToJson(DomainStatics.SerializerOptions);
 
 		Assert.IsFalse(jsonString.IsNullOrWhiteSpace());
 	}
@@ -29,12 +58,14 @@ public sealed class ColorsModelTests : DomainTestBase
 	[TestMethod]
 	public void ColorsFromJsonTest()
 	{
-		ColorsModel? colors;
+		ColorsModel? model;
 
-		colors = _jsonContent.FromJson<ColorsModel>(DomainStatics.SerializerOptions);
+		model = _jsonContent.FromJson<ColorsModel>(DomainStatics.SerializerOptions);
 
-		Assert.IsNotNull(colors);
-		Assert.AreEqual("Default brand", colors.Name);
-		Assert.AreEqual("1.0", colors.Version);
+		Assert.IsNotNull(model);
+		Assert.AreEqual("Default brand", model.Name);
+		Assert.AreEqual("1.0", model.Version);
+		Assert.IsNotNull(model.Interface);
+		Assert.IsNotNull(model.Theme);
 	}
 }

@@ -16,6 +16,31 @@ public class MetadataModelTests : DomainTestBase
 		=> _xmlContent = File.ReadAllText(Path.Combine(_filePath, _fileName));
 
 	[TestMethod]
+	public void MetadataModelRegisterTest()
+	{
+		MetadataModel? model;
+
+		model = GetService<MetadataModel>();
+
+		Assert.IsNotNull(model);
+	}
+
+	[DataTestMethod]
+	[DataRow("UniversalBrand", "1.0.0", "Unit test brand without logo.")]
+	public void MetadataModelConstructorTest(string type, string version, string name)
+	{
+		MetadataModel? model;
+
+		model = new(type, version, name) { Items = [] };
+
+		Assert.IsNotNull(model);
+		Assert.AreEqual(type, model.Type);
+		Assert.AreEqual(version, model.Version);
+		Assert.AreEqual(name, model.Name);
+		Assert.IsNotNull(model.Items);
+	}
+
+	[TestMethod]
 	public void MetadataToXmlTest()
 	{
 		MetadataModel metadata = new() { Type = "UniversalBrand", Version = "1.0.0", Name = "Unit test brand without logo." };
