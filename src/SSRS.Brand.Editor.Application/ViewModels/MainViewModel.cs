@@ -1,12 +1,14 @@
 ﻿using BB84.Notifications;
 using BB84.Notifications.Interfaces;
 
+using SSRS.Brand.Editor.Application.ViewModels.Base;
+
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
 /// <summary>
 /// The main view model class.
 /// </summary>
-public sealed class MainViewModel : NotificationObject
+public sealed class MainViewModel : ViewModelBase
 {
 	private IRelayCommand? _aboutCommand;
 	private IRelayCommand? _exitCommand;

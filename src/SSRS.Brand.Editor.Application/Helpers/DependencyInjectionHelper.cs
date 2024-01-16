@@ -13,15 +13,14 @@ namespace SSRS.Brand.Editor.Application.Helpers;
 public static class DependencyInjectionHelper
 {
 	/// <summary>
-	/// Adds the application services to the service collection.
+	/// Registers the application services to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
-	public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+	public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
 	{
-		services.AddScopedViewModels();
-		services.AddSingletonViewModels();
-		services.AddTransientViewModels();
+		services.RegisterViewModels();
+		services.RegisterServices();
 
 		return services;
 	}

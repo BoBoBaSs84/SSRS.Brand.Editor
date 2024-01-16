@@ -5,7 +5,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Interfaces\Application\Services\" />
 		<Folder Include="Interfaces\Infrastructure\Persistence\" />
 		<Folder Include="Interfaces\Presentation\Services\" />
 	</ItemGroup>
