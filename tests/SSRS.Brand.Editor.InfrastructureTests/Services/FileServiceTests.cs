@@ -2,7 +2,6 @@
 
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
 using SSRS.Brand.Editor.Domain.Exceptions;
-using SSRS.Brand.Editor.Infrastructure.Helpers;
 
 namespace SSRS.Brand.Editor.InfrastructureTests.Services;
 
@@ -17,7 +16,7 @@ public sealed class FileServiceTests : InfrastructureTestBase
 
 	public FileServiceTests()
 	{
-		_fileService = DependencyInjectionHelper.GetService<IFileService>();
+		_fileService = GetService<IFileService>();
 		File.WriteAllText(Path.Combine(TestFileFolder, TestFileName), TestFileContent);
 	}
 

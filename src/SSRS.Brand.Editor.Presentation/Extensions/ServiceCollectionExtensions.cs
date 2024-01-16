@@ -28,7 +28,7 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection AddSingletonViews(this IServiceCollection services)
 	{
-		services.TryAddSingleton<MainView>();
+		services.TryAddSingleton<MainWindow>();
 
 		return services;
 	}
