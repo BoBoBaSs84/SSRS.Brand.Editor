@@ -2,21 +2,20 @@
 
 using SSRS.Brand.Editor.Application.ViewModels;
 
-using ADIH = SSRS.Brand.Editor.Application.Helpers.DependencyInjectionHelper;
-
 namespace SSRS.Brand.Editor.Presentation.Views;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainView : Window
+public partial class MainWindow : Window
 {
 	/// <summary>
-	/// Initializes a new instance of the <see cref="MainView"/> class.
+	/// Initializes a new instance of the <see cref="MainWindow"/> class.
 	/// </summary>
-	public MainView()
+	/// <param name="viewModel">The view model instance to use.</param>
+	public MainWindow(MainViewModel viewModel)
 	{
-		DataContext = ADIH.GetService<MainViewModel>();
+		DataContext = viewModel;
 		InitializeComponent();
 	}
 }

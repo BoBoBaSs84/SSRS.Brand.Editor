@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using SSRS.Brand.Editor.Application.Helpers;
 using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
 using SSRS.Brand.Editor.Infrastructure.Helpers;
 using SSRS.Brand.Editor.Presentation.Helpers;
 using SSRS.Brand.Editor.Presentation.Views;
-
-using IDIH = SSRS.Brand.Editor.Infrastructure.Helpers.DependencyInjectionHelper;
-using PDIH = SSRS.Brand.Editor.Presentation.Helpers.DependencyInjectionHelper;
 
 namespace SSRS.Brand.Editor;
 
@@ -33,7 +32,7 @@ public partial class App : System.Windows.Application
 	public App()
 	{
 		_host = CreateHostBuilder().Build();
-		_loggerService = IDIH.GetService<ILoggerService<App>>();
+		_loggerService = _host.Services.GetRequiredService<ILoggerService<App>>();
 
 		DispatcherUnhandledException += (s, e) => OnUnhandledException(e.Exception);
 	}
@@ -43,7 +42,7 @@ public partial class App : System.Windows.Application
 		_loggerService.Log(LogInformation, "Application starting...");
 		await _host.StartAsync().ConfigureAwait(false);
 
-		MainView mainWindow = PDIH.GetService<MainView>();
+		MainWindow mainWindow = _host.Services.GetRequiredService<MainWindow>();
 		mainWindow.Show();
 	}
 
@@ -62,6 +61,7 @@ public partial class App : System.Windows.Application
 		=> Host.CreateDefaultBuilder()
 		.ConfigureServices((context, services) =>
 		{
+			_ = services.AddApplicationServices();
 			_ = services.AddInfrastructureServices();
 			_ = services.AddPresentationServices();
 		});
