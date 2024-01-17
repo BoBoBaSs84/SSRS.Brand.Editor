@@ -1,6 +1,7 @@
 ﻿using BB84.Notifications;
 using BB84.Notifications.Interfaces;
 
+using SSRS.Brand.Editor.Application.Interfaces.Application.Services;
 using SSRS.Brand.Editor.Application.ViewModels.Base;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
@@ -8,7 +9,8 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// <summary>
 /// The main view model class.
 /// </summary>
-public sealed class MainViewModel : ViewModelBase
+/// <param name="navService">The navigation service instance to use.</param>
+public sealed class MainViewModel(INavigationService navService) : ViewModelBase
 {
 	private IRelayCommand? _aboutCommand;
 	private IRelayCommand? _exitCommand;
@@ -21,7 +23,11 @@ public sealed class MainViewModel : ViewModelBase
 	/// The command to show the about window.
 	/// </summary>
 	public IRelayCommand AboutCommand
-		=> _aboutCommand ??= new RelayCommand(() => SetStatusText("Abouting .."));
+		=> _aboutCommand ??= new RelayCommand(() =>
+		{
+			SetStatusText("Abouting ..");
+			NavService.NavigateTo<ColorsViewModel>();
+		});
 
 	/// <summary>
 	/// The command to exit the application.
@@ -46,6 +52,15 @@ public sealed class MainViewModel : ViewModelBase
 	/// </summary>
 	public IRelayCommand SaveCommand
 		=> _saveCommand ??= new RelayCommand(() => SetStatusText("Saving .."));
+
+	/// <summary>
+	/// The navigation service instance.
+	/// </summary>
+	public INavigationService NavService
+	{
+		get => navService;
+		private set => SetProperty(ref navService, value);
+	}
 
 	/// <summary>
 	/// The current status text of the view.

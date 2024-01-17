@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="SSRS.Brand.Editor.Presentation.Controls.ColorsUserControl"
+						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						 xmlns:local="clr-namespace:SSRS.Brand.Editor.Presentation.Controls"
+						 xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
+						 xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
+						 mc:Ignorable="d"
+						 d:DataContext="{d:DesignInstance Type=vm:ColorsViewModel}"
+						 d:Background="WhiteSmoke"
+						 d:Height="600"
+						 d:Width="900">
+	<Grid HorizontalAlignment="Left"
+				Width="900">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="64" />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<GroupBox Grid.Row="1"
+							Grid.Column="0"
+							Header="Primary Colors">
+			<StackPanel>
+				<Label Content="Primary" />
+				<tk:ColorPicker SelectedColor="{Binding Model.Interface.Primary, UpdateSourceTrigger=PropertyChanged}" />
+				<Label Content="Secondary" />
+				<tk:ColorPicker SelectedColor="{Binding Model.Interface.Secondary, UpdateSourceTrigger=PropertyChanged}" />
+			</StackPanel>
+		</GroupBox>
+	</Grid>
+</UserControl>

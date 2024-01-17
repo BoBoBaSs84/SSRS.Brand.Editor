@@ -86,26 +86,62 @@ public class ColorsModel : NotificationObject
 
 public sealed class InterfaceModel : NotificationObject
 {
+	private Color _primary;
+	private Color _primaryAlt;
+	private Color _primaryAlt2;
+	private Color _primaryAlt3;
+	private Color _primaryAlt4;
+	private Color _primaryContrast;
+	private Color _secondary;
+
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primary")]
-	public Color Primary { get; set; }
+	public Color Primary
+	{
+		get => _primary;
+		set => SetProperty(ref _primary, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primaryAlt")]
-	public Color PrimaryAlt { get; set; }
+	public Color PrimaryAlt
+	{
+		get => _primaryAlt;
+		set => SetProperty(ref _primaryAlt, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primaryAlt2")]
-	public Color PrimaryAlt2 { get; set; }
+	public Color PrimaryAlt2
+	{
+		get => _primaryAlt2;
+		set => SetProperty(ref _primaryAlt2, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primaryAlt3")]
-	public Color PrimaryAlt3 { get; set; }
+	public Color PrimaryAlt3
+	{
+		get => _primaryAlt3;
+		set => SetProperty(ref _primaryAlt3, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primaryAlt4")]
-	public Color PrimaryAlt4 { get; set; }
+	public Color PrimaryAlt4
+	{
+		get => _primaryAlt4;
+		set => SetProperty(ref _primaryAlt4, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("primaryContrast")]
-	public Color PrimaryContrast { get; set; }
+	public Color PrimaryContrast
+	{
+		get => _primaryContrast;
+		set => SetProperty(ref _primaryContrast, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("secondary")]
-	public Color Secondary { get; set; }
+	public Color Secondary
+	{
+		get => _secondary;
+		set => SetProperty(ref _secondary, value);
+	}
 
 	[JsonConverter(typeof(ColorJsonConverter)), JsonPropertyName("secondaryAlt")]
 	public Color SecondaryAlt { get; set; }
