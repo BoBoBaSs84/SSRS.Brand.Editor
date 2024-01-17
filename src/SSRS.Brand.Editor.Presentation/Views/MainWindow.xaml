@@ -25,6 +25,13 @@
 									Command="{Binding ExitCommand}" />
 			</MenuItem>
 		</Menu>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<ContentControl Grid.Column="0"
+											Content="{Binding NavService.CurrentView}" />
+		</Grid>
 		<StatusBar DockPanel.Dock="Bottom">
 			<StatusBarItem>
 				<TextBlock x:Name="StatusTextBlock"

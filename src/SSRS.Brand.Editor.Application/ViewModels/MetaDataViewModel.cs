@@ -10,30 +10,20 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// <summary>
 /// The meta date view model class.
 /// </summary>
-public sealed class MetaDataViewModel : ViewModelBase
+/// <param name="navService">The navigation service instance to use.</param>
+/// <param name="model">The model instance to use.</param>
+public sealed class MetaDataViewModel(INavigationService navService, MetadataModel model) : ViewModelBase
 {
-	private readonly INavigationService _navService;
 	private IRelayCommand? _toColorsCommand;
-
-	/// <summary>
-	/// Initializes an instance of <see cref="MetaDataViewModel"/> class.
-	/// </summary>
-	/// <param name="navService">The navigation service instance to use.</param>
-	/// <param name="model">The model instance to use.</param>
-	public MetaDataViewModel(INavigationService navService, MetadataModel model)
-	{
-		_navService = navService;
-		Model = model;
-	}
 
 	/// <summary>
 	/// The model instance to use.
 	/// </summary>
-	public MetadataModel Model { get; }
+	public MetadataModel Model { get; } = model;
 
 	/// <summary>
 	/// The command to navigate to the colors view model.
 	/// </summary>
 	public IRelayCommand ToColorsCommand
-		=> _toColorsCommand ??= new RelayCommand(() => _navService.NavigateTo<MetaDataViewModel>());
+		=> _toColorsCommand ??= new RelayCommand(() => navService.NavigateTo<MetaDataViewModel>());
 }
