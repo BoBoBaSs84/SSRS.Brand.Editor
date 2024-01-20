@@ -1,4 +1,4 @@
-﻿namespace SSRS.Brand.Editor.Presentation.Interfaces;
+﻿namespace SSRS.Brand.Editor.Presentation.Common;
 
 /// <summary>
 /// The assembly marker interface.

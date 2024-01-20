@@ -9,7 +9,7 @@ using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
 using SSRS.Brand.Editor.Domain.Helpers;
 using SSRS.Brand.Editor.Infrastructure.Helpers;
 using SSRS.Brand.Editor.Presentation.Helpers;
-using SSRS.Brand.Editor.Presentation.Views;
+using SSRS.Brand.Editor.Presentation.Windows;
 
 namespace SSRS.Brand.Editor;
 

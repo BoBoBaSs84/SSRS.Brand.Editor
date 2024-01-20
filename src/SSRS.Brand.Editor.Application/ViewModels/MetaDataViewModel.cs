@@ -25,5 +25,5 @@ public sealed class MetaDataViewModel(INavigationService navService, MetadataMod
 	/// The command to navigate to the colors view model.
 	/// </summary>
 	public IRelayCommand ToColorsCommand
-		=> _toColorsCommand ??= new RelayCommand(() => navService.NavigateTo<MetaDataViewModel>());
+		=> _toColorsCommand ??= new RelayCommand(navService.NavigateTo<MetaDataViewModel>);
 }

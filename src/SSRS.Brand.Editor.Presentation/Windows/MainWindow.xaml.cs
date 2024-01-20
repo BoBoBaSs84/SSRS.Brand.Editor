@@ -2,7 +2,7 @@
 
 using SSRS.Brand.Editor.Application.ViewModels;
 
-namespace SSRS.Brand.Editor.Presentation.Views;
+namespace SSRS.Brand.Editor.Presentation.Windows;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

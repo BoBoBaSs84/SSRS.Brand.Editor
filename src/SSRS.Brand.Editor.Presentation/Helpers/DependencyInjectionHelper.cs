@@ -19,7 +19,8 @@ public static class DependencyInjectionHelper
 	/// <returns>The enriched service collection.</returns>
 	public static IServiceCollection RegisterPresentationServices(this IServiceCollection services)
 	{
-		services.RegisterViews();
+		services.RegisterWindows();
+		services.RegisterControls();
 
 		return services;
 	}
