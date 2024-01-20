@@ -3,30 +3,25 @@
 /// <summary>
 /// The file service exception class.
 /// </summary>
+/// <param name="message">The exception message.</param>
+/// <param name="innerException">The inner exception.</param>
 [Serializable]
-public sealed class FileServiceException : Exception
+public sealed class FileServiceException(string message, Exception? innerException) : Exception(message, innerException)
 {
 	/// <summary>
-	/// Initilizes an instance of the <see cref="FileServiceException"/> class
-	/// without a message.
-	/// </summary>
-	public FileServiceException() : base()
-	{ }
-
-	/// <summary>
-	/// Initilizes an instance of the <see cref="FileServiceException"/> class
-	/// with a message.
+	/// Throws the file service exception.
 	/// </summary>
 	/// <param name="message">The exception message.</param>
-	public FileServiceException(string message) : base(message)
-	{ }
+	/// <exception cref="FileServiceException"></exception>
+	public static void Throw(string message)
+		=> Throw(message, null);
 
 	/// <summary>
-	/// Initilizes an instance of the <see cref="FileServiceException"/> class
-	/// with a message and the inner exception.
+	/// Throws the file service exception.
 	/// </summary>
 	/// <param name="message">The exception message.</param>
 	/// <param name="innerException">The inner exception.</param>
-	public FileServiceException(string message, Exception innerException) : base(message, innerException)
-	{ }
+	/// <exception cref="FileServiceException"></exception>
+	public static void Throw(string message, Exception? innerException)
+		=> throw new FileServiceException(message, innerException);
 }
