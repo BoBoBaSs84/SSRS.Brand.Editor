@@ -5,5 +5,5 @@ namespace SSRS.Brand.Editor.Application.ViewModels.Base;
 /// <summary>
 /// The view model base class.
 /// </summary>
-public abstract class ViewModelBase : NotificationObject
+public abstract class ViewModelBase : NotifiableObject
 { }

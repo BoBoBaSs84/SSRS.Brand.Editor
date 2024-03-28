@@ -8,7 +8,7 @@ using SSRS.Brand.Editor.Domain.Converters;
 
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public sealed class BrandingModel : NotificationObject
+public sealed class BrandingModel : NotifiableObject
 {
 	private ColorsModel _colors;
 	private MetadataModel _metadata;
@@ -32,7 +32,7 @@ public sealed class BrandingModel : NotificationObject
 	}
 }
 
-public class ColorsModel : NotificationObject
+public class ColorsModel : NotifiableObject
 {
 	#region fields
 
@@ -92,7 +92,7 @@ public class ColorsModel : NotificationObject
 	#endregion
 }
 
-public sealed class InterfaceModel : NotificationObject
+public sealed class InterfaceModel : NotifiableObject
 {
 	#region fields
 
@@ -440,7 +440,7 @@ public sealed class InterfaceModel : NotificationObject
 	#endregion
 }
 
-public sealed class ThemeModel : NotificationObject
+public sealed class ThemeModel : NotifiableObject
 {
 	#region fields
 
@@ -608,7 +608,7 @@ public sealed class ThemeModel : NotificationObject
 }
 
 [XmlRoot(ElementName = "SystemResourcePackage", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public class MetadataModel : NotificationObject
+public class MetadataModel : NotifiableObject
 {
 	#region fields
 
@@ -670,7 +670,7 @@ public class MetadataModel : NotificationObject
 }
 
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class ItemModel : NotificationObject
+public sealed class ItemModel : NotifiableObject
 {
 	private string _key;
 	private string _path;
