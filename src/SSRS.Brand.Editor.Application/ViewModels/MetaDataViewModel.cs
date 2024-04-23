@@ -1,5 +1,5 @@
-﻿using BB84.Notifications;
-using BB84.Notifications.Interfaces;
+﻿using BB84.Notifications.Commands;
+using BB84.Notifications.Interfaces.Commands;
 
 using SSRS.Brand.Editor.Application.Interfaces.Application.Services;
 using SSRS.Brand.Editor.Application.ViewModels.Base;
@@ -14,7 +14,7 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// <param name="model">The model instance to use.</param>
 public sealed class MetaDataViewModel(INavigationService navService, MetadataModel model) : ViewModelBase
 {
-	private IRelayCommand? _toColorsCommand;
+	private IActionCommand? _toColorsCommand;
 
 	/// <summary>
 	/// The model instance to use.
@@ -24,6 +24,6 @@ public sealed class MetaDataViewModel(INavigationService navService, MetadataMod
 	/// <summary>
 	/// The command to navigate to the colors view model.
 	/// </summary>
-	public IRelayCommand ToColorsCommand
-		=> _toColorsCommand ??= new RelayCommand(navService.NavigateTo<MetaDataViewModel>);
+	public IActionCommand ToColorsCommand
+		=> _toColorsCommand ??= new ActionCommand(navService.NavigateTo<MetaDataViewModel>);
 }
