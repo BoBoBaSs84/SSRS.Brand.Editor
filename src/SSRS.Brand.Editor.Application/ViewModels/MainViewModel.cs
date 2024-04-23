@@ -1,5 +1,5 @@
-﻿using BB84.Notifications;
-using BB84.Notifications.Interfaces;
+﻿using BB84.Notifications.Commands;
+using BB84.Notifications.Interfaces.Commands;
 
 using SSRS.Brand.Editor.Application.Interfaces.Application.Services;
 using SSRS.Brand.Editor.Application.ViewModels.Base;
@@ -12,18 +12,18 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// <param name="navService">The navigation service instance to use.</param>
 public sealed class MainViewModel(INavigationService navService) : ViewModelBase
 {
-	private IRelayCommand? _aboutCommand;
-	private IRelayCommand? _exitCommand;
-	private IRelayCommand? _openCommand;
-	private IRelayCommand? _newCommand;
-	private IRelayCommand? _saveCommand;
+	private IActionCommand? _aboutCommand;
+	private IActionCommand? _exitCommand;
+	private IActionCommand? _openCommand;
+	private IActionCommand? _newCommand;
+	private IActionCommand? _saveCommand;
 	private string _status = string.Empty;
 
 	/// <summary>
 	/// The command to show the about window.
 	/// </summary>
-	public IRelayCommand AboutCommand
-		=> _aboutCommand ??= new RelayCommand(() =>
+	public IActionCommand AboutCommand
+		=> _aboutCommand ??= new ActionCommand(() =>
 		{
 			SetStatusText("Abouting ..");
 			NavService.NavigateTo<ColorsViewModel>();
@@ -32,26 +32,26 @@ public sealed class MainViewModel(INavigationService navService) : ViewModelBase
 	/// <summary>
 	/// The command to exit the application.
 	/// </summary>
-	public IRelayCommand ExitCommand
-		=> _exitCommand ??= new RelayCommand(() => Environment.Exit(0));
+	public IActionCommand ExitCommand
+		=> _exitCommand ??= new ActionCommand(() => Environment.Exit(0));
 
 	/// <summary>
 	/// The command to open an existing brand.
 	/// </summary>
-	public IRelayCommand OpenCommand
-		=> _openCommand ??= new RelayCommand(() => SetStatusText("Opening .."));
+	public IActionCommand OpenCommand
+		=> _openCommand ??= new ActionCommand(() => SetStatusText("Opening .."));
 
 	/// <summary>
 	/// The command to create a new brand.
 	/// </summary>
-	public IRelayCommand NewCommand
-		=> _newCommand ??= new RelayCommand(() => SetStatusText("Creating .."));
+	public IActionCommand NewCommand
+		=> _newCommand ??= new ActionCommand(() => SetStatusText("Creating .."));
 
 	/// <summary>
 	/// The command to save the current brand.
 	/// </summary>
-	public IRelayCommand SaveCommand
-		=> _saveCommand ??= new RelayCommand(() => SetStatusText("Saving .."));
+	public IActionCommand SaveCommand
+		=> _saveCommand ??= new ActionCommand(() => SetStatusText("Saving .."));
 
 	/// <summary>
 	/// The navigation service instance.
