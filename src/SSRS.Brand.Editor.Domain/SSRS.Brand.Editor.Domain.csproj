@@ -2,7 +2,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BB84.Extensions" Version="2.3.421" />
-		<PackageReference Include="BB84.Notifications" Version="3.2.520" />
+		<PackageReference Include="BB84.Notifications" Version="3.2.603" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	</ItemGroup>
 
