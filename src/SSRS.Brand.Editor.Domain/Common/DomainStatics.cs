@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Serialization;
 
 using SSRS.Brand.Editor.Domain.Converters;
 
@@ -17,13 +16,10 @@ public static class DomainStatics
 	{
 		get
 		{
-			JsonSerializerOptions options = new()
+			JsonSerializerOptions options = new(JsonSerializerDefaults.Web)
 			{
-				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				Converters = { new ColorJsonConverter() }
 			};
-
-			options.Converters.Add(new ColorJsonConverter());
 
 			return options;
 		}
