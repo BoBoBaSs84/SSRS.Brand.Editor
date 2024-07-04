@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-using BB84.Extensions;
+﻿using BB84.Extensions;
 using BB84.Extensions.Serialization;
 
 using SSRS.Brand.Editor.Domain.Common;
@@ -23,7 +21,7 @@ public sealed class ColorsModelTests : DomainTestBase
 	{
 		ColorsModel? model;
 
-		model = GetService<ColorsModel>();
+		model = new ColorsModel();
 
 		Assert.IsNotNull(model);
 		Assert.IsNotNull(model.Interface);

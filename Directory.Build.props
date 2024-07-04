@@ -1,12 +1,13 @@
 <Project>
 
 	<PropertyGroup>
-		<VersionMajor>$([System.DateTime]::UtcNow.Year)</VersionMajor>
-		<VersionMinor>$([System.DateTime]::UtcNow.Month)</VersionMinor>
-		<VersionPatch>$([System.DateTime]::UtcNow.Day)</VersionPatch>
+		<VersionMajor>1</VersionMajor>
+		<VersionMinor>0</VersionMinor>
+		<VersionPatch>$([System.DateTime]::UtcNow.ToString("MMdd"))</VersionPatch>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("0"))</VersionRevision>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</VersionPrefix>
-		<VersionSuffix Condition="'$(Configuration)'=='Debug'">Development</VersionSuffix>
+		<VersionSuffix Condition="$(Configuration.Equals('Debug'))">Development</VersionSuffix>
+		<FileVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -40,7 +41,7 @@
 	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<Authors>BoBoBaSs84</Authors>
 		<Company>https://github.com/BoBoBaSs84</Company>
-		<Copyright>Copyright © $(VersionMajor) BoBoBaSs84</Copyright>
+		<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) BoBoBaSs84</Copyright>
 		<Product>SSRS.Brand.Editor</Product>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/BoBoBaSs84/SSRS.Brand.Editor</RepositoryUrl>
@@ -58,13 +59,6 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="3.4.3" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.4.3" />
-		<PackageReference Include="coverlet.collector" Version="6.0.2">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>		
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 		<Using Include="System.Diagnostics" />
 		<Using Include="System.Diagnostics.CodeAnalysis" />

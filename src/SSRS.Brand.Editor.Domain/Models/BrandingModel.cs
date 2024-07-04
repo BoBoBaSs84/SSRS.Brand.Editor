@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System.Drawing;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
@@ -467,7 +468,7 @@ public sealed class ThemeModel : NotifiableObject
 	#endregion
 
 	public ThemeModel()
-		=> DataPoints = [];
+		=> _dataPoints = [];
 
 	#region properties
 

@@ -10,7 +10,7 @@ public sealed class ItemModelTests : DomainTestBase
 	{
 		ItemModel? model;
 
-		model = GetService<ItemModel>();
+		model = new ItemModel();
 
 		Assert.IsNotNull(model);
 	}

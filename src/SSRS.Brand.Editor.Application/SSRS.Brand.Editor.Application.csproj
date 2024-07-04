@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />
@@ -10,9 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BB84.Notifications" Version="3.3.606" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" />
 	</ItemGroup>
 
 </Project>

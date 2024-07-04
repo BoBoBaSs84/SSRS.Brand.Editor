@@ -10,7 +10,7 @@ public sealed class BrandingModelTests : DomainTestBase
 	{
 		BrandingModel? model;
 
-		model = GetService<BrandingModel>();
+		model = new BrandingModel();
 
 		Assert.IsNotNull(model);
 		Assert.IsNotNull(model.Colors);
@@ -24,8 +24,8 @@ public sealed class BrandingModelTests : DomainTestBase
 
 		model = new()
 		{
-			Colors = GetService<ColorsModel>(),
-			Metadata = GetService<MetadataModel>()
+			Colors = new ColorsModel(),
+			Metadata = new MetadataModel()
 		};
 
 		Assert.IsNotNull(model);

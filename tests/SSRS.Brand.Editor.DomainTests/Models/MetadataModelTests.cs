@@ -20,7 +20,7 @@ public class MetadataModelTests : DomainTestBase
 	{
 		MetadataModel? model;
 
-		model = GetService<MetadataModel>();
+		model = new MetadataModel();
 
 		Assert.IsNotNull(model);
 	}
