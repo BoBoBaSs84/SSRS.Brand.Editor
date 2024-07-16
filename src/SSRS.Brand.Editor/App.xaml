@@ -6,11 +6,8 @@
 						 Startup="Application_Startup"
 						 Exit="Application_Exit">
 	<Application.Resources>
-		<DataTemplate DataType="{x:Type TypeName=vm:ColorsViewModel}">
-			<v:ColorsUserControl />
-		</DataTemplate>
-		<DataTemplate DataType="{x:Type TypeName=vm:MetaDataViewModel}">
-			<v:MetaDataUserControl />
+		<DataTemplate DataType="{x:Type TypeName=vm:AboutViewModel}">
+			<v:AboutControl />
 		</DataTemplate>
 	</Application.Resources>
 </Application>

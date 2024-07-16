@@ -10,7 +10,7 @@ namespace SSRS.Brand.Editor.Presentation.Windows;
 public partial class MainWindow : Window
 {
 	/// <summary>
-	/// Initializes a new instance of the <see cref="MainWindow"/> class.
+	/// Initializes an instance of the <see cref="MainWindow"/> class.
 	/// </summary>
 	/// <param name="viewModel">The view model instance to use.</param>
 	public MainWindow(MainViewModel viewModel)

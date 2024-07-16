@@ -1,15 +1,16 @@
 ﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
-using BB84.Notifications;
-
 using SSRS.Brand.Editor.Domain.Converters;
+using SSRS.Brand.Editor.Domain.Models.Base;
 
 namespace SSRS.Brand.Editor.Domain.Models;
 
-public sealed class BrandingModel : NotifiableObject
+[ExcludeFromCodeCoverage(Justification = "Generated")]
+public sealed class BrandingModel : NotifiableBase
 {
 	private ColorsModel _colors;
 	private MetadataModel _metadata;
@@ -33,7 +34,8 @@ public sealed class BrandingModel : NotifiableObject
 	}
 }
 
-public class ColorsModel : NotifiableObject
+[ExcludeFromCodeCoverage(Justification = "Generated")]
+public class ColorsModel : NotifiableBase
 {
 	#region fields
 
@@ -48,14 +50,6 @@ public class ColorsModel : NotifiableObject
 	{
 		_name = string.Empty;
 		_version = string.Empty;
-		_interface = new();
-		_theme = new();
-	}
-
-	public ColorsModel(string name, string version)
-	{
-		_name = name;
-		_version = version;
 		_interface = new();
 		_theme = new();
 	}
@@ -93,7 +87,8 @@ public class ColorsModel : NotifiableObject
 	#endregion
 }
 
-public sealed class InterfaceModel : NotifiableObject
+[ExcludeFromCodeCoverage(Justification = "Generated")]
+public sealed class InterfaceModel : NotifiableBase
 {
 	#region fields
 
@@ -441,7 +436,8 @@ public sealed class InterfaceModel : NotifiableObject
 	#endregion
 }
 
-public sealed class ThemeModel : NotifiableObject
+[ExcludeFromCodeCoverage(Justification = "Generated")]
+public sealed class ThemeModel : NotifiableBase
 {
 	#region fields
 
@@ -608,8 +604,9 @@ public sealed class ThemeModel : NotifiableObject
 	#endregion
 }
 
+[ExcludeFromCodeCoverage(Justification = "Generated")]
 [XmlRoot(ElementName = "SystemResourcePackage", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public class MetadataModel : NotifiableObject
+public class MetadataModel : NotifiableBase
 {
 	#region fields
 
@@ -625,14 +622,6 @@ public class MetadataModel : NotifiableObject
 		_type = string.Empty;
 		_version = string.Empty;
 		_name = string.Empty;
-		_items = [];
-	}
-
-	public MetadataModel(string type, string version, string name)
-	{
-		_type = type;
-		_version = version;
-		_name = name;
 		_items = [];
 	}
 
@@ -670,8 +659,9 @@ public class MetadataModel : NotifiableObject
 	#endregion
 }
 
+[ExcludeFromCodeCoverage(Justification = "Generated")]
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class ItemModel : NotifiableObject
+public sealed class ItemModel : NotifiableBase
 {
 	private string _key;
 	private string _path;
@@ -680,12 +670,6 @@ public sealed class ItemModel : NotifiableObject
 	{
 		_key = string.Empty;
 		_path = string.Empty;
-	}
-
-	public ItemModel(string key, string path)
-	{
-		_key = key;
-		_path = path;
 	}
 
 	[XmlAttribute(AttributeName = "key", Namespace = "")]

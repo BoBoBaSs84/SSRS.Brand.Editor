@@ -1,8 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
 
 using Microsoft.Extensions.Logging;
-
-using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SSRS.Brand.Editor.Infrastructure.Services;
 
@@ -12,8 +11,8 @@ namespace SSRS.Brand.Editor.Infrastructure.Services;
 /// <remarks>
 /// Implements the <see cref="ILoggerService{T}"/> interface.
 /// </remarks>
-/// <typeparam name="T"></typeparam>
-[ExcludeFromCodeCoverage(Justification = "Wrapper class.")]
+/// <typeparam name="T">The type to work with.</typeparam>
+[ExcludeFromCodeCoverage(Justification = "Microsoft.Extensions.Logging Wrapper")]
 internal sealed class LoggerService<T>(ILogger<T> logger) : ILoggerService<T> where T : class
 {
 	/// <inheritdoc/>

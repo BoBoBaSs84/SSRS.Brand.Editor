@@ -8,7 +8,7 @@ namespace SSRS.Brand.Editor.Application.Services;
 /// <summary>
 /// The navigation service class.
 /// </summary>
-/// <param name="viewModelFactory">The model factory function.</param>
+/// <param name="viewModelFactory">The view model factory to use.</param>
 internal sealed class NavigationService(Func<Type, ViewModelBase> viewModelFactory) : NotifiableObject, INavigationService
 {
 	private ViewModelBase _currentView = default!;

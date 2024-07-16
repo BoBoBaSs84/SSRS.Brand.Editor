@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor", "src\SS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7D91EC0F-8544-4DA2-95CC-1F18D1DAEC65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.DomainTests", "tests\SSRS.Brand.Editor.DomainTests\SSRS.Brand.Editor.DomainTests.csproj", "{36F105C2-07AA-49CA-85E3-5A49814289DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Domain.Tests", "tests\SSRS.Brand.Editor.DomainTests\SSRS.Brand.Editor.Domain.Tests.csproj", "{36F105C2-07AA-49CA-85E3-5A49814289DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.ApplicationTests", "tests\SSRS.Brand.Editor.ApplicationTests\SSRS.Brand.Editor.ApplicationTests.csproj", "{74AC0891-75F3-4EC1-B96C-1147931D1136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Application.Tests", "tests\SSRS.Brand.Editor.ApplicationTests\SSRS.Brand.Editor.Application.Tests.csproj", "{74AC0891-75F3-4EC1-B96C-1147931D1136}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.InfrastructureTests", "tests\SSRS.Brand.Editor.InfrastructureTests\SSRS.Brand.Editor.InfrastructureTests.csproj", "{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSRS.Brand.Editor.Infrastructure.Tests", "tests\SSRS.Brand.Editor.InfrastructureTests\SSRS.Brand.Editor.Infrastructure.Tests.csproj", "{3938770D-05A0-4AC1-B9C2-69CEC3E0165D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6254A74C-65A8-47C4-8C83-323AE717868A}"
 	ProjectSection(SolutionItems) = preProject

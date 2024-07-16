@@ -1,19 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<UseWPF>true</UseWPF>
-		<ApplicationIcon>App.ico</ApplicationIcon>
-		<StartupObject>SSRS.Brand.Editor.App</StartupObject>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Content Include="App.ico" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\SSRS.Brand.Editor.Infrastructure\SSRS.Brand.Editor.Infrastructure.csproj" />
 		<ProjectReference Include="..\SSRS.Brand.Editor.Presentation\SSRS.Brand.Editor.Presentation.csproj" />
 	</ItemGroup>
-
 </Project>

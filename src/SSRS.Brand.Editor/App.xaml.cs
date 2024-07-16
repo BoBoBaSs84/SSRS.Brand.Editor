@@ -1,22 +1,21 @@
 ﻿using System.Windows;
 
+using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
+using SSRS.Brand.Editor.Extensions;
+using SSRS.Brand.Editor.Presentation.Windows;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using SSRS.Brand.Editor.Application.Helpers;
-using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
-using SSRS.Brand.Editor.Domain.Helpers;
-using SSRS.Brand.Editor.Infrastructure.Helpers;
-using SSRS.Brand.Editor.Presentation.Helpers;
-using SSRS.Brand.Editor.Presentation.Windows;
+using WinApplication = System.Windows.Application;
 
 namespace SSRS.Brand.Editor;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : System.Windows.Application
+public partial class App : WinApplication
 {
 	private readonly IHost _host;
 	private readonly ILoggerService<App> _loggerService;
@@ -28,11 +27,12 @@ public partial class App : System.Windows.Application
 		LoggerMessage.Define(LogLevel.Critical, 0, string.Empty);
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="App"/> class.
+	/// Initializes a new instance of the app class.
 	/// </summary>
 	public App()
 	{
 		_host = CreateHostBuilder().Build();
+
 		_loggerService = _host.Services.GetRequiredService<ILoggerService<App>>();
 
 		DispatcherUnhandledException += (s, e) => OnUnhandledException(e.Exception);
@@ -41,6 +41,7 @@ public partial class App : System.Windows.Application
 	private async void Application_Startup(object sender, StartupEventArgs e)
 	{
 		_loggerService.Log(LogInformation, "Application starting...");
+
 		await _host.StartAsync().ConfigureAwait(false);
 
 		MainWindow mainWindow = _host.Services.GetRequiredService<MainWindow>();
@@ -59,12 +60,6 @@ public partial class App : System.Windows.Application
 		=> _loggerService.Log(LogCritical, exception);
 
 	private static IHostBuilder CreateHostBuilder()
-		=> Host.CreateDefaultBuilder()
-		.ConfigureServices((context, services) =>
-		{
-			_ = services.RegisterApplicationServices();
-			_ = services.RegisterDomainServices();
-			_ = services.RegisterInfrastructureServices();
-			_ = services.RegisterPresentationServices();
-		});
+		=> Host.CreateDefaultBuilder().ConfigureServices((context, services)
+			=> services.RegisterServices(context.HostingEnvironment));
 }

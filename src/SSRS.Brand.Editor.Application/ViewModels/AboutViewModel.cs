@@ -1,0 +1,16 @@
+﻿using SSRS.Brand.Editor.Application.ViewModels.Base;
+using SSRS.Brand.Editor.Domain.Models;
+
+namespace SSRS.Brand.Editor.Application.ViewModels;
+
+/// <summary>
+/// The about view model class.
+/// </summary>
+/// <param name="model">The about model instance to use.</param>
+public sealed class AboutViewModel(AboutModel model) : ViewModelBase
+{
+	/// <summary>
+	/// The about model instance to use.
+	/// </summary>
+	public AboutModel Model => model;
+}

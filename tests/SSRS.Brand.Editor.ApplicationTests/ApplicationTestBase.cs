@@ -1,22 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-using SSRS.Brand.Editor.Application.Helpers;
-using SSRS.Brand.Editor.Domain.Helpers;
-
-namespace SSRS.Brand.Editor.ApplicationTests;
+﻿namespace SSRS.Brand.Editor.Application.Tests;
 
 [TestClass]
 public abstract class ApplicationTestBase
 {
 	private static TestContext? s_context;
-	private static IServiceProvider? s_serviceProvider;
 
 	[AssemblyInitialize]
 	public static void AssemblyInitialize(TestContext context)
-	{
-		s_context = context;
-		s_serviceProvider = GetServiceProvider();
-	}
+		=> s_context = context;
 
 	[TestInitialize]
 	public void TestInitialize()
@@ -25,28 +16,4 @@ public abstract class ApplicationTestBase
 	[TestCleanup]
 	public void TestCleanup()
 		=> s_context?.WriteLine($"Cleanup {s_context.TestName} ..");
-
-	/// <summary>
-	/// Returns the requested registered service.
-	/// </summary>
-	/// <typeparam name="T">The requested service.</typeparam>
-	/// <returns>The registered service.</returns>
-	/// <exception cref="ArgumentException">If the service is not registered.</exception>
-	public static T GetService<T>() where T : class
-	{
-		s_serviceProvider ??= GetServiceProvider();
-		return s_serviceProvider.GetRequiredService(typeof(T)) is not T service
-			? throw new ArgumentException($"{typeof(T)} needs to be registered.")
-			: service;
-	}
-
-	private static ServiceProvider GetServiceProvider()
-	{
-		IServiceCollection services = new ServiceCollection();
-
-		_ = services.RegisterApplicationServices();
-		_ = services.RegisterDomainServices();
-
-		return services.BuildServiceProvider();
-	}
 }

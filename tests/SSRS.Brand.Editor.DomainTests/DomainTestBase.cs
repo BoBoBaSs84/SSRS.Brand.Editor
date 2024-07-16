@@ -1,4 +1,4 @@
-﻿namespace SSRS.Brand.Editor.DomainTests;
+﻿namespace SSRS.Brand.Editor.Domain.Tests;
 
 [TestClass]
 public abstract class DomainTestBase

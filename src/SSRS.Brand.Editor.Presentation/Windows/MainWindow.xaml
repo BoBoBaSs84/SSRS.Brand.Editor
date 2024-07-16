@@ -4,39 +4,64 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
-				d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
 				mc:Ignorable="d"
-				Title="SSRS.Brand.Editor"
+				d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+				Title="MainWindow"
+				ShowInTaskbar="True"
 				Height="720"
 				Width="1280">
 	<DockPanel LastChildFill="False">
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_New"
-									Command="{Binding NewCommand}" />
-				<MenuItem Header="_Open"
-									Command="{Binding OpenCommand}" />
-				<MenuItem Header="_Save"
-									Command="{Binding SaveCommand}" />
+				<MenuItem Header="_New">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_New.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Open">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_Open.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
 				<Separator />
-				<MenuItem Header="_About"
-									Command="{Binding AboutCommand}" />
+				<MenuItem Header="_Settings">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_Settings.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator />
 				<MenuItem Header="_Quit"
-									Command="{Binding ExitCommand}" />
+									Command="{Binding ExitCommand}">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_Quit.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_Help">
+				<MenuItem Header="_About"
+									Command="{Binding AboutCommand}">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/Help_About.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Check for Updates...">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/Help_Update.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_What's new...">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/Help_News.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator />
+				<MenuItem Header="_Help">
+					<MenuItem.Icon>
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/Help_Center.ico" />
+					</MenuItem.Icon>
+				</MenuItem>
 			</MenuItem>
 		</Menu>
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<ContentControl Grid.Column="0"
-											Content="{Binding NavService.CurrentView}" />
-		</Grid>
-		<StatusBar DockPanel.Dock="Bottom">
-			<StatusBarItem>
-				<TextBlock x:Name="StatusTextBlock"
-									 Text="{Binding StatusText}" />
-			</StatusBarItem>
-		</StatusBar>
+		<ContentControl Content="{Binding NavigationService.CurrentView}" />
 	</DockPanel>
 </Window>
