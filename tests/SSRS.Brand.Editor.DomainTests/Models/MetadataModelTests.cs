@@ -7,7 +7,7 @@ namespace SSRS.Brand.Editor.Domain.Tests.Models;
 [TestClass]
 public class MetadataModelTests : DomainTestBase
 {
-	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFiles");
+	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestResources");
 	private readonly string _fileName = "metadata.xml";
 
 	[TestMethod]
