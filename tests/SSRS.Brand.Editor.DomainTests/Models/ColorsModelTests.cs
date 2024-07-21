@@ -8,7 +8,7 @@ namespace SSRS.Brand.Editor.Domain.Tests.Models;
 [TestClass]
 public sealed class ColorsModelTests : DomainTestBase
 {
-	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFiles");
+	private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestResources");
 	private readonly string _fileName = "colors.json";
 
 	[TestMethod]
