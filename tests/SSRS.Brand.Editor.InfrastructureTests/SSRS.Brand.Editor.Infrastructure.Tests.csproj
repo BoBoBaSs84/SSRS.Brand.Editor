@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup />
 	<ItemGroup>
-		<PackageReference Include="Moq"/>
-		<PackageReference Include="MSTest"/>
-		<PackageReference Include="coverlet.collector">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="Moq" />
+		<PackageReference Include="MSTest" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\SSRS.Brand.Editor.Infrastructure\SSRS.Brand.Editor.Infrastructure.csproj" />
