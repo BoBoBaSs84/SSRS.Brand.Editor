@@ -11,31 +11,28 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>recommended</AnalysisMode>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<AssemblyOriginatorKeyFile>..\..\PublicKey.snk</AssemblyOriginatorKeyFile>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
 		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
 		<DebugType>full</DebugType>
-		<Deterministic>true</Deterministic>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<GeneratedAssemblyInfoFile>Properties\AssemblyInfo.cs</GeneratedAssemblyInfoFile>
+		<Deterministic>True</Deterministic>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<Nullable>enable</Nullable>
 		<PlatformTarget>x64</PlatformTarget>
 		<Platforms>x64</Platforms>
-		<SignAssembly>true</SignAssembly>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DebugType>none</DebugType>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
@@ -49,23 +46,19 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
-		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<IsPackable>False</IsPackable>
+		<IsTestProject>True</IsTestProject>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
-		<InternalsVisibleTo Include="$(AssemblyName).Tests" Key="00240000048000009400000006020000002400005253413100040000010001004dad765076cb5e09fa49b2e802af814c5d41f4de7dd836ddd0ad291067ab3033be38f89e6c8de5b07a051045bf58bb6e93e426ce70a37454b03255de48efe6b82a816fdf8ffe88e7201ae626ce80951223bdd7152fb9ccd31b114f88ac4258298cf527e5e77821523aedf50a938e016309618a0ef95eac3918c1a3992aaa23ce" />
+		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 		<Using Include="System.Diagnostics" />
 		<Using Include="System.Diagnostics.CodeAnalysis" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Properties\" />
 	</ItemGroup>
 
 </Project>
