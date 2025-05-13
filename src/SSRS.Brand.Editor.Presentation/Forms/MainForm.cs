@@ -51,12 +51,6 @@ public partial class MainForm : Form
 
 	private void ExitToolStripMenuItem_Click(object sender, EventArgs e) => WinFormsApp.Exit();
 
-	private void FirstToolStripMenuItem_Click(object sender, EventArgs e) => _navigationService.NavigateTo<FirstForm>();
-
-	private void SecondToolStripMenuItem_Click(object sender, EventArgs e) => _navigationService.NavigateTo<SecondForm>();
-
-	private void ThirdToolStripMenuItem_Click(object sender, EventArgs e) => _navigationService.NavigateTo<ThirdForm>();
-
 	private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
 	{
 		AboutForm aboutForm = _serviceProvider.GetRequiredService<AboutForm>();
