@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 using BB84.Extensions;
 
-namespace SSRS.Brand.Editor.Domain.Converters;
+namespace SSRS.Brand.Editor.Application.Converters;
 
 /// <summary>
 /// The json converter for the <see cref="Color"/> type.
 /// </summary>
-public sealed class ColorJsonConverter : JsonConverter<Color>
+public sealed class JsonColorConverter : JsonConverter<Color>
 {
 	/// <inheritdoc/>
 	public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
