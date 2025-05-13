@@ -10,7 +10,7 @@ using SSRS.Brand.Editor.Domain.Models.Base;
 namespace SSRS.Brand.Editor.Domain.Models;
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
-public sealed class BrandingModel : NotifiableBase
+public sealed class BrandingModel : ModelBase
 {
 	private ColorsModel _colors;
 	private MetadataModel _metadata;
@@ -35,7 +35,7 @@ public sealed class BrandingModel : NotifiableBase
 }
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
-public class ColorsModel : NotifiableBase
+public class ColorsModel : ModelBase
 {
 	#region fields
 
@@ -88,7 +88,7 @@ public class ColorsModel : NotifiableBase
 }
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
-public sealed class InterfaceModel : NotifiableBase
+public sealed class InterfaceModel : ModelBase
 {
 	#region fields
 
@@ -437,7 +437,7 @@ public sealed class InterfaceModel : NotifiableBase
 }
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
-public sealed class ThemeModel : NotifiableBase
+public sealed class ThemeModel : ModelBase
 {
 	#region fields
 
@@ -606,7 +606,7 @@ public sealed class ThemeModel : NotifiableBase
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
 [XmlRoot(ElementName = "SystemResourcePackage", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public class MetadataModel : NotifiableBase
+public class MetadataModel : ModelBase
 {
 	#region fields
 
@@ -661,7 +661,7 @@ public class MetadataModel : NotifiableBase
 
 [ExcludeFromCodeCoverage(Justification = "Generated")]
 [XmlRoot(ElementName = "Item", Namespace = "http://schemas.microsoft.com/sqlserver/reporting/2016/01/systemresourcepackagemetadata")]
-public sealed class ItemModel : NotifiableBase
+public sealed class ItemModel : ModelBase
 {
 	private string _key;
 	private string _path;

@@ -7,11 +7,8 @@ using BB84.Extensions;
 namespace SSRS.Brand.Editor.Domain.Converters;
 
 /// <summary>
-/// The color json converter class.
+/// The json converter for the <see cref="Color"/> type.
 /// </summary>
-/// <remarks>
-/// Derives from the <see cref="JsonConverter{T}"/> class.
-/// </remarks>
 public sealed class ColorJsonConverter : JsonConverter<Color>
 {
 	/// <inheritdoc/>

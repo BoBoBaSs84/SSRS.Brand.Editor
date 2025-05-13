@@ -1,19 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
+
 	<ItemGroup>
-		<ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
+	  <PackageReference Include="BB84.WinForms.Extensions" />
 	</ItemGroup>
+
 	<ItemGroup>
-		<Resource Include="Assets\Icons\File_New.ico" />
-		<Resource Include="Assets\Icons\File_Open.ico" />
-		<Resource Include="Assets\Icons\File_Quit.ico" />
-		<Resource Include="Assets\Icons\File_Settings.ico" />
-		<Resource Include="Assets\Icons\Help_About.ico" />
-		<Resource Include="Assets\Icons\Help_Center.ico" />
-		<Resource Include="Assets\Icons\Help_News.ico" />
-		<Resource Include="Assets\Icons\Help_Update.ico" />
+	  <ProjectReference Include="..\SSRS.Brand.Editor.Application\SSRS.Brand.Editor.Application.csproj" />
 	</ItemGroup>
+
 </Project>

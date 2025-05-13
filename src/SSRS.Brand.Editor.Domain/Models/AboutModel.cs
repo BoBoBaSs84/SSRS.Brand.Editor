@@ -5,14 +5,13 @@ using System.Runtime.Versioning;
 using SSRS.Brand.Editor.Domain.Models.Base;
 
 namespace SSRS.Brand.Editor.Domain.Models;
-
 /// <summary>
-/// The about model.
+/// Represents the model for the about page.
 /// </summary>
-public sealed class AboutModel : NotifiableBase
+public sealed class AboutModel : ModelBase
 {
 	/// <summary>
-	/// Initializes an instance of <see cref="AboutModel"/> class.
+	/// Initializes a new instance of the <see cref="AboutModel"/> class.
 	/// </summary>
 	public AboutModel()
 	{

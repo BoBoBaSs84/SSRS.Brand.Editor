@@ -1,15 +1,19 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using SSRS.Brand.Editor.Application.Interfaces.Infrastructure.Services;
-using SSRS.Brand.Editor.Infrastructure.Services;
+using BB84.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SSRS.Brand.Editor.Infrastructure.Extensions;
+using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
+using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
+using SSRS.Brand.Editor.Infrastructure.Common;
+using SSRS.Brand.Editor.Infrastructure.Providers;
+using SSRS.Brand.Editor.Infrastructure.Services;
 
+namespace SSRS.Brand.Editor.Infrastructure.Extensions;
 /// <summary>
 /// The infrastructure service collection extensions.
 /// </summary>
@@ -20,7 +24,7 @@ internal static class ServiceCollectionExtensions
 	/// Registers the logger service to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
-	/// <param name="environment">The host environment to use.</param>
+	/// <param name="environment">The host environment instance to use.</param>
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterLoggerService(this IServiceCollection services, IHostEnvironment environment)
 	{
@@ -29,14 +33,53 @@ internal static class ServiceCollectionExtensions
 		services.AddLogging(config =>
 		{
 			config.ClearProviders();
-			config.AddEventLog(config => config.SourceName = environment.ApplicationName);
 
 			if (environment.IsDevelopment())
-				config.SetMinimumLevel(LogLevel.Debug);
+				config.AddConsole();
 
 			if (environment.IsProduction())
-				config.SetMinimumLevel(LogLevel.Warning);
+				config.AddEventLog(config => config.SourceName = environment.ApplicationName);
 		});
+
+		return services;
+	}
+
+	/// <summary>
+	/// Registers the named http clients to the service collection.
+	/// </summary>
+	/// <param name="services">The service collection to enrich.</param>
+	/// <returns>The enriched service collection.</returns>
+	internal static IServiceCollection RegisterHttpClients(this IServiceCollection services)
+	{
+		services.AddHttpClient(Constants.WikiClient.Name, configureClient =>
+			configureClient.WithBaseAdress(Constants.WikiClient.BaseUrl)
+				.WithMediaType(Constants.WikiClient.MediaType)
+				.WithTimeout(TimeSpan.FromSeconds(15)));
+
+		return services;
+	}
+
+	/// <summary>
+	/// Registers the required infrastructure providers to the service collection.
+	/// </summary>
+	/// <param name="services">The service collection to enrich.</param>
+	/// <returns>The enriched service collection.</returns>
+	internal static IServiceCollection RegisterProviders(this IServiceCollection services)
+	{
+		services.TryAddSingleton<IDirectoryProvider, DirectoryProvider>();
+		services.TryAddSingleton<IFileProvider, FileProvider>();
+
+		return services;
+	}
+
+	/// <summary>
+	/// Registers the required infrastructure services to the service collection.
+	/// </summary>
+	/// <param name="services">The service collection to enrich.</param>
+	/// <returns>The enriched service collection.</returns>
+	internal static IServiceCollection RegisterServices(this IServiceCollection services)
+	{
+		services.TryAddSingleton<IWebService, WebService>();
 
 		return services;
 	}
