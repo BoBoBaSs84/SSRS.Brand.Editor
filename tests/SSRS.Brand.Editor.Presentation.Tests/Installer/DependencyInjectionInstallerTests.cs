@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSRS.Brand.Editor.Presentation.Installer;
 
 namespace SSRS.Brand.Editor.Presentation.Tests.Installer;
+
 [TestClass]
 public sealed class DependencyInjectionInstallerTests
 {
@@ -14,6 +15,6 @@ public sealed class DependencyInjectionInstallerTests
 
 		services.RegisterPresentationServices();
 
-		Assert.AreEqual(9, services.Count);
+		Assert.AreEqual(6, services.Count);
 	}
 }
