@@ -4,9 +4,9 @@
     <CentralPackageTransitivePinningEnabled>True</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="BB84.Extensions" Version="2.12.523" />
-    <PackageVersion Include="BB84.Notifications" Version="3.6.409" />
-    <PackageVersion Include="BB84.WinForms.Extensions" Version="2.12.523" />
+    <PackageVersion Include="BB84.Extensions" Version="2.13.530" />
+    <PackageVersion Include="BB84.Notifications" Version="3.6.531" />
+    <PackageVersion Include="BB84.WinForms.Extensions" Version="2.13.530" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
@@ -14,6 +14,6 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Logging.EventLog" Version="9.0.5" />
     <PackageVersion Include="Moq" Version="4.20.72" />
-    <PackageVersion Include="MSTest" Version="3.9.0" />
+    <PackageVersion Include="MSTest" Version="3.9.1" />
   </ItemGroup>
 </Project>
