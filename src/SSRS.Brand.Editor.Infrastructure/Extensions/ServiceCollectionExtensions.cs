@@ -52,7 +52,7 @@ internal static class ServiceCollectionExtensions
 	internal static IServiceCollection RegisterHttpClients(this IServiceCollection services)
 	{
 		services.AddHttpClient(Constants.WikiClient.Name, configureClient =>
-			configureClient.WithBaseAdress(Constants.WikiClient.BaseUrl)
+			configureClient.WithBaseAddress(Constants.WikiClient.BaseUrl)
 				.WithMediaType(Constants.WikiClient.MediaType)
 				.WithTimeout(TimeSpan.FromSeconds(15)));
 
