@@ -3,9 +3,11 @@
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 
 namespace SSRS.Brand.Editor.Infrastructure.Providers;
+
 /// <summary>
 /// The implementation for the directory provider contract.
 /// </summary>
+/// <inheritdoc cref="IDirectoryProvider"/>
 [ExcludeFromCodeCoverage(Justification = "This class is a simple wrapper around the System.IO.Directory class.")]
 internal sealed class DirectoryProvider : IDirectoryProvider
 {

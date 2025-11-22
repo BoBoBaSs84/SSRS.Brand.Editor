@@ -3,17 +3,25 @@
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 
 namespace SSRS.Brand.Editor.Infrastructure.Providers;
+
 /// <summary>
 /// The implementation for the file provider contract.
 /// </summary>
+/// <inheritdoc cref="IFileProvider"/>
 [ExcludeFromCodeCoverage(Justification = "This class is a simple wrapper around the System.IO.File class.")]
 internal sealed class FileProvider : IFileProvider
 {
+	public void Copy(string sourcePath, string destinationPath, bool overwrite = false)
+		=> File.Copy(sourcePath, destinationPath, overwrite);
+
 	public void Delete(string path)
 		=> File.Delete(path);
 
 	public bool Exists(string path)
 		=> File.Exists(path);
+
+	public void Move(string sourcePath, string destinationPath, bool overwrite = false)
+		=> File.Move(sourcePath, destinationPath, overwrite);
 
 	public byte[] ReadAllBytes(string path)
 		=> File.ReadAllBytes(path);

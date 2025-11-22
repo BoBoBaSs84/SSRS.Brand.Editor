@@ -66,8 +66,10 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterProviders(this IServiceCollection services)
 	{
-		services.TryAddSingleton<IDirectoryProvider, DirectoryProvider>();
-		services.TryAddSingleton<IFileProvider, FileProvider>();
+		services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+		services.AddSingleton<IDirectoryProvider, DirectoryProvider>();
+		services.AddSingleton<IFileProvider, FileProvider>();
+		services.AddSingleton<IPathProvider, PathProvider>();
 
 		return services;
 	}
@@ -79,7 +81,7 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterServices(this IServiceCollection services)
 	{
-		services.TryAddSingleton<IWebService, WebService>();
+		services.AddSingleton<IWebService, WebService>();
 
 		return services;
 	}

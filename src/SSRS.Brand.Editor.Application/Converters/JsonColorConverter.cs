@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using BB84.Extensions;
