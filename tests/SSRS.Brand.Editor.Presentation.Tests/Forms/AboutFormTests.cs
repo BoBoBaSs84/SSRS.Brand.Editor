@@ -1,7 +1,5 @@
 ﻿using System.Windows.Forms;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using SSRS.Brand.Editor.Application.ViewModels;
 using SSRS.Brand.Editor.Domain.Models;
 using SSRS.Brand.Editor.Presentation.Forms;

@@ -1,8 +1,6 @@
 ﻿using System.Net;
 using System.Text;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Moq;
 using Moq.Protected;
 

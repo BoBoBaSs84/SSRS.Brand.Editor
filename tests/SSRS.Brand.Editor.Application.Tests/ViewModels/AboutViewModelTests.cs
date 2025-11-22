@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using SSRS.Brand.Editor.Application.ViewModels;
+﻿using SSRS.Brand.Editor.Application.ViewModels;
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.Application.Tests.ViewModels;
