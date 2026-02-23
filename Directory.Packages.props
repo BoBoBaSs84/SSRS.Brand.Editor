@@ -8,7 +8,7 @@
     <PackageVersion Include="BB84.Notifications" Version="4.1.122" />
     <PackageVersion Include="BB84.WinForms.Extensions" Version="4.3.222" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.3" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.3" />
