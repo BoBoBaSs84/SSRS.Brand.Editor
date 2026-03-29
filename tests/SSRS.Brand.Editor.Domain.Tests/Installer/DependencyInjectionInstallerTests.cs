@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using SSRS.Brand.Editor.Domain.Installers;
 
-using SSRS.Brand.Editor.Domain.Installer;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SSRS.Brand.Editor.Domain.Tests.Installer;
+
 [TestClass]
 public sealed class DependencyInjectionInstallerTests
 {

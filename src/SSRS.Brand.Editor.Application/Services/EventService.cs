@@ -1,10 +1,13 @@
-﻿using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
 
 namespace SSRS.Brand.Editor.Application.Services;
 
 /// <summary>
 /// Represents a simple event service for publishing and subscribing to events.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Event service simple implementation.")]
 internal sealed class EventService : IEventService
 {
 	private readonly Dictionary<Type, List<Action<object>>> _subscribers = [];

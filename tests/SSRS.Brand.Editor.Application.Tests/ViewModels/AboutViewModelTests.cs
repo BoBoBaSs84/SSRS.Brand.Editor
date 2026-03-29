@@ -2,6 +2,7 @@
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.Application.Tests.ViewModels;
+
 [TestClass]
 public sealed class AboutViewModelTests
 {

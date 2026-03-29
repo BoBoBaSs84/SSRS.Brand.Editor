@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace SSRS.Brand.Editor.Extensions;
+
 /// <summary>
 /// The <see cref="IHostBuilder"/> extensions class.
 /// </summary>
@@ -24,7 +25,7 @@ internal static class HostBuilderExtensions
 		{
 			builder.SetBasePath(context.HostingEnvironment.ContentRootPath);
 			builder.AddJsonFile($"{FileName}.{FileExtension}", true, true);
-			builder.AddJsonFile($"{FileName}.{context.HostingEnvironment.EnvironmentName}.{FileExtension}", true, true);
+			builder.AddJsonFile($"{FileName}.{context.HostingEnvironment.EnvironmentName}.{FileExtension}", true, false);
 			builder.AddEnvironmentVariables();
 		});
 

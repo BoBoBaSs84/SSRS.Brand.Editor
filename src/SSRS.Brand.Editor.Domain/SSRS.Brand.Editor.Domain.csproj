@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="BB84.Extensions" />
-    <PackageReference Include="BB84.Notifications" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-  </ItemGroup>
+		<PackageReference Include="BB84.Notifications" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+	</ItemGroup>
 </Project>

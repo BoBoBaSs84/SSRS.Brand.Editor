@@ -1,15 +1,16 @@
 ﻿using System.Net;
 using System.Text;
 
-using Moq;
-using Moq.Protected;
-
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Infrastructure.Common;
 using SSRS.Brand.Editor.Infrastructure.Services;
 
+using Moq;
+using Moq.Protected;
+
 namespace SSRS.Brand.Editor.Infrastructure.Tests.Services;
+
 [TestClass]
 public sealed partial class WebServiceTests
 {

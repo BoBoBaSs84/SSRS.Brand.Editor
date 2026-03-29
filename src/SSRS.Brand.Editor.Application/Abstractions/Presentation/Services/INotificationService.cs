@@ -1,4 +1,6 @@
-﻿namespace SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
+﻿using System.Windows;
+
+namespace SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 
 /// <summary>
 /// The interface for the notification service.
@@ -28,12 +30,12 @@ public interface INotificationService
 	/// </summary>
 	/// <param name="message">The message to show.</param>
 	/// <returns>The result of the retry message.</returns>
-	DialogResult ShowRetry(string message);
+	MessageBoxResult ShowRetry(string message);
 
 	/// <summary>
 	/// Shows a question message and return the result.
 	/// </summary>
 	/// <param name="message">The question to show.</param>
 	/// <returns>The result of the question.</returns>
-	DialogResult ShowQuestion(string message);
+	MessageBoxResult ShowQuestion(string message);
 }

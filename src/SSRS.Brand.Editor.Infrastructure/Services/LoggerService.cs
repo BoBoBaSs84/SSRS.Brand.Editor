@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using Microsoft.Extensions.Logging;
-
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 
+using Microsoft.Extensions.Logging;
+
 namespace SSRS.Brand.Editor.Infrastructure.Services;
+
 /// <summary>
 /// The logger service implementation.
 /// </summary>

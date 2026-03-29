@@ -1,6 +1,7 @@
 ﻿using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.Domain.Tests.Models;
+
 [TestClass]
 public sealed class AboutModelTests
 {

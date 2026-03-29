@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Windows.Media;
 
 using BB84.Extensions;
 
@@ -14,10 +15,17 @@ public sealed class JsonColorConverter : JsonConverter<Color>
 	public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		string? value = reader.GetString();
-		return value is null ? Color.White : value.FromRGBHexString();
+		return string.IsNullOrEmpty(value) ? Colors.Transparent : ToMediaColor(value.FromRGBHexString());
 	}
 
 	/// <inheritdoc/>
 	public override void Write(Utf8JsonWriter writer, Color value, JsonSerializerOptions options)
-		=> writer.WriteStringValue(value.ToRGBHexString());
+		=> writer.WriteStringValue(ToDrawingColor(value).ToRGBHexString());
+
+	private static System.Drawing.Color ToDrawingColor(Color color)
+		=> System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
+
+	// converts a System.Drawing.Color to a System.Windows.Media.Color
+	private static Color ToMediaColor(System.Drawing.Color color)
+		=> Color.FromArgb(color.A, color.R, color.G, color.B);
 }

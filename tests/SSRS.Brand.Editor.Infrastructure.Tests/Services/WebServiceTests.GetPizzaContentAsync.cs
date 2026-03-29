@@ -1,12 +1,13 @@
 ﻿using System.Net;
 
+using SSRS.Brand.Editor.Infrastructure.Services;
+
 using Microsoft.Extensions.Logging;
 
 using Moq;
 
-using SSRS.Brand.Editor.Infrastructure.Services;
-
 namespace SSRS.Brand.Editor.Infrastructure.Tests.Services;
+
 public sealed partial class WebServiceTests
 {
 	[TestMethod]

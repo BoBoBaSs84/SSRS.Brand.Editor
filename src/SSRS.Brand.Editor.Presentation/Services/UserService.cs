@@ -3,6 +3,7 @@
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 
 namespace SSRS.Brand.Editor.Presentation.Services;
+
 /// <summary>
 /// The user service implementation.
 /// </summary>

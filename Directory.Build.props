@@ -1,16 +1,16 @@
 <Project>
 
-	<PropertyGroup>
+	<PropertyGroup Label="Versioning">
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
 		<VersionPatch>$([System.DateTime]::UtcNow.ToString("MMdd"))</VersionPatch>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("0"))</VersionRevision>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</VersionPrefix>
-		<VersionSuffix Condition="'$(Configuration)'=='Debug'">Development</VersionSuffix>
 		<FileVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</FileVersion>
+		<VersionSuffix Condition="'$(Configuration)'=='Debug'">Development</VersionSuffix>
 	</PropertyGroup>
 
-	<PropertyGroup>
+	<PropertyGroup Label="Technical">
 		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>recommended</AnalysisMode>
@@ -22,9 +22,9 @@
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<NeutralLanguage>en-US</NeutralLanguage>
+		<LangVersion>latest</LangVersion>		
 		<Nullable>enable</Nullable>
+		<NeutralLanguage>en-US</NeutralLanguage>
 		<TargetFramework>net8.0-windows</TargetFramework>
 	</PropertyGroup>
 
@@ -33,15 +33,16 @@
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
-		<Authors>BoBoBaSs84</Authors>
-		<Company>https://github.com/BoBoBaSs84</Company>
-		<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) BoBoBaSs84</Copyright>
+	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))" Label="MetaData">
+		<Author>BoBoBaSs84</Author>
+		<Authors>$(Author)</Authors>
+		<Company>https://github.com/$(Author)</Company>
+		<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) $(Author)</Copyright>
 		<Description>...</Description>
 		<Product>SSRS.Brand.Editor</Product>
-		<Title>$(AssemblyName)</Title>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>http://www.github.com/BoBoBaSs84/SSRS.Brand.Editor</RepositoryUrl>
+		<RepositoryUrl>https://github.com/$(Author)/$(Product)</RepositoryUrl>
+		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
@@ -52,7 +53,13 @@
 
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
-		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
 	</ItemGroup>
+
+	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+		<Using Include="System.Diagnostics" />
+		<Using Include="System.Diagnostics.CodeAnalysis" />
+	</ItemGroup>	
 
 </Project>

@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using SSRS.Brand.Editor.Application.Installers;
 
-using SSRS.Brand.Editor.Application.Installer;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SSRS.Brand.Editor.Application.Tests.Installer;
+
 [TestClass]
-public class DependencyInjectionInstallerTests
+public sealed class DependencyInjectionInstallerTests : ApplicationTestBase
 {
 	[TestMethod]
 	public void RegisterApplicationServicesTest()
@@ -13,6 +14,6 @@ public class DependencyInjectionInstallerTests
 
 		services.RegisterApplicationServices();
 
-		Assert.AreEqual(3, services.Count);
+		Assert.AreEqual(4, services.Count);
 	}
 }

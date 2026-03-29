@@ -3,17 +3,15 @@
 using BB84.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Infrastructure.Common;
-using SSRS.Brand.Editor.Infrastructure.Providers;
 using SSRS.Brand.Editor.Infrastructure.Services;
 
 namespace SSRS.Brand.Editor.Infrastructure.Extensions;
+
 /// <summary>
 /// The infrastructure service collection extensions.
 /// </summary>
@@ -28,17 +26,23 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterLoggerService(this IServiceCollection services, IHostEnvironment environment)
 	{
-		services.TryAddSingleton(typeof(ILoggerService<>), typeof(LoggerService<>));
+		services.AddSingleton(typeof(ILoggerService<>), typeof(LoggerService<>));
 
-		services.AddLogging(config =>
+		services.AddLogging(configure =>
 		{
-			config.ClearProviders();
+			configure.ClearProviders();
 
 			if (environment.IsDevelopment())
-				config.AddConsole();
+			{
+				configure.SetMinimumLevel(LogLevel.Debug);
+				configure.AddConsole();
+			}
 
 			if (environment.IsProduction())
-				config.AddEventLog(config => config.SourceName = environment.ApplicationName);
+			{
+				configure.SetMinimumLevel(LogLevel.Error);
+				configure.AddEventLog(settings => settings.SourceName = environment.ApplicationName);
+			}
 		});
 
 		return services;
@@ -60,27 +64,13 @@ internal static class ServiceCollectionExtensions
 	}
 
 	/// <summary>
-	/// Registers the required infrastructure providers to the service collection.
-	/// </summary>
-	/// <param name="services">The service collection to enrich.</param>
-	/// <returns>The enriched service collection.</returns>
-	internal static IServiceCollection RegisterProviders(this IServiceCollection services)
-	{
-		services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-		services.AddSingleton<IDirectoryProvider, DirectoryProvider>();
-		services.AddSingleton<IFileProvider, FileProvider>();
-		services.AddSingleton<IPathProvider, PathProvider>();
-
-		return services;
-	}
-
-	/// <summary>
 	/// Registers the required infrastructure services to the service collection.
 	/// </summary>
 	/// <param name="services">The service collection to enrich.</param>
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterServices(this IServiceCollection services)
 	{
+		services.AddSingleton<IProviderService, ProviderService>();
 		services.AddSingleton<IWebService, WebService>();
 
 		return services;

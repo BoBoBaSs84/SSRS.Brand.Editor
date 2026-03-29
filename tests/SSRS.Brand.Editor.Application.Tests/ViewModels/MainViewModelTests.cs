@@ -1,29 +1,50 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using BB84.Notifications.Commands;
 
-using Moq;
-
+using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels;
 
+using Microsoft.Extensions.Hosting;
+
+using Moq;
+
 namespace SSRS.Brand.Editor.Application.Tests.ViewModels;
+
 [TestClass]
-public sealed class MainViewModelTests
+public sealed class MainViewModelTests : ApplicationTestBase
 {
-	[TestMethod]
-	public void ConstructorShouldSetPropertiesCorrect()
+	private readonly Mock<IHostEnvironment> _hostEnvironmentMock;
+	private readonly Mock<INavigationService> _navigationServiceMock;
+	private readonly Mock<IUserService> _userServiceMock;
+
+	public MainViewModelTests()
 	{
-		Mock<IHostEnvironment> hostEnvironmentMock = new();
-		hostEnvironmentMock.Setup(x => x.ApplicationName).Returns("TestApp");
-		hostEnvironmentMock.Setup(x => x.EnvironmentName).Returns("TestEnv");
-		Mock<IUserService> userServiceMock = new();
-		userServiceMock.Setup(x => x.Domain).Returns("TestDomain");
-		userServiceMock.Setup(x => x.Name).Returns("TestUser");
-		userServiceMock.Setup(x => x.Machine).Returns("TestMachine");
+		_hostEnvironmentMock = new();
+		_navigationServiceMock = new();
+		_userServiceMock = new();
+	}
 
-		MainViewModel viewModel = new(hostEnvironmentMock.Object, userServiceMock.Object);
+	[TestMethod]
+	public void MainViewModelConstructorShouldSetUpAllPropertiesCorrectly()
+	{
+		string expectedApplicationName = "TestApp";
+		string expectedEnvironmentName = "TestEnv";
+		string expectedDomainName = "TestDomain";
+		string expectedUserName = "TestUser";
+		string expectedMachineName = "TestMachine";
+		_hostEnvironmentMock.Setup(x => x.ApplicationName).Returns(expectedApplicationName);
+		_hostEnvironmentMock.Setup(x => x.EnvironmentName).Returns(expectedEnvironmentName);
+		_userServiceMock.Setup(x => x.Domain).Returns(expectedDomainName);
+		_userServiceMock.Setup(x => x.Name).Returns(expectedUserName);
+		_userServiceMock.Setup(x => x.Machine).Returns(expectedMachineName);
 
-		Assert.AreEqual("TestApp", viewModel.ApplicationName);
-		Assert.AreEqual("TestEnv", viewModel.EnvironmentName);
-		Assert.AreEqual("TestDomain\\TestUser@TestMachine", viewModel.CurrentUser);
+		MainViewModel viewModel = new(_hostEnvironmentMock.Object, _navigationServiceMock.Object, _userServiceMock.Object);
+
+		Assert.AreEqual(expectedApplicationName, viewModel.ApplicationName, "ApplicationName should be set correctly.");
+		Assert.AreEqual(expectedEnvironmentName, viewModel.EnvironmentName, "EnvironmentName should be set correctly.");
+		Assert.AreEqual($"{expectedDomainName}\\{expectedUserName}@{expectedMachineName}", viewModel.CurrentUser, "CurrentUser should be set correctly.");
+		Assert.AreEqual(_navigationServiceMock.Object, viewModel.NavigationService, "NavigationService should be set correctly.");
+		Assert.IsInstanceOfType<ActionCommand>(viewModel.AboutCommand, "AboutCommand should be of type ActionCommand.");
+		Assert.IsInstanceOfType<ActionCommand>(viewModel.ExitCommand, "ExitCommand should be of type ActionCommand.");
 	}
 }

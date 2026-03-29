@@ -2,14 +2,15 @@
 using SSRS.Brand.Editor.Domain.Models;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
+
 /// <summary>
-/// The view model for the about page.
+/// The about view model class.
 /// </summary>
-/// <param name="model">The about model instance to use.</param>
+/// <param name="model">The model instance to use.</param>
 public sealed class AboutViewModel(AboutModel model) : ViewModelBase
 {
 	/// <summary>
-	/// The model instance to use for the about page.
+	/// The model instance to use.
 	/// </summary>
 	public AboutModel Model => model;
 }

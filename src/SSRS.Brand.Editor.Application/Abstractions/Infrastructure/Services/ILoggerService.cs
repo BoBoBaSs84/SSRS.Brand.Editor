@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 namespace SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
+
 /// <summary>
 /// The logger service interface.
 /// </summary>

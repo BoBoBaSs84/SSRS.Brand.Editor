@@ -1,8 +1,9 @@
 ﻿using BB84.Notifications;
 
 namespace SSRS.Brand.Editor.Domain.Models.Base;
+
 /// <summary>
-/// The base class for all models.
+/// The model base class.
 /// </summary>
 public abstract class ModelBase : NotifiableObject
 { }
