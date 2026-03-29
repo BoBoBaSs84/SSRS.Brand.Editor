@@ -1,9 +1,9 @@
-﻿using SSRS.Brand.Editor.Infrastructure.Installers;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Moq;
+
+using SSRS.Brand.Editor.Infrastructure.Installers;
 
 namespace SSRS.Brand.Editor.Infrastructure.Tests.Installer;
 
@@ -27,7 +27,7 @@ public sealed class DependencyInjectionInstallerTests : InfrastructureTestBase
 
 		services.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
 
-		Assert.AreEqual(43, services.Count);
+		Assert.AreEqual(45, services.Count);
 	}
 
 	[TestMethod]
@@ -39,6 +39,6 @@ public sealed class DependencyInjectionInstallerTests : InfrastructureTestBase
 
 		services.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
 
-		Assert.AreEqual(31, services.Count);
+		Assert.AreEqual(33, services.Count);
 	}
 }

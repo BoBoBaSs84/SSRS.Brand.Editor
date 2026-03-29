@@ -70,6 +70,7 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterServices(this IServiceCollection services)
 	{
+		services.AddSingleton<IBrandPackageService, BrandPackageService>();
 		services.AddSingleton<IProviderService, ProviderService>();
 		services.AddSingleton<IWebService, WebService>();
 
