@@ -8,3 +8,5 @@
 [![Release](https://img.shields.io/github/v/release/BoBoBaSs84/SSRS.Brand.Editor)](https://github.com/BoBoBaSs84/SSRS.Brand.Editor/releases/latest)
 
 # SSRS.Brand.Editor
+
+The SSRS Brand Editor is a desktop application designed to simplify the process of customizing and managing branding for SQL Server Reporting Services (SSRS) portals. With an intuitive interface and powerful features, it allows users to easily create, edit, and apply brand packages that include logos, color schemes, and other visual elements to enhance the appearance of their SSRS portals. Whether you're looking to align your reporting environment with your organization's branding guidelines or simply want to give your SSRS portal a fresh new look, the SSRS Brand Editor provides the tools you need to achieve professional results with ease.

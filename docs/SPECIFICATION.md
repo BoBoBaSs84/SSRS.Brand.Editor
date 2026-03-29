@@ -234,9 +234,287 @@ Controls mobile report / chart theming:
 
 ---
 
-## 9. References
+## 9. Phase 4 — Presentation (Detailed UI Specification)
 
-- [Microsoft Docs � Brand the web portal](https://learn.microsoft.com/sql/reporting-services/branding-the-web-portal?view=sql-server-ver17)
-- [Microsoft GitHub � SSRS Branding Samples](https://github.com/microsoft/sql-server-samples/tree/master/samples/features/reporting-services/branding)
+The editor UI is split into two main areas: an **Editor Panel** (left) where the user modifies color values, metadata, and the logo, and a **Live Preview Panel** (right) that renders a simplified replica of the SSRS Web Portal, updating in real time as the user changes any color property. This gives the user a **WYSIWYG** experience.
+
+### 9.1 Overall Layout
+
+```
++------------------------------------------------------------------------------+
+|  Menu Bar: File (New, Open, Save, Save As, Close, Quit) | Help (About)      |
++---------------------------------+--------------------------------------------+
+|  EDITOR PANEL (left, ~400 px)   |  LIVE PREVIEW PANEL (right, fills rest)    |
+|                                 |                                            |
+|  +---------------------------+  |  +----------------------------------------+|
+|  |  Tab: Metadata            |  |  |  Portal Title Bar                     ||
+|  |  Tab: Interface           |  |  |  Search Bar                           ||
+|  |  Tab: Theme               |  |  |  Content Tiles                        ||
+|  |  Tab: Logo                |  |  |  Status Messages                      ||
+|  +---------------------------+  |  |  KPI Indicators                       ||
+|                                 |  +----------------------------------------+|
++---------------------------------+--------------------------------------------+
+|  Status Bar: file path | user | environment                                  |
++------------------------------------------------------------------------------+
+```
+
+- The **Editor Panel** uses a `TabControl` with four tabs.
+- The **Live Preview Panel** is a read-only, non-interactive mock-up of the SSRS Web Portal that reflects the current color values.
+- A `GridSplitter` between the two panels allows resizing.
+- When no brand package is loaded, both panels show a centered welcome message with "New" / "Open" buttons.
+
+### 9.2 Menu Bar
+
+The existing `MainWindow.xaml` menu bar is extended:
+
+| Menu  | Item             | Command binding                       | Shortcut        | Enabled when   |
+| ----- | ---------------- | ------------------------------------- | --------------- | -------------- |
+| File  | **New**          | `BrandEditor.NewCommand`              | `Ctrl+N`        | Always         |
+| File  | **Open...**      | `BrandEditor.OpenCommand`             | `Ctrl+O`        | Always         |
+| File  | ---              |                                       |                 |                |
+| File  | **Save**         | `BrandEditor.SaveCommand`             | `Ctrl+S`        | `HasPackage`   |
+| File  | **Save As...**   | `BrandEditor.SaveAsCommand`           | `Ctrl+Shift+S`  | `HasPackage`   |
+| File  | ---              |                                       |                 |                |
+| File  | **Close**        | `BrandEditor.CloseCommand`            |                 | `HasPackage`   |
+| File  | ---              |                                       |                 |                |
+| File  | **Quit**         | `ExitCommand`                         | `Alt+F4`        | Always         |
+| Help  | **About**        | `AboutCommand`                        |                 | Always         |
+
+### 9.3 Editor Panel — Tab Details
+
+#### 9.3.1 Metadata Tab
+
+A simple form layout:
+
+| Control       | Binding                          | Notes                                      |
+| ------------- | -------------------------------- | ------------------------------------------ |
+| TextBox       | `Metadata.Name`                  | Editable brand name.                       |
+| TextBlock     | `Metadata.Version`               | Read-only, displays `"2.0.2"`.             |
+| TextBlock     | `MetadataModel.PackageType`      | Read-only, displays `"UniversalBrand"`.    |
+| CheckBox      | `Metadata.HasLogo`               | Read-only indicator (driven by Logo tab).  |
+
+#### 9.3.2 Interface Colors Tab
+
+Uses a `ScrollViewer` containing grouped `Expander` controls, one per color group. Each expander holds a vertical list of **Color Editor Rows**.
+
+**Color Editor Row** (reusable `DataTemplate` or `UserControl`):
+
+```
++------------------------------------------------------+
+|  [#] color swatch (24x24)  |  Label  |  #RRGGBB hex |
++------------------------------------------------------+
+```
+
+- The **color swatch** is a small `Rectangle` filled with the current color.
+- Clicking the swatch or the hex text opens a **color picker popup** (see 9.5).
+- The hex `TextBox` supports direct text entry and validates on loss of focus.
+
+**Expander groups** (one per section from 3.2.1):
+
+| Expander Header      | Color properties                                                                                                   |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Primary              | `Primary`, `PrimaryAlt`, `PrimaryAlt2`, `PrimaryAlt3`, `PrimaryAlt4`, `PrimaryContrast`                           |
+| Secondary            | `Secondary`, `SecondaryAlt`, `SecondaryAlt2`, `SecondaryAlt3`, `SecondaryContrast`                                 |
+| Neutral Primary      | `NeutralPrimary`, `NeutralPrimaryAlt`, `NeutralPrimaryAlt2`, `NeutralPrimaryAlt3`, `NeutralPrimaryContrast`        |
+| Neutral Secondary    | `NeutralSecondary`, `NeutralSecondaryAlt`, `NeutralSecondaryAlt2`, `NeutralSecondaryAlt3`, `NeutralSecondaryContrast` |
+| Neutral Tertiary     | `NeutralTertiary`, `NeutralTertiaryAlt`, `NeutralTertiaryAlt2`, `NeutralTertiaryAlt3`, `NeutralTertiaryContrast`   |
+| Status               | `Danger`, `Success`, `Warning`, `Info` + `*Contrast` variants                                                      |
+| KPI                  | `KpiGood`, `KpiBad`, `KpiNeutral`, `KpiNone` + `*Contrast` variants                                               |
+| Icons                | `ItemTypeIconColor`, `ReportIconBackground`, `ExcelIconBackground`, `FolderIconBackground`, `DatasetIconBackground`, `OtherIconBackground` |
+| Buttons              | `PrimaryButton`, `PrimaryButtonHover`, `PrimaryButtonPressed`                                                      |
+| Links                | `Link`, `LinkHover`, `LinkVisited`                                                                                 |
+| Controls             | `RadioButtonCheckBox`, `RadioButtonCheckBoxHover`                                                                  |
+
+#### 9.3.3 Theme Colors Tab
+
+Same layout pattern as Interface Colors, with these expanders:
+
+| Expander Header | Color properties                                                                                          |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| Data Points     | Dynamic list with Add/Remove buttons. Each row is a Color Editor Row.                                     |
+| Status          | `Good`, `Bad`, `Neutral`, `None`                                                                          |
+| Standard        | `Background`, `Foreground`, `MapBase`, `PanelBackground`, `PanelForeground`, `PanelAccent`, `TableAccent` |
+| Alt             | `AltBackground`, `AltForeground`, `AltMapBase`, `AltPanelBackground`, `AltPanelForeground`, `AltPanelAccent`, `AltTableAccent` |
+
+The **Data Points** expander has a toolbar row above the color list:
+
+```
+[ + Add ] [ - Remove ]           (3 of 12 data points)
+```
+
+#### 9.3.4 Logo Tab
+
+| Control        | Binding / Command                   | Notes                                             |
+| -------------- | ----------------------------------- | ------------------------------------------------- |
+| Image          | `LogoViewModel.LogoBytes`           | Preview at approximately 290 x 60 px.             |
+| Label          | "(No logo selected)"                | Shown when `HasLogo` is `false`.                  |
+| Button Browse  | `LogoViewModel.BrowseCommand`       | Opens file dialog filtered to `*.png`.            |
+| Button Remove  | `LogoViewModel.RemoveCommand`       | Enabled only when `HasLogo` is `true`.            |
+
+### 9.4 Live Preview Panel — SSRS Portal Mock-Up
+
+The preview is a read-only WPF rendering of a simplified SSRS Web Portal page. All elements are **non-interactive** (no click handlers) — they exist purely to visualize how the brand colors will look when deployed. Every shape/text element is data-bound to the matching color property so updates are instant.
+
+#### 9.4.1 Portal Structure (top to bottom)
+
+```
++-------------------------------------------------------------+
+| +- Title Bar -----------------------------------------------+
+| |  [Logo / Brand Name]          [Search]    [Gear icon]     |
+| |  background: secondary                                    |
+| |  text: secondaryContrast                                  |
+| +-----------------------------------------------------------+
+| +- Breadcrumb Bar ------------------------------------------+
+| |  Home > Sample Folder                                     |
+| |  background: neutralPrimaryAlt                            |
+| |  text: neutralPrimaryContrast / link colors               |
+| +-----------------------------------------------------------+
+| +- Content Area ---------------------------------------------+
+| |  background: neutralPrimary                                |
+| |                                                            |
+| |  +------+  +------+  +------+  +------+  +------+        |
+| |  |Report|  |Report|  |Excel |  |Folder|  |Data  |        |
+| |  | icon |  | icon |  | icon |  | icon |  | set  |        |
+| |  |  bg  |  |  bg  |  |  bg  |  |  bg  |  | icon |        |
+| |  +------+  +------+  +------+  +------+  +------+        |
+| |  | name |  | name |  | name |  | name |  | name |        |
+| |  +------+  +------+  +------+  +------+  +------+        |
+| |                                                            |
+| |  [ Primary Button ]  [ Link Example ]                     |
+| |                                                            |
+| |  +- Status Messages -------------------------------------+ |
+| |  |  OK Success   /!\ Warning   X Danger   (i) Info      | |
+| |  +-------------------------------------------------------+ |
+| |                                                            |
+| |  +- KPI Row ---------------------------------------------+ |
+| |  |  * Good   * Bad   * Neutral   * None                 | |
+| |  +-------------------------------------------------------+ |
+| +------------------------------------------------------------+
+| +- Settings Bar (Neutral Tertiary) -------------------------+
+| |  background: neutralTertiary                               |
+| |  text: neutralTertiaryContrast                             |
+| +------------------------------------------------------------+
++-------------------------------------------------------------+
+```
+
+#### 9.4.2 Color Mapping — Preview Element to `colors.json` Property
+
+| Preview Element                  | Background Color           | Foreground / Text Color     |
+| -------------------------------- | -------------------------- | --------------------------- |
+| **Title Bar**                    | `secondary`                | `secondaryContrast`         |
+| Title Bar hover accent           | `secondaryAlt`             |                             |
+| **Search Box background**        | `secondaryAlt2`            | `secondaryAlt3`             |
+| **Logo / Brand Name**            | _(logo image or text)_     | `secondaryContrast`         |
+| **Breadcrumb / Nav Bar**         | `neutralPrimaryAlt`        | `neutralPrimaryContrast`    |
+| Breadcrumb links                 | ---                        | `link` / `linkHover`        |
+| **Content Area**                 | `neutralPrimary`           | `neutralPrimaryContrast`    |
+| Content Area alternating rows    | `neutralPrimaryAlt2`       |                             |
+| **Report Icon tile**             | `reportIconBackground`     | `itemTypeIconColor`         |
+| **Excel Icon tile**              | `excelIconBackground`      | `itemTypeIconColor`         |
+| **Folder Icon tile**             | `folderIconBackground`     | `itemTypeIconColor`         |
+| **Dataset Icon tile**            | `datasetIconBackground`    | `itemTypeIconColor`         |
+| **Other Icon tile**              | `otherIconBackground`      | `itemTypeIconColor`         |
+| **Primary Button**               | `primaryButton`            | `primaryContrast`           |
+| Primary Button (hover state)     | `primaryButtonHover`       | `primaryContrast`           |
+| Primary Button (pressed state)   | `primaryButtonPressed`     | `primaryContrast`           |
+| **Hyperlinks**                   | ---                        | `link`                      |
+| Hyperlink (hover)                | ---                        | `linkHover`                 |
+| Hyperlink (visited)              | ---                        | `linkVisited`               |
+| **Success message bar**          | `success`                  | `successContrast`           |
+| **Warning message bar**          | `warning`                  | `warningContrast`           |
+| **Danger message bar**           | `danger`                   | `dangerContrast`            |
+| **Info message bar**             | `info`                     | `infoContrast`              |
+| **KPI Good indicator**           | `kpiGood`                  | `kpiGoodContrast`           |
+| **KPI Bad indicator**            | `kpiBad`                   | `kpiBadContrast`            |
+| **KPI Neutral indicator**        | `kpiNeutral`               | `kpiNeutralContrast`        |
+| **KPI None indicator**           | `kpiNone`                  | `kpiNoneContrast`           |
+| **Text Box / Folder options bg** | `neutralSecondary`         | `neutralSecondaryContrast`  |
+| Text Box border / secondary bg   | `neutralSecondaryAlt`      |                             |
+| **Settings area**                | `neutralTertiary`          | `neutralTertiaryContrast`   |
+| Settings area alt backgrounds    | `neutralTertiaryAlt` / `neutralTertiaryAlt2` / `neutralTertiaryAlt3` |  |
+| **Radio / Checkbox accent**      | `radioButtonCheckBox`      |                             |
+| Radio / Checkbox hover           | `radioButtonCheckBoxHover` |                             |
+| **`primary` accent**             | `primary`                  | `primaryContrast`           |
+| Primary hover tones              | `primaryAlt` / `primaryAlt2` / `primaryAlt3` / `primaryAlt4` |       |
+
+#### 9.4.3 Preview — Tile Items
+
+The content area shows 5 mock report/folder tiles in a horizontal `WrapPanel`:
+
+| Tile               | Icon Symbol  | Background Property       |
+| ------------------ | ------------ | ------------------------- |
+| "Sales Report"     | (report)     | `reportIconBackground`    |
+| "Monthly Summary"  | (report)     | `reportIconBackground`    |
+| "Budget.xlsx"      | (excel)      | `excelIconBackground`     |
+| "Finance"          | (folder)     | `folderIconBackground`    |
+| "Customer Dataset" | (dataset)    | `datasetIconBackground`   |
+
+Each tile is a `Border` with the icon background color, containing a centered glyph/text in `itemTypeIconColor`, with the item name label below in `neutralPrimaryContrast`.
+
+### 9.5 Color Picker Control
+
+Each color editor row, when clicked, opens a color picker. We use a simple **inline popup** approach rather than a separate window:
+
+- A `Popup` with `StaysOpen="False"` anchored next to the clicked swatch.
+- Contents: a hue/saturation rectangle, a brightness slider, and an RGB hex `TextBox`.
+- Closing the popup commits the color change immediately (the model is already two-way bound).
+
+> **Implementation note:** To avoid adding a third-party NuGet dependency, a minimal custom `ColorPickerPopup` user control will be implemented. If a suitable lightweight open-source WPF color picker exists and is well-maintained, it may be used instead — but this decision is deferred to implementation time.
+
+### 9.6 WPF Control Inventory
+
+| UserControl / File                  | ViewModel binding            | Purpose                                            |
+| ----------------------------------- | ---------------------------- | -------------------------------------------------- |
+| `BrandEditorControl.xaml`           | `BrandEditorViewModel`       | Top-level split: Editor Panel + Preview Panel.     |
+| `MetadataEditorControl.xaml`        | `MetadataViewModel`          | Metadata tab content.                              |
+| `InterfaceColorsEditorControl.xaml` | `InterfaceColorsViewModel`   | Interface Colors tab with grouped expanders.       |
+| `ThemeColorsEditorControl.xaml`     | `ThemeColorsViewModel`       | Theme Colors tab with grouped expanders.           |
+| `LogoEditorControl.xaml`            | `LogoViewModel`              | Logo tab with preview, browse, remove.             |
+| `PortalPreviewControl.xaml`         | `BrandEditorViewModel`       | SSRS portal WYSIWYG mock-up (read-only).           |
+| `ColorEditorRow.xaml`               | _(DataTemplate)_             | Reusable: swatch + label + hex input.              |
+| `ColorPickerPopup.xaml`             | _(standalone)_               | Hue/saturation picker + hex entry.                 |
+
+### 9.7 Data Template Wiring (ViewModel to View)
+
+The existing `NavigationService` resolves views via `DataTemplate` in XAML resource dictionaries. The `BrandEditorViewModel` is rendered by `BrandEditorControl`. The child ViewModels are embedded directly inside the tab content areas (not via navigation), since they are always visible simultaneously.
+
+```xml
+<!-- App-level or Window-level Resources -->
+<DataTemplate DataType="{x:Type vm:BrandEditorViewModel}">
+    <controls:BrandEditorControl />
+</DataTemplate>
+<DataTemplate DataType="{x:Type vm:AboutViewModel}">
+    <controls:AboutControl />
+</DataTemplate>
+```
+
+### 9.8 Converters Required
+
+| Converter                           | Input to Output                              | Purpose                                           |
+| ----------------------------------- | -------------------------------------------- | ------------------------------------------------- |
+| `DrawingColorToBrushConverter`      | `System.Drawing.Color` to `SolidColorBrush`  | Binds domain model colors to WPF fill/background. |
+| `DrawingColorToMediaColorConverter` | `System.Drawing.Color` to `Media.Color`       | For color picker binding.                         |
+| `ByteArrayToImageSourceConverter`   | `byte[]` to `BitmapImage`                     | Displays logo preview from raw bytes.             |
+| `BoolToVisibilityConverter`         | `bool` to `Visibility`                        | Shows/hides elements based on `HasPackage`, etc.  |
+| `InverseBoolToVisibilityConverter`  | `bool` to `Visibility` (inverted)             | Shows welcome screen when no package loaded.      |
+
+### 9.9 Keyboard Shortcuts
+
+| Shortcut       | Action     |
+| -------------- | ---------- |
+| `Ctrl+N`       | New        |
+| `Ctrl+O`       | Open       |
+| `Ctrl+S`       | Save       |
+| `Ctrl+Shift+S` | Save As    |
+
+Implemented as `InputBinding` / `KeyBinding` on the `MainWindow`.
+
+---
+
+## 10. References
+
+- [Microsoft Docs -- Brand the web portal](https://learn.microsoft.com/sql/reporting-services/branding-the-web-portal?view=sql-server-ver17)
+- [Microsoft Docs -- What is the report server web portal](https://learn.microsoft.com/sql/reporting-services/web-portal-ssrs-native-mode?view=sql-server-ver17)
+- [Microsoft GitHub -- SSRS Branding Samples](https://github.com/microsoft/sql-server-samples/tree/master/samples/features/reporting-services/branding)
 - [BB84.Notifications NuGet](https://www.nuget.org/packages/BB84.Notifications)
 - [BB84.Extensions NuGet](https://www.nuget.org/packages/BB84.Extensions)
