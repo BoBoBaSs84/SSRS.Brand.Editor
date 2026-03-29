@@ -6,6 +6,11 @@
 						 Startup="Application_Startup"
 						 Exit="Application_Exit">
 	<Application.Resources>
+		<DropShadowEffect x:Key="CardShadow"
+											BlurRadius="20"
+											ShadowDepth="2"
+											Opacity="0.15"
+											Color="Black" />
 		<DataTemplate DataType="{x:Type TypeName=vm:AboutViewModel}">
 			<v:AboutControl />
 		</DataTemplate>

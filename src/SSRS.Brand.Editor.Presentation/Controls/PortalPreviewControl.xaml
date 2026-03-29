@@ -26,7 +26,7 @@
                 Padding="12,8">
 					<DockPanel>
 						<!-- Logo or brand name -->
-						<Image Source="{Binding Logo, Converter={StaticResource BytesToImage}}"
+						<Image Source="{Binding Model.Logo, Converter={StaticResource BytesToImage}}"
                    MaxHeight="30"
                    Stretch="Uniform"
                    DockPanel.Dock="Left"

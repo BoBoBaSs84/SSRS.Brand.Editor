@@ -78,4 +78,27 @@ public sealed class MetadataModelTests
 		Assert.IsFalse(string.IsNullOrWhiteSpace(MetadataModel.ColorsPath));
 		Assert.IsFalse(string.IsNullOrWhiteSpace(MetadataModel.LogoPath));
 	}
+
+	[TestMethod]
+	public void NameShouldHaveValidationErrorWhenEmpty()
+	{
+		MetadataModel model = new() { Name = "Valid Brand" };
+
+		model.Name = string.Empty;
+
+		Assert.IsTrue(model.HasErrors);
+		Assert.IsFalse(model.IsValid);
+	}
+
+	[TestMethod]
+	public void NameShouldNotHaveValidationErrorWhenSet()
+	{
+		MetadataModel model = new()
+		{
+			Name = "Valid Brand"
+		};
+
+		Assert.IsFalse(model.HasErrors);
+		Assert.IsTrue(model.IsValid);
+	}
 }

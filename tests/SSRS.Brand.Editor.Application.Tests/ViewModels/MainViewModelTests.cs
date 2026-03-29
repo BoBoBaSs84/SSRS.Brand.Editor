@@ -28,6 +28,7 @@ public sealed class MainViewModelTests : ApplicationTestBase
 			new Mock<IBrandPackageService>().Object,
 			new Mock<IFileDialogService>().Object,
 			new Mock<IProviderService>().Object,
+			new Mock<INavigationService>().Object,
 			new Mock<INotificationService>().Object,
 			new Mock<ILoggerService<BrandEditorViewModel>>().Object);
 	}

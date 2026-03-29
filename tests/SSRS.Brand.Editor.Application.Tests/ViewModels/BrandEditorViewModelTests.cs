@@ -1,5 +1,9 @@
+using System.Drawing;
+using System.Windows;
+
 using Moq;
 
+using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
@@ -14,6 +18,7 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 	private readonly Mock<IBrandPackageService> _brandPackageServiceMock = new();
 	private readonly Mock<IFileDialogService> _fileDialogServiceMock = new();
 	private readonly Mock<IProviderService> _providerServiceMock = new();
+	private readonly Mock<INavigationService> _navigationServiceMock = new();
 	private readonly Mock<INotificationService> _notificationServiceMock = new();
 	private readonly Mock<ILoggerService<BrandEditorViewModel>> _loggerServiceMock = new();
 
@@ -23,7 +28,7 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 		_providerServiceMock.Setup(x => x.File)
 			.Returns(fileProviderMock.Object);
 
-		return new(_brandPackageServiceMock.Object, _fileDialogServiceMock.Object, _providerServiceMock.Object, _notificationServiceMock.Object, _loggerServiceMock.Object);
+		return new(_brandPackageServiceMock.Object, _fileDialogServiceMock.Object, _providerServiceMock.Object, _navigationServiceMock.Object, _notificationServiceMock.Object, _loggerServiceMock.Object);
 	}
 
 	[TestMethod]
@@ -55,6 +60,7 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 		Assert.IsNotNull(viewModel.InterfaceColorsViewModel);
 		Assert.IsNotNull(viewModel.ThemeColorsViewModel);
 		Assert.IsNotNull(viewModel.LogoViewModel);
+		_navigationServiceMock.Verify(x => x.NavigateTo<BrandEditorViewModel>(), Times.Once);
 	}
 
 	[TestMethod]
@@ -92,6 +98,7 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 		Assert.IsTrue(viewModel.HasPackage);
 		Assert.AreEqual("Loaded Brand", viewModel.Model!.Metadata.Name);
 		Assert.AreEqual("test.zip", viewModel.CurrentFilePath);
+		_navigationServiceMock.Verify(x => x.NavigateTo<BrandEditorViewModel>(), Times.Once);
 	}
 
 	[TestMethod]
@@ -163,5 +170,106 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 		Assert.Contains(nameof(BrandEditorViewModel.InterfaceColorsViewModel), changedProperties);
 		Assert.Contains(nameof(BrandEditorViewModel.ThemeColorsViewModel), changedProperties);
 		Assert.Contains(nameof(BrandEditorViewModel.LogoViewModel), changedProperties);
+	}
+
+	[TestMethod]
+	public void NewCommandShouldPopulateDefaultColors()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+
+		viewModel.NewCommand.Execute(null);
+
+		Assert.IsNotNull(viewModel.Model);
+		Assert.AreNotEqual(Color.Empty, viewModel.Model.ColorScheme.Interface.Primary);
+		Assert.AreNotEqual(Color.Empty, viewModel.Model.ColorScheme.Interface.Secondary);
+		Assert.AreNotEqual(Color.Empty, viewModel.Model.ColorScheme.Interface.NeutralPrimary);
+		Assert.AreNotEqual(Color.Empty, viewModel.Model.ColorScheme.Theme.Good);
+		Assert.AreNotEqual(Color.Empty, viewModel.Model.ColorScheme.Theme.Bad);
+		Assert.IsNotEmpty(viewModel.Model.ColorScheme.Theme.DataPoints);
+	}
+
+	[TestMethod]
+	public void NewCommandShouldNotBeDirty()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+
+		viewModel.NewCommand.Execute(null);
+
+		Assert.IsFalse(viewModel.IsDirty);
+	}
+
+	[TestMethod]
+	public void IsDirtyShouldBeTrueAfterModelPropertyChange()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+		viewModel.NewCommand.Execute(null);
+
+		Assert.IsFalse(viewModel.IsDirty);
+
+		viewModel.Model!.Metadata.Name = "Changed Name";
+
+		Assert.IsTrue(viewModel.IsDirty);
+	}
+
+	[TestMethod]
+	public async Task SaveCommandShouldClearIsDirty()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+		viewModel.NewCommand.Execute(null);
+		viewModel.Model!.Metadata.Name = "Changed";
+		_fileDialogServiceMock.Setup(x => x.ShowSaveFileDialog(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+			.Returns("test.zip");
+
+		Assert.IsTrue(viewModel.IsDirty);
+
+		await viewModel.SaveCommand.ExecuteAsync();
+
+		Assert.IsFalse(viewModel.IsDirty);
+	}
+
+	[TestMethod]
+	public void CloseCommandShouldPromptWhenDirty()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+		viewModel.NewCommand.Execute(null);
+		viewModel.Model!.Metadata.Name = "Changed";
+		_notificationServiceMock.Setup(x => x.ShowQuestion(It.IsAny<string>()))
+			.Returns(MessageBoxResult.No);
+
+		Assert.IsTrue(viewModel.IsDirty);
+
+		viewModel.CloseCommand.Execute(null);
+
+		Assert.IsTrue(viewModel.HasPackage, "Package should still be loaded when user declines.");
+		_notificationServiceMock.Verify(x => x.ShowQuestion(It.IsAny<string>()), Times.Once);
+	}
+
+	[TestMethod]
+	public void CloseCommandShouldCloseWhenDirtyAndUserConfirms()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+		viewModel.NewCommand.Execute(null);
+		viewModel.Model!.Metadata.Name = "Changed";
+		_notificationServiceMock.Setup(x => x.ShowQuestion(It.IsAny<string>()))
+			.Returns(MessageBoxResult.Yes);
+
+		viewModel.CloseCommand.Execute(null);
+
+		Assert.IsFalse(viewModel.HasPackage);
+	}
+
+	[TestMethod]
+	public void NewCommandShouldPromptWhenCurrentPackageIsDirty()
+	{
+		BrandEditorViewModel viewModel = CreateViewModel();
+		viewModel.NewCommand.Execute(null);
+		viewModel.Model!.Metadata.Name = "Changed";
+		_notificationServiceMock.Setup(x => x.ShowQuestion(It.IsAny<string>()))
+			.Returns(MessageBoxResult.No);
+
+		string? originalName = viewModel.Model.Metadata.Name;
+		viewModel.NewCommand.Execute(null);
+
+		Assert.AreEqual(originalName, viewModel.Model!.Metadata.Name, "Model should remain unchanged when user declines.");
 	}
 }

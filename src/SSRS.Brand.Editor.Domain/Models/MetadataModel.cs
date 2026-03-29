@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 using SSRS.Brand.Editor.Domain.Models.Base;
 
 namespace SSRS.Brand.Editor.Domain.Models;
@@ -39,10 +41,12 @@ public sealed class MetadataModel : ValidatableModelBase
 	/// <summary>
 	/// The display name of the brand package.
 	/// </summary>
+	[Required(ErrorMessage = "Brand name must not be empty.")]
+	[MinLength(1, ErrorMessage = "Brand name must not be empty.")]
 	public string Name
 	{
 		get => _name;
-		set => SetProperty(ref _name, value);
+		set => SetPropertyAndValidate(ref _name, value);
 	}
 
 	/// <summary>

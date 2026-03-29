@@ -8,6 +8,33 @@
 						 d:DataContext="{d:DesignInstance Type=vm:MetadataViewModel}"
 						 d:Background="WhiteSmoke"
 						 d:Width="380">
+	<UserControl.Resources>
+		<Style x:Key="ValidationTextBox"
+					 TargetType="TextBox">
+			<Setter Property="Validation.ErrorTemplate">
+				<Setter.Value>
+					<ControlTemplate>
+						<StackPanel>
+							<AdornedElementPlaceholder />
+							<TextBlock Foreground="#D32F2F"
+												 FontSize="11"
+												 Margin="2,2,0,0"
+												 Text="{Binding [0].ErrorContent}" />
+						</StackPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers>
+				<Trigger Property="Validation.HasError"
+								 Value="True">
+					<Setter Property="BorderBrush"
+									Value="#D32F2F" />
+					<Setter Property="ToolTip"
+									Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</UserControl.Resources>
 	<ScrollViewer VerticalScrollBarVisibility="Auto"
 								Padding="8">
 		<StackPanel Margin="8">
@@ -19,8 +46,9 @@
 			<TextBlock Text="Name"
 								 FontWeight="SemiBold"
 								 Margin="0,0,0,4" />
-			<TextBox Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}"
-							 Margin="0,0,0,12" />
+			<TextBox Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+							 Style="{StaticResource ValidationTextBox}"
+							 Margin="0,0,0,16" />
 
 			<TextBlock Text="Version"
 								 FontWeight="SemiBold"

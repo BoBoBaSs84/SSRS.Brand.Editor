@@ -6,49 +6,105 @@
 						 xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
 						 d:DataContext="{d:DesignInstance Type=vm:AboutViewModel}"
 						 mc:Ignorable="d"
-						 d:Background="WhiteSmoke"
-						 d:Height="400"
-						 d:Width="640">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="25" />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition Width="25" />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="25" />
-			<RowDefinition />
-			<RowDefinition Height="25" />
-		</Grid.RowDefinitions>
-		<Image Grid.Column="1"
-					 Grid.Row="1" />
-		<DockPanel Grid.Column="2"
-							 Grid.Row="1"
-							 Grid.ColumnSpan="2">
-			<StackPanel>
-				<Label Content="Title:" />
-				<Label Content="{Binding Model.Title}"
-							 HorizontalAlignment="Center"
-							 FontSize="14" />
-				<Label Content="Version:" />
-				<Label Content="{Binding Model.Version}"
-							 HorizontalAlignment="Center"
-							 FontSize="14" />
-				<Label Content="Description:" />
-				<Label Content="{Binding Model.Comments}"
-							 HorizontalAlignment="Center"
-							 FontSize="14" />
-				<Label Content="Company:" />
-				<Label Content="{Binding Model.Company}"
-							 HorizontalAlignment="Center"
-							 FontSize="14" />
-				<Label Content="Copyright:" />
-				<Label Content="{Binding Model.Copyright}"
-							 HorizontalAlignment="Center"
-							 FontSize="14" />
-			</StackPanel>
-		</DockPanel>
+						 d:Background="#F0F0F0"
+						 d:Height="500"
+						 d:Width="700">
+	<UserControl.Resources>
+		<Style x:Key="InfoLabel"
+					 TargetType="TextBlock">
+			<Setter Property="FontSize"
+							Value="12" />
+			<Setter Property="Foreground"
+							Value="#888" />
+			<Setter Property="Margin"
+							Value="0,0,0,2" />
+		</Style>
+		<Style x:Key="InfoValue"
+					 TargetType="TextBlock">
+			<Setter Property="FontSize"
+							Value="13" />
+			<Setter Property="Foreground"
+							Value="#222" />
+			<Setter Property="Margin"
+							Value="0,0,0,12" />
+			<Setter Property="TextWrapping"
+							Value="Wrap" />
+		</Style>
+	</UserControl.Resources>
+
+	<Grid HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				MaxWidth="480">
+		<!-- Card -->
+		<Border Background="White"
+						CornerRadius="6"
+						Effect="{StaticResource CardShadow}">
+			<DockPanel>
+				<!-- Header banner -->
+				<Border DockPanel.Dock="Top"
+								Background="#1A1A2E"
+								CornerRadius="6,6,0,0"
+								Padding="28,24">
+					<StackPanel HorizontalAlignment="Center">
+						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/Help_About.ico"
+									 Width="48"
+									 Height="48"
+									 RenderOptions.BitmapScalingMode="HighQuality"
+									 HorizontalAlignment="Center"
+									 Margin="0,0,0,12" />
+						<TextBlock Text="{Binding Model.Title}"
+											 FontSize="22"
+											 FontWeight="SemiBold"
+											 Foreground="White"
+											 HorizontalAlignment="Center" />
+						<TextBlock FontSize="13"
+											 Foreground="#AAB"
+											 HorizontalAlignment="Center"
+											 Margin="0,4,0,0">
+							<Run Text="Version" />
+							<Run Text="{Binding Model.Version, Mode=OneWay}" />
+						</TextBlock>
+					</StackPanel>
+				</Border>
+
+				<!-- Body -->
+				<StackPanel Margin="28,20,28,24">
+					<!-- Description -->
+					<TextBlock Text="{Binding Model.Comments}"
+										 Style="{StaticResource InfoValue}"
+										 FontSize="13"
+										 Foreground="#555"
+										 TextAlignment="Center"
+										 Margin="0,0,0,16" />
+
+					<Separator Margin="0,0,0,16" />
+
+					<!-- Info grid -->
+					<TextBlock Text="COMPANY"
+										 Style="{StaticResource InfoLabel}" />
+					<TextBlock Text="{Binding Model.Company}"
+										 Style="{StaticResource InfoValue}" />
+
+					<TextBlock Text="COPYRIGHT"
+										 Style="{StaticResource InfoLabel}" />
+					<TextBlock Text="{Binding Model.Copyright}"
+										 Style="{StaticResource InfoValue}" />
+
+					<TextBlock Text="FRAMEWORK"
+										 Style="{StaticResource InfoLabel}" />
+					<TextBlock Text="{Binding Model.FrameworkName}"
+										 Style="{StaticResource InfoValue}" />
+
+					<TextBlock Text="REPOSITORY"
+										 Style="{StaticResource InfoLabel}" />
+					<TextBlock Margin="0,0,0,12">
+						<Hyperlink NavigateUri="{Binding Model.Repository}"
+											 RequestNavigate="Hyperlink_RequestNavigate">
+							<Run Text="{Binding Model.Repository, Mode=OneWay}" />
+						</Hyperlink>
+					</TextBlock>
+				</StackPanel>
+			</DockPanel>
+		</Border>
 	</Grid>
 </UserControl>
