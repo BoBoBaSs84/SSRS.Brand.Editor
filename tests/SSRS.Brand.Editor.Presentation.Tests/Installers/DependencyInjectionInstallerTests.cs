@@ -1,6 +1,6 @@
-﻿using SSRS.Brand.Editor.Presentation.Installers;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+using SSRS.Brand.Editor.Presentation.Installers;
 
 namespace SSRS.Brand.Editor.Presentation.Tests.Installers;
 
@@ -14,6 +14,6 @@ public sealed class DependencyInjectionInstallerTests : PresentationTestBase
 
 		services.RegisterPresentationServices();
 
-		Assert.AreEqual(4, services.Count, "Expected 3 services to be registered.");
+		Assert.AreEqual(5, services.Count);
 	}
 }

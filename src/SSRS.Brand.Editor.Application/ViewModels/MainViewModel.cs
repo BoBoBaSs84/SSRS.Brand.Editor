@@ -1,11 +1,11 @@
 ﻿using BB84.Notifications.Commands;
 using BB84.Notifications.Interfaces.Commands;
 
+using Microsoft.Extensions.Hosting;
+
 using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels.Base;
-
-using Microsoft.Extensions.Hosting;
 
 namespace SSRS.Brand.Editor.Application.ViewModels;
 
@@ -15,7 +15,8 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// <param name="hostEnvironment">The host environment instance to use.</param>
 /// <param name="navigationService">The navigation service instance to use.</param>
 /// <param name="userService">The user service instance to use.</param>
-public sealed class MainViewModel(IHostEnvironment hostEnvironment, INavigationService navigationService, IUserService userService) : ViewModelBase
+/// <param name="brandEditorViewModel">The brand editor view model instance to use.</param>
+public sealed class MainViewModel(IHostEnvironment hostEnvironment, INavigationService navigationService, IUserService userService, BrandEditorViewModel brandEditorViewModel) : ViewModelBase
 {
 	private IActionCommand? _aboutCommand;
 	private IActionCommand? _exitCommand;
@@ -34,6 +35,11 @@ public sealed class MainViewModel(IHostEnvironment hostEnvironment, INavigationS
 	/// The navigation service instance.
 	/// </summary>
 	public INavigationService NavigationService => navigationService;
+
+	/// <summary>
+	/// The brand editor view model instance.
+	/// </summary>
+	public BrandEditorViewModel BrandEditor => brandEditorViewModel;
 
 	/// <summary>
 	/// The current user.

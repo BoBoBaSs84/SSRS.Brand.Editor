@@ -54,6 +54,7 @@ internal static class ServiceCollectionExtensions
 	internal static IServiceCollection RegisterViewModels(this IServiceCollection services)
 	{
 		services.AddSingleton<AboutViewModel>();
+		services.AddSingleton<BrandEditorViewModel>();
 		services.AddSingleton<MainViewModel>();
 
 		return services;

@@ -43,6 +43,7 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterServices(this IServiceCollection services)
 	{
+		services.AddSingleton<IFileDialogService, FileDialogService>();
 		services.AddSingleton<INotificationService, NotificationService>();
 		services.AddSingleton<IUserService, UserService>();
 
