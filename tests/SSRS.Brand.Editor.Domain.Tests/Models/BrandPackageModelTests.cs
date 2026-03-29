@@ -34,7 +34,7 @@ public sealed class BrandPackageModelTests
 
 		Assert.IsTrue(raised);
 		Assert.IsNotNull(model.Logo);
-		Assert.AreEqual(4, model.Logo.Length);
+		Assert.HasCount(4, model.Logo);
 	}
 
 	[TestMethod]

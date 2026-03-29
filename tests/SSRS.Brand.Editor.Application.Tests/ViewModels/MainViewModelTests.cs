@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Moq;
 
 using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels;
@@ -28,7 +27,7 @@ public sealed class MainViewModelTests : ApplicationTestBase
 		_brandEditorViewModel = new(
 			new Mock<IBrandPackageService>().Object,
 			new Mock<IFileDialogService>().Object,
-			new Mock<IFileProvider>().Object,
+			new Mock<IProviderService>().Object,
 			new Mock<INotificationService>().Object,
 			new Mock<ILoggerService<BrandEditorViewModel>>().Object);
 	}

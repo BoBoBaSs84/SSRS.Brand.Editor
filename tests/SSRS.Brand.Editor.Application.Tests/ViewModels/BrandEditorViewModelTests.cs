@@ -13,12 +13,18 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 {
 	private readonly Mock<IBrandPackageService> _brandPackageServiceMock = new();
 	private readonly Mock<IFileDialogService> _fileDialogServiceMock = new();
-	private readonly Mock<IFileProvider> _fileProviderMock = new();
+	private readonly Mock<IProviderService> _providerServiceMock = new();
 	private readonly Mock<INotificationService> _notificationServiceMock = new();
 	private readonly Mock<ILoggerService<BrandEditorViewModel>> _loggerServiceMock = new();
 
 	private BrandEditorViewModel CreateViewModel()
-		=> new(_brandPackageServiceMock.Object, _fileDialogServiceMock.Object, _fileProviderMock.Object, _notificationServiceMock.Object, _loggerServiceMock.Object);
+	{
+		Mock<IFileProvider> fileProviderMock = new();
+		_providerServiceMock.Setup(x => x.File)
+			.Returns(fileProviderMock.Object);
+
+		return new(_brandPackageServiceMock.Object, _fileDialogServiceMock.Object, _providerServiceMock.Object, _notificationServiceMock.Object, _loggerServiceMock.Object);
+	}
 
 	[TestMethod]
 	public void ConstructorShouldHaveNoPackageLoaded()
@@ -151,11 +157,11 @@ public sealed class BrandEditorViewModelTests : ApplicationTestBase
 
 		viewModel.NewCommand.Execute(null);
 
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.HasPackage)));
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.Model)));
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.MetadataViewModel)));
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.InterfaceColorsViewModel)));
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.ThemeColorsViewModel)));
-		Assert.IsTrue(changedProperties.Contains(nameof(BrandEditorViewModel.LogoViewModel)));
+		Assert.Contains(nameof(BrandEditorViewModel.HasPackage), changedProperties);
+		Assert.Contains(nameof(BrandEditorViewModel.Model), changedProperties);
+		Assert.Contains(nameof(BrandEditorViewModel.MetadataViewModel), changedProperties);
+		Assert.Contains(nameof(BrandEditorViewModel.InterfaceColorsViewModel), changedProperties);
+		Assert.Contains(nameof(BrandEditorViewModel.ThemeColorsViewModel), changedProperties);
+		Assert.Contains(nameof(BrandEditorViewModel.LogoViewModel), changedProperties);
 	}
 }

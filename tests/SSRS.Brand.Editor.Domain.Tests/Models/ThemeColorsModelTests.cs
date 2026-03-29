@@ -16,7 +16,7 @@ public sealed class ThemeColorsModelTests
 
 		Assert.IsNotNull(model);
 		Assert.IsNotNull(model.DataPoints);
-		Assert.AreEqual(0, model.DataPoints.Count);
+		Assert.IsEmpty(model.DataPoints);
 	}
 
 	[TestMethod]
@@ -28,14 +28,14 @@ public sealed class ThemeColorsModelTests
 		model.DataPoints.Add(Color.Orange);
 		model.DataPoints.Add(Color.Green);
 
-		Assert.AreEqual(3, model.DataPoints.Count);
+		Assert.HasCount(3, model.DataPoints);
 		Assert.AreEqual(Color.Blue, model.DataPoints[0]);
 		Assert.AreEqual(Color.Orange, model.DataPoints[1]);
 		Assert.AreEqual(Color.Green, model.DataPoints[2]);
 
 		model.DataPoints.RemoveAt(1);
 
-		Assert.AreEqual(2, model.DataPoints.Count);
+		Assert.HasCount(2, model.DataPoints);
 		Assert.AreEqual(Color.Green, model.DataPoints[1]);
 	}
 
@@ -51,7 +51,7 @@ public sealed class ThemeColorsModelTests
 		model.Neutral = Color.Gold;
 		model.None = Color.DarkGray;
 
-		Assert.AreEqual(4, changedProperties.Count);
+		Assert.HasCount(4, changedProperties);
 		Assert.AreEqual(Color.Green, model.Good);
 		Assert.AreEqual(Color.Red, model.Bad);
 		Assert.AreEqual(Color.Gold, model.Neutral);
@@ -73,7 +73,7 @@ public sealed class ThemeColorsModelTests
 		model.PanelAccent = Color.CornflowerBlue;
 		model.TableAccent = Color.CornflowerBlue;
 
-		Assert.AreEqual(7, changedProperties.Count);
+		Assert.HasCount(7, changedProperties);
 		Assert.AreEqual(Color.White, model.Background);
 		Assert.AreEqual(Color.Black, model.Foreground);
 		Assert.AreEqual(Color.CornflowerBlue, model.MapBase);
@@ -98,7 +98,7 @@ public sealed class ThemeColorsModelTests
 		model.AltPanelAccent = Color.Gold;
 		model.AltTableAccent = Color.Gold;
 
-		Assert.AreEqual(7, changedProperties.Count);
+		Assert.HasCount(7, changedProperties);
 		Assert.AreEqual(Color.WhiteSmoke, model.AltBackground);
 		Assert.AreEqual(Color.Black, model.AltForeground);
 		Assert.AreEqual(Color.Orange, model.AltMapBase);

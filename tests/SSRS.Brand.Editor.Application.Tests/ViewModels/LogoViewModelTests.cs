@@ -96,7 +96,7 @@ public sealed class LogoViewModelTests : ApplicationTestBase
 
 		viewModel.RemoveCommand.Execute(null);
 
-		Assert.IsTrue(changedProperties.Contains(nameof(LogoViewModel.HasLogo)));
-		Assert.IsTrue(changedProperties.Contains(nameof(LogoViewModel.LogoBytes)));
+		Assert.Contains(nameof(LogoViewModel.HasLogo), changedProperties);
+		Assert.Contains(nameof(LogoViewModel.LogoBytes), changedProperties);
 	}
 }

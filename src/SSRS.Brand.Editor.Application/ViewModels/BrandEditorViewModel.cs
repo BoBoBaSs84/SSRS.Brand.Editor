@@ -3,7 +3,6 @@ using BB84.Notifications.Interfaces.Commands;
 
 using Microsoft.Extensions.Logging;
 
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels.Base;
@@ -16,10 +15,10 @@ namespace SSRS.Brand.Editor.Application.ViewModels;
 /// </summary>
 /// <param name="brandPackageService">The brand package service instance to use.</param>
 /// <param name="fileDialogService">The file dialog service instance to use.</param>
-/// <param name="fileProvider">The file provider instance to use.</param>
+/// <param name="providerService">The provider service instance to use.</param>
 /// <param name="notificationService">The notification service instance to use.</param>
 /// <param name="loggerService">The logger service instance to use.</param>
-public sealed class BrandEditorViewModel(IBrandPackageService brandPackageService, IFileDialogService fileDialogService, IFileProvider fileProvider, INotificationService notificationService, ILoggerService<BrandEditorViewModel> loggerService) : ViewModelBase
+public sealed class BrandEditorViewModel(IBrandPackageService brandPackageService, IFileDialogService fileDialogService, IProviderService providerService, INotificationService notificationService, ILoggerService<BrandEditorViewModel> loggerService) : ViewModelBase
 {
 	private const string FileFilter = "Brand Package (*.zip)|*.zip|All Files (*.*)|*.*";
 
@@ -200,7 +199,7 @@ public sealed class BrandEditorViewModel(IBrandPackageService brandPackageServic
 			MetadataViewModel = new MetadataViewModel(model.Metadata);
 			InterfaceColorsViewModel = new InterfaceColorsViewModel(model.ColorScheme.Interface);
 			ThemeColorsViewModel = new ThemeColorsViewModel(model.ColorScheme.Theme);
-			LogoViewModel = new LogoViewModel(model, fileDialogService, fileProvider, notificationService);
+			LogoViewModel = new LogoViewModel(model, fileDialogService, providerService.File, notificationService);
 		}
 		else
 		{

@@ -28,7 +28,7 @@ public sealed class ThemeColorsViewModelTests : ApplicationTestBase
 
 		viewModel.AddDataPointCommand.Execute(null);
 
-		Assert.AreEqual(1, model.DataPoints.Count);
+		Assert.HasCount(1, model.DataPoints);
 		Assert.AreEqual(0, viewModel.SelectedDataPointIndex);
 	}
 
@@ -42,7 +42,7 @@ public sealed class ThemeColorsViewModelTests : ApplicationTestBase
 		viewModel.AddDataPointCommand.Execute(null);
 		viewModel.AddDataPointCommand.Execute(null);
 
-		Assert.AreEqual(3, model.DataPoints.Count);
+		Assert.HasCount(3, model.DataPoints);
 		Assert.AreEqual(2, viewModel.SelectedDataPointIndex);
 	}
 
@@ -57,7 +57,7 @@ public sealed class ThemeColorsViewModelTests : ApplicationTestBase
 
 		viewModel.RemoveDataPointCommand.Execute(null);
 
-		Assert.AreEqual(2, model.DataPoints.Count);
+		Assert.HasCount(2, model.DataPoints);
 		Assert.AreEqual(Color.Red, model.DataPoints[0]);
 		Assert.AreEqual(Color.Blue, model.DataPoints[1]);
 	}
@@ -72,7 +72,7 @@ public sealed class ThemeColorsViewModelTests : ApplicationTestBase
 
 		viewModel.RemoveDataPointCommand.Execute(null);
 
-		Assert.AreEqual(1, model.DataPoints.Count);
+		Assert.HasCount(1, model.DataPoints);
 		Assert.AreEqual(0, viewModel.SelectedDataPointIndex);
 	}
 
@@ -85,7 +85,7 @@ public sealed class ThemeColorsViewModelTests : ApplicationTestBase
 
 		viewModel.RemoveDataPointCommand.Execute(null);
 
-		Assert.AreEqual(0, model.DataPoints.Count);
+		Assert.IsEmpty(model.DataPoints);
 		Assert.AreEqual(-1, viewModel.SelectedDataPointIndex);
 	}
 

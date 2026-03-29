@@ -31,7 +31,7 @@ public sealed class InterfaceColorsModelTests
 		model.PrimaryAlt4 = Color.MediumVioletRed;
 		model.PrimaryContrast = Color.White;
 
-		Assert.AreEqual(6, changedProperties.Count);
+		Assert.HasCount(6, changedProperties);
 		Assert.AreEqual(Color.Red, model.Primary);
 		Assert.AreEqual(Color.DarkRed, model.PrimaryAlt);
 		Assert.AreEqual(Color.OrangeRed, model.PrimaryAlt2);
@@ -53,7 +53,7 @@ public sealed class InterfaceColorsModelTests
 		model.SecondaryAlt3 = Color.LightGray;
 		model.SecondaryContrast = Color.White;
 
-		Assert.AreEqual(5, changedProperties.Count);
+		Assert.HasCount(5, changedProperties);
 		Assert.AreEqual(Color.Black, model.Secondary);
 		Assert.AreEqual(Color.DarkGray, model.SecondaryAlt);
 		Assert.AreEqual(Color.Gray, model.SecondaryAlt2);
@@ -74,7 +74,7 @@ public sealed class InterfaceColorsModelTests
 		model.NeutralPrimaryAlt3 = Color.Silver;
 		model.NeutralPrimaryContrast = Color.Black;
 
-		Assert.AreEqual(5, changedProperties.Count);
+		Assert.HasCount(5, changedProperties);
 		Assert.AreEqual(Color.White, model.NeutralPrimary);
 		Assert.AreEqual(Color.WhiteSmoke, model.NeutralPrimaryAlt);
 		Assert.AreEqual(Color.Gainsboro, model.NeutralPrimaryAlt2);
@@ -95,7 +95,7 @@ public sealed class InterfaceColorsModelTests
 		model.NeutralSecondaryAlt3 = Color.LightSlateGray;
 		model.NeutralSecondaryContrast = Color.Black;
 
-		Assert.AreEqual(5, changedProperties.Count);
+		Assert.HasCount(5, changedProperties);
 		Assert.AreEqual(Color.White, model.NeutralSecondary);
 		Assert.AreEqual(Color.Lavender, model.NeutralSecondaryAlt);
 		Assert.AreEqual(Color.LightSteelBlue, model.NeutralSecondaryAlt2);
@@ -116,7 +116,7 @@ public sealed class InterfaceColorsModelTests
 		model.NeutralTertiaryAlt3 = Color.White;
 		model.NeutralTertiaryContrast = Color.DimGray;
 
-		Assert.AreEqual(5, changedProperties.Count);
+		Assert.HasCount(5, changedProperties);
 		Assert.AreEqual(Color.Silver, model.NeutralTertiary);
 		Assert.AreEqual(Color.DarkGray, model.NeutralTertiaryAlt);
 		Assert.AreEqual(Color.LightGray, model.NeutralTertiaryAlt2);
@@ -140,7 +140,7 @@ public sealed class InterfaceColorsModelTests
 		model.WarningContrast = Color.White;
 		model.InfoContrast = Color.White;
 
-		Assert.AreEqual(8, changedProperties.Count);
+		Assert.HasCount(8, changedProperties);
 		Assert.AreEqual(Color.Red, model.Danger);
 		Assert.AreEqual(Color.Green, model.Success);
 		Assert.AreEqual(Color.Orange, model.Warning);
@@ -163,7 +163,7 @@ public sealed class InterfaceColorsModelTests
 		model.KpiNeutralContrast = Color.White;
 		model.KpiNoneContrast = Color.White;
 
-		Assert.AreEqual(8, changedProperties.Count);
+		Assert.HasCount(8, changedProperties);
 		Assert.AreEqual(Color.Green, model.KpiGood);
 		Assert.AreEqual(Color.Red, model.KpiBad);
 		Assert.AreEqual(Color.Gold, model.KpiNeutral);
@@ -184,7 +184,7 @@ public sealed class InterfaceColorsModelTests
 		model.DatasetIconBackground = Color.DarkOrange;
 		model.OtherIconBackground = Color.Black;
 
-		Assert.AreEqual(6, changedProperties.Count);
+		Assert.HasCount(6, changedProperties);
 		Assert.AreEqual(Color.White, model.ItemTypeIconColor);
 		Assert.AreEqual(Color.Navy, model.ReportIconBackground);
 		Assert.AreEqual(Color.DarkGreen, model.ExcelIconBackground);
@@ -204,7 +204,7 @@ public sealed class InterfaceColorsModelTests
 		model.PrimaryButtonHover = Color.DarkRed;
 		model.PrimaryButtonPressed = Color.Maroon;
 
-		Assert.AreEqual(3, changedProperties.Count);
+		Assert.HasCount(3, changedProperties);
 		Assert.AreEqual(Color.Red, model.PrimaryButton);
 		Assert.AreEqual(Color.DarkRed, model.PrimaryButtonHover);
 		Assert.AreEqual(Color.Maroon, model.PrimaryButtonPressed);
@@ -221,7 +221,7 @@ public sealed class InterfaceColorsModelTests
 		model.LinkHover = Color.DarkBlue;
 		model.LinkVisited = Color.Purple;
 
-		Assert.AreEqual(3, changedProperties.Count);
+		Assert.HasCount(3, changedProperties);
 		Assert.AreEqual(Color.Blue, model.Link);
 		Assert.AreEqual(Color.DarkBlue, model.LinkHover);
 		Assert.AreEqual(Color.Purple, model.LinkVisited);
@@ -237,7 +237,7 @@ public sealed class InterfaceColorsModelTests
 		model.RadioButtonCheckBox = Color.Red;
 		model.RadioButtonCheckBoxHover = Color.DarkRed;
 
-		Assert.AreEqual(2, changedProperties.Count);
+		Assert.HasCount(2, changedProperties);
 		Assert.AreEqual(Color.Red, model.RadioButtonCheckBox);
 		Assert.AreEqual(Color.DarkRed, model.RadioButtonCheckBoxHover);
 	}

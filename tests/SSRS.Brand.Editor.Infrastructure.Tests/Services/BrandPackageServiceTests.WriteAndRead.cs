@@ -6,13 +6,15 @@ namespace SSRS.Brand.Editor.Infrastructure.Tests.Services;
 
 public sealed partial class BrandPackageServiceTests
 {
+	private readonly CancellationToken _ct = CancellationToken.None;
+
 	[TestMethod]
 	public async Task WriteAsyncShouldCreateZipFile()
 	{
 		string filePath = GetTempFilePath();
 		BrandPackageModel model = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, model);
+		await _sut.WriteAsync(filePath, model, _ct).ConfigureAwait(false);
 
 		Assert.IsTrue(File.Exists(filePath));
 	}
@@ -24,7 +26,7 @@ public sealed partial class BrandPackageServiceTests
 		BrandPackageModel model = CreateTestModel();
 		model.Logo = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
 
-		await _sut.WriteAsync(filePath, model);
+		await _sut.WriteAsync(filePath, model, _ct).ConfigureAwait(false);
 
 		Assert.IsTrue(File.Exists(filePath));
 	}
@@ -35,8 +37,8 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.AreEqual(original.Metadata.Name, result.Metadata.Name);
 		Assert.AreEqual(original.Metadata.Version, result.Metadata.Version);
@@ -49,8 +51,8 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.AreEqual(original.ColorScheme.Name, result.ColorScheme.Name);
 		Assert.AreEqual(original.ColorScheme.Version, result.ColorScheme.Version);
@@ -62,8 +64,8 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.AreEqual(original.ColorScheme.Interface.Primary.ToArgb(), result.ColorScheme.Interface.Primary.ToArgb());
 		Assert.AreEqual(original.ColorScheme.Interface.PrimaryContrast.ToArgb(), result.ColorScheme.Interface.PrimaryContrast.ToArgb());
@@ -81,8 +83,8 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.AreEqual(original.ColorScheme.Theme.Good.ToArgb(), result.ColorScheme.Theme.Good.ToArgb());
 		Assert.AreEqual(original.ColorScheme.Theme.Bad.ToArgb(), result.ColorScheme.Theme.Bad.ToArgb());
@@ -97,10 +99,10 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
-		Assert.AreEqual(original.ColorScheme.Theme.DataPoints.Count, result.ColorScheme.Theme.DataPoints.Count);
+		Assert.HasCount(original.ColorScheme.Theme.DataPoints.Count, result.ColorScheme.Theme.DataPoints);
 		for (int i = 0; i < original.ColorScheme.Theme.DataPoints.Count; i++)
 			Assert.AreEqual(original.ColorScheme.Theme.DataPoints[i].ToArgb(), result.ColorScheme.Theme.DataPoints[i].ToArgb());
 	}
@@ -113,8 +115,8 @@ public sealed partial class BrandPackageServiceTests
 		byte[] logoBytes = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x01, 0x02, 0x03];
 		original.Logo = logoBytes;
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.IsTrue(result.Metadata.HasLogo);
 		Assert.IsNotNull(result.Logo);
@@ -127,8 +129,8 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath();
 		BrandPackageModel original = CreateTestModel();
 
-		await _sut.WriteAsync(filePath, original);
-		BrandPackageModel result = await _sut.ReadAsync(filePath);
+		await _sut.WriteAsync(filePath, original, _ct).ConfigureAwait(false);
+		BrandPackageModel result = await _sut.ReadAsync(filePath, _ct).ConfigureAwait(false);
 
 		Assert.IsFalse(result.Metadata.HasLogo);
 		Assert.IsNull(result.Logo);
@@ -140,7 +142,7 @@ public sealed partial class BrandPackageServiceTests
 		string filePath = GetTempFilePath("nonexistent.zip");
 
 		await Assert.ThrowsExactlyAsync<FileNotFoundException>(
-			() => _sut.ReadAsync(filePath));
+			() => _sut.ReadAsync(filePath, _ct));
 	}
 
 	private static BrandPackageModel CreateTestModel()
