@@ -1,6 +1,7 @@
 <Project>
 
-	<PropertyGroup Label="Versioning">
+	<PropertyGroup>
+		<VersionStatus>Alpha</VersionStatus>
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
 		<VersionPatch>$([System.DateTime]::UtcNow.ToString("MMdd"))</VersionPatch>
@@ -8,6 +9,7 @@
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</VersionPrefix>
 		<FileVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</FileVersion>
 		<VersionSuffix Condition="'$(Configuration)'=='Debug'">Development</VersionSuffix>
+		<VersionSuffix Condition="'$(Configuration)'=='Release'">$(VersionStatus)</VersionSuffix>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Technical">
