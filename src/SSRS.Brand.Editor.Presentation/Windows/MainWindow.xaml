@@ -4,30 +4,49 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
+				xmlns:controls="clr-namespace:SSRS.Brand.Editor.Presentation.Controls"
 				mc:Ignorable="d"
 				d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
 				ShowInTaskbar="True"
 				Height="720"
 				Width="1280">
-	<DockPanel LastChildFill="False">
+	<Window.InputBindings>
+		<KeyBinding Gesture="Ctrl+N"
+								Command="{Binding BrandEditor.NewCommand}" />
+		<KeyBinding Gesture="Ctrl+O"
+								Command="{Binding BrandEditor.OpenCommand}" />
+		<KeyBinding Gesture="Ctrl+S"
+								Command="{Binding BrandEditor.SaveCommand}" />
+		<KeyBinding Gesture="Ctrl+Shift+S"
+								Command="{Binding BrandEditor.SaveAsCommand}" />
+	</Window.InputBindings>
+	<DockPanel LastChildFill="True">
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_New">
+				<MenuItem Header="_New"
+									Command="{Binding BrandEditor.NewCommand}"
+									InputGestureText="Ctrl+N">
 					<MenuItem.Icon>
 						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_New.ico" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="_Open">
+				<MenuItem Header="_Open..."
+									Command="{Binding BrandEditor.OpenCommand}"
+									InputGestureText="Ctrl+O">
 					<MenuItem.Icon>
 						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_Open.ico" />
 					</MenuItem.Icon>
 				</MenuItem>
 				<Separator />
-				<MenuItem Header="_Settings">
-					<MenuItem.Icon>
-						<Image Source="/SSRS.Brand.Editor.Presentation;component/Assets/Icons/File_Settings.ico" />
-					</MenuItem.Icon>
-				</MenuItem>
+				<MenuItem Header="_Save"
+									Command="{Binding BrandEditor.SaveCommand}"
+									InputGestureText="Ctrl+S" />
+				<MenuItem Header="Save _As..."
+									Command="{Binding BrandEditor.SaveAsCommand}"
+									InputGestureText="Ctrl+Shift+S" />
+				<Separator />
+				<MenuItem Header="_Close"
+									Command="{Binding BrandEditor.CloseCommand}" />
 				<Separator />
 				<MenuItem Header="_Quit"
 									Command="{Binding ExitCommand}">
@@ -61,9 +80,25 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
-		<ContentControl Content="{Binding NavigationService.CurrentView}" />
 		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem Content="{Binding BrandEditor.CurrentFilePath, TargetNullValue='No file loaded'}" />
+			<Separator />
 			<StatusBarItem Content="{Binding CurrentUser}" />
+			<Separator />
+			<StatusBarItem Content="{Binding EnvironmentName}" />
 		</StatusBar>
+		<ContentControl Content="{Binding NavigationService.CurrentView}">
+			<ContentControl.Style>
+				<Style TargetType="ContentControl">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding NavigationService.CurrentView}"
+												 Value="{x:Null}">
+							<Setter Property="Content"
+											Value="{Binding BrandEditor}" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</ContentControl.Style>
+		</ContentControl>
 	</DockPanel>
 </Window>

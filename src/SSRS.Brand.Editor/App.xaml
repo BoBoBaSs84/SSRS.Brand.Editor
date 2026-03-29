@@ -9,5 +9,8 @@
 		<DataTemplate DataType="{x:Type TypeName=vm:AboutViewModel}">
 			<v:AboutControl />
 		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:BrandEditorViewModel}">
+			<v:BrandEditorControl />
+		</DataTemplate>
 	</Application.Resources>
 </Application>

@@ -1,0 +1,294 @@
+<UserControl x:Class="SSRS.Brand.Editor.Presentation.Controls.PortalPreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
+             xmlns:conv="clr-namespace:SSRS.Brand.Editor.Presentation.Converters"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:BrandEditorViewModel}"
+             d:Background="WhiteSmoke"
+             d:Height="600"
+             d:Width="700">
+	<UserControl.Resources>
+		<conv:DrawingColorToBrushConverter x:Key="ColorToBrush" />
+		<conv:ByteArrayToImageSourceConverter x:Key="BytesToImage" />
+		<conv:BoolToVisibilityConverter x:Key="BoolToVis" />
+		<conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVis" />
+	</UserControl.Resources>
+	<Border BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
+		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+			<DockPanel LastChildFill="True">
+
+				<!-- Title Bar (secondary) -->
+				<Border DockPanel.Dock="Top"
+                Background="{Binding Model.ColorScheme.Interface.Secondary, Converter={StaticResource ColorToBrush}}"
+                Padding="12,8">
+					<DockPanel>
+						<!-- Logo or brand name -->
+						<Image Source="{Binding Logo, Converter={StaticResource BytesToImage}}"
+                   MaxHeight="30"
+                   Stretch="Uniform"
+                   DockPanel.Dock="Left"
+                   Margin="0,0,12,0"
+                   Visibility="{Binding Model.Metadata.HasLogo, Converter={StaticResource BoolToVis}}" />
+						<TextBlock Text="{Binding Model.Metadata.Name}"
+                       Foreground="{Binding Model.ColorScheme.Interface.SecondaryContrast, Converter={StaticResource ColorToBrush}}"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left"
+                       Visibility="{Binding Model.Metadata.HasLogo, Converter={StaticResource InverseBoolToVis}}" />
+
+						<!-- Gear icon placeholder -->
+						<TextBlock Text="&#x2699;"
+                       Foreground="{Binding Model.ColorScheme.Interface.SecondaryContrast, Converter={StaticResource ColorToBrush}}"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Right"
+                       Margin="8,0,0,0" />
+
+						<!-- Search box -->
+						<Border DockPanel.Dock="Right"
+                    Background="{Binding Model.ColorScheme.Interface.SecondaryAlt2, Converter={StaticResource ColorToBrush}}"
+                    CornerRadius="2"
+                    Padding="8,4"
+                    Margin="12,0"
+                    MinWidth="150">
+							<TextBlock Text="&#x1F50D; Search..."
+                         Foreground="{Binding Model.ColorScheme.Interface.SecondaryAlt3, Converter={StaticResource ColorToBrush}}"
+                         FontSize="12"
+                         VerticalAlignment="Center" />
+						</Border>
+
+						<Border />
+					</DockPanel>
+				</Border>
+
+				<!-- Breadcrumb bar (neutralPrimaryAlt) -->
+				<Border DockPanel.Dock="Top"
+                Background="{Binding Model.ColorScheme.Interface.NeutralPrimaryAlt, Converter={StaticResource ColorToBrush}}"
+                Padding="12,6">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Foreground="{Binding Model.ColorScheme.Interface.Link, Converter={StaticResource ColorToBrush}}"
+                       Text="Home"
+                       FontSize="12" />
+						<TextBlock Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}"
+                       Text="  &gt;  "
+                       FontSize="12" />
+						<TextBlock Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}"
+                       Text="Sample Folder"
+                       FontSize="12" />
+					</StackPanel>
+				</Border>
+
+				<!-- Settings bar at bottom (neutralTertiary) -->
+				<Border DockPanel.Dock="Bottom"
+                Background="{Binding Model.ColorScheme.Interface.NeutralTertiary, Converter={StaticResource ColorToBrush}}"
+                Padding="12,6">
+					<TextBlock Text="Site Settings"
+                     Foreground="{Binding Model.ColorScheme.Interface.NeutralTertiaryContrast, Converter={StaticResource ColorToBrush}}"
+                     FontSize="11" />
+				</Border>
+
+				<!-- Content area (neutralPrimary) -->
+				<Border Background="{Binding Model.ColorScheme.Interface.NeutralPrimary, Converter={StaticResource ColorToBrush}}"
+                Padding="16">
+					<StackPanel>
+						<!-- Item Tiles -->
+						<WrapPanel Margin="0,0,0,16">
+							<!-- Report tile 1 -->
+							<StackPanel Margin="4" Width="100">
+								<Border Background="{Binding Model.ColorScheme.Interface.ReportIconBackground, Converter={StaticResource ColorToBrush}}"
+                        Height="64" CornerRadius="4,4,0,0">
+									<TextBlock Text="&#x1F4C4;"
+                             FontSize="24"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="{Binding Model.ColorScheme.Interface.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
+								</Border>
+								<TextBlock Text="Sales Report"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
+							</StackPanel>
+
+							<!-- Report tile 2 -->
+							<StackPanel Margin="4" Width="100">
+								<Border Background="{Binding Model.ColorScheme.Interface.ReportIconBackground, Converter={StaticResource ColorToBrush}}"
+                        Height="64" CornerRadius="4,4,0,0">
+									<TextBlock Text="&#x1F4C4;"
+                             FontSize="24"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="{Binding Model.ColorScheme.Interface.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
+								</Border>
+								<TextBlock Text="Monthly Summary"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
+							</StackPanel>
+
+							<!-- Excel tile -->
+							<StackPanel Margin="4" Width="100">
+								<Border Background="{Binding Model.ColorScheme.Interface.ExcelIconBackground, Converter={StaticResource ColorToBrush}}"
+                        Height="64" CornerRadius="4,4,0,0">
+									<TextBlock Text="&#x1F4CA;"
+                             FontSize="24"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="{Binding Model.ColorScheme.Interface.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
+								</Border>
+								<TextBlock Text="Budget.xlsx"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
+							</StackPanel>
+
+							<!-- Folder tile -->
+							<StackPanel Margin="4" Width="100">
+								<Border Background="{Binding Model.ColorScheme.Interface.FolderIconBackground, Converter={StaticResource ColorToBrush}}"
+                        Height="64" CornerRadius="4,4,0,0">
+									<TextBlock Text="&#x1F4C1;"
+                             FontSize="24"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="{Binding Model.ColorScheme.Interface.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
+								</Border>
+								<TextBlock Text="Finance"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
+							</StackPanel>
+
+							<!-- Dataset tile -->
+							<StackPanel Margin="4" Width="100">
+								<Border Background="{Binding Model.ColorScheme.Interface.DatasetIconBackground, Converter={StaticResource ColorToBrush}}"
+                        Height="64" CornerRadius="4,4,0,0">
+									<TextBlock Text="&#x1F5C3;"
+                             FontSize="24"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="{Binding Model.ColorScheme.Interface.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
+								</Border>
+								<TextBlock Text="Customer Dataset"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
+							</StackPanel>
+						</WrapPanel>
+
+						<!-- Primary Button + Link -->
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+							<Border Background="{Binding Model.ColorScheme.Interface.PrimaryButton, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="3"
+                      Padding="16,6"
+                      Margin="0,0,16,0">
+								<TextBlock Text="Primary Button"
+                           Foreground="{Binding Model.ColorScheme.Interface.PrimaryContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="12" />
+							</Border>
+							<TextBlock Text="Hyperlink Example"
+                         Foreground="{Binding Model.ColorScheme.Interface.Link, Converter={StaticResource ColorToBrush}}"
+                         FontSize="12"
+                         VerticalAlignment="Center"
+                         TextDecorations="Underline" />
+						</StackPanel>
+
+						<!-- Status Messages -->
+						<TextBlock Text="Status Messages"
+                       FontSize="12"
+                       FontWeight="SemiBold"
+                       Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}"
+                       Margin="0,0,0,6" />
+						<WrapPanel Margin="0,0,0,16">
+							<Border Background="{Binding Model.ColorScheme.Interface.Success, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x2713; Success"
+                           Foreground="{Binding Model.ColorScheme.Interface.SuccessContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.Warning, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x26A0; Warning"
+                           Foreground="{Binding Model.ColorScheme.Interface.WarningContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.Danger, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x2717; Danger"
+                           Foreground="{Binding Model.ColorScheme.Interface.DangerContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.Info, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x2139; Info"
+                           Foreground="{Binding Model.ColorScheme.Interface.InfoContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+						</WrapPanel>
+
+						<!-- KPI Row -->
+						<TextBlock Text="KPI Indicators"
+                       FontSize="12"
+                       FontWeight="SemiBold"
+                       Foreground="{Binding Model.ColorScheme.Interface.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}"
+                       Margin="0,0,0,6" />
+						<WrapPanel Margin="0,0,0,16">
+							<Border Background="{Binding Model.ColorScheme.Interface.KpiGood, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x25CF; Good"
+                           Foreground="{Binding Model.ColorScheme.Interface.KpiGoodContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.KpiBad, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x25CF; Bad"
+                           Foreground="{Binding Model.ColorScheme.Interface.KpiBadContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.KpiNeutral, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x25CF; Neutral"
+                           Foreground="{Binding Model.ColorScheme.Interface.KpiNeutralContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+							<Border Background="{Binding Model.ColorScheme.Interface.KpiNone, Converter={StaticResource ColorToBrush}}"
+                      CornerRadius="2" Padding="10,4" Margin="0,0,6,4">
+								<TextBlock Text="&#x25CF; None"
+                           Foreground="{Binding Model.ColorScheme.Interface.KpiNoneContrast, Converter={StaticResource ColorToBrush}}"
+                           FontSize="11" />
+							</Border>
+						</WrapPanel>
+
+						<!-- Neutral Secondary area (text box / folder options) -->
+						<Border Background="{Binding Model.ColorScheme.Interface.NeutralSecondary, Converter={StaticResource ColorToBrush}}"
+                    BorderBrush="{Binding Model.ColorScheme.Interface.NeutralSecondaryAlt, Converter={StaticResource ColorToBrush}}"
+                    BorderThickness="1"
+                    CornerRadius="2"
+                    Padding="8"
+                    Margin="0,0,0,16">
+							<StackPanel>
+								<TextBlock Text="Text Box / Folder Options"
+                           FontSize="11"
+                           Foreground="{Binding Model.ColorScheme.Interface.NeutralSecondaryContrast, Converter={StaticResource ColorToBrush}}" />
+								<StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+									<Border Width="14" Height="14" CornerRadius="7" Margin="0,0,6,0"
+                          Background="{Binding Model.ColorScheme.Interface.RadioButtonCheckBox, Converter={StaticResource ColorToBrush}}" />
+									<TextBlock Text="Radio / Checkbox"
+                             FontSize="11"
+                             Foreground="{Binding Model.ColorScheme.Interface.NeutralSecondaryContrast, Converter={StaticResource ColorToBrush}}" />
+								</StackPanel>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</Border>
+			</DockPanel>
+		</ScrollViewer>
+	</Border>
+</UserControl>

@@ -1,0 +1,47 @@
+<UserControl x:Class="SSRS.Brand.Editor.Presentation.Controls.MetadataEditorControl"
+						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						 xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
+						 mc:Ignorable="d"
+						 d:DataContext="{d:DesignInstance Type=vm:MetadataViewModel}"
+						 d:Background="WhiteSmoke"
+						 d:Width="380">
+	<ScrollViewer VerticalScrollBarVisibility="Auto"
+								Padding="8">
+		<StackPanel Margin="8">
+			<TextBlock Text="Brand Package Metadata"
+								 FontSize="16"
+								 FontWeight="SemiBold"
+								 Margin="0,0,0,12" />
+
+			<TextBlock Text="Name"
+								 FontWeight="SemiBold"
+								 Margin="0,0,0,4" />
+			<TextBox Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}"
+							 Margin="0,0,0,12" />
+
+			<TextBlock Text="Version"
+								 FontWeight="SemiBold"
+								 Margin="0,0,0,4" />
+			<TextBlock Text="{Binding Model.Version}"
+								 Foreground="Gray"
+								 Margin="0,0,0,12" />
+
+			<TextBlock Text="Type"
+								 FontWeight="SemiBold"
+								 Margin="0,0,0,4" />
+			<TextBlock Text="UniversalBrand"
+								 Foreground="Gray"
+								 Margin="0,0,0,12" />
+
+			<TextBlock Text="Has Logo"
+								 FontWeight="SemiBold"
+								 Margin="0,0,0,4" />
+			<CheckBox IsChecked="{Binding Model.HasLogo, Mode=OneWay}"
+								IsEnabled="False"
+								Margin="0,0,0,12" />
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>
