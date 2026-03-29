@@ -1,6 +1,6 @@
-﻿using SSRS.Brand.Editor.Domain.Installers;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+using SSRS.Brand.Editor.Domain.Installers;
 
 namespace SSRS.Brand.Editor.Domain.Tests.Installer;
 
@@ -14,6 +14,6 @@ public sealed class DependencyInjectionInstallerTests
 
 		services.RegisterDomainServices();
 
-		Assert.AreEqual(1, services.Count);
+		Assert.AreEqual(2, services.Count);
 	}
 }

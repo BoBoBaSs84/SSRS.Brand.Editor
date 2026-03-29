@@ -17,6 +17,7 @@ internal static class ServiceCollectionExtensions
 	internal static IServiceCollection RegisterModels(this IServiceCollection services)
 	{
 		services.AddSingleton<AboutModel>();
+		services.AddTransient<BrandPackageModel>();
 
 		return services;
 	}
