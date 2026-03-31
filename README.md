@@ -16,6 +16,8 @@ The SSRS Brand Editor is a desktop application designed to simplify the process 
 
 ## Features
 
+![SampleView](./docs/SampleView.png)
+
 - **User-Friendly Interface**: The application offers an intuitive and easy-to-navigate interface, making it accessible for users of all skill levels.
 - **Brand Package Management**: Create, edit, and manage brand packages that include logos, color schemes, and other visual elements for your SSRS portals.
 - **Preview Functionality**: Preview your branding changes in real-time before applying them to your SSRS portals, ensuring that you achieve the desired look and feel.
