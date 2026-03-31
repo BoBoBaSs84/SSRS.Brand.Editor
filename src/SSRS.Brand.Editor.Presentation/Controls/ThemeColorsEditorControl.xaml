@@ -5,6 +5,7 @@
 						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 						 xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
 						 xmlns:conv="clr-namespace:SSRS.Brand.Editor.Presentation.Converters"
+						 xmlns:local="clr-namespace:SSRS.Brand.Editor.Presentation.Controls"
 						 mc:Ignorable="d"
 						 d:DataContext="{d:DesignInstance Type=vm:ThemeColorsViewModel}"
 						 d:Background="WhiteSmoke"
@@ -79,34 +80,14 @@
 			<Expander Header="Status"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Good, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Good"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Bad, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Bad"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Neutral, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Neutral"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.None, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="None"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Good"
+																		Color="{Binding Model.Good}" />
+					<local:ColorSwatchControl Label="Bad"
+																		Color="{Binding Model.Bad}" />
+					<local:ColorSwatchControl Label="Neutral"
+																		Color="{Binding Model.Neutral}" />
+					<local:ColorSwatchControl Label="None"
+																		Color="{Binding Model.None}" />
 				</StackPanel>
 			</Expander>
 
@@ -114,55 +95,20 @@
 			<Expander Header="Standard"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Background, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Background"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Foreground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Foreground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.MapBase, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="MapBase"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PanelBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PanelBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PanelForeground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PanelForeground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PanelAccent, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PanelAccent"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.TableAccent, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="TableAccent"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Background"
+																		Color="{Binding Model.Background}" />
+					<local:ColorSwatchControl Label="Foreground"
+																		Color="{Binding Model.Foreground}" />
+					<local:ColorSwatchControl Label="MapBase"
+																		Color="{Binding Model.MapBase}" />
+					<local:ColorSwatchControl Label="PanelBackground"
+																		Color="{Binding Model.PanelBackground}" />
+					<local:ColorSwatchControl Label="PanelForeground"
+																		Color="{Binding Model.PanelForeground}" />
+					<local:ColorSwatchControl Label="PanelAccent"
+																		Color="{Binding Model.PanelAccent}" />
+					<local:ColorSwatchControl Label="TableAccent"
+																		Color="{Binding Model.TableAccent}" />
 				</StackPanel>
 			</Expander>
 
@@ -170,55 +116,20 @@
 			<Expander Header="Alt"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltForeground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltForeground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltMapBase, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltMapBase"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltPanelBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltPanelBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltPanelForeground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltPanelForeground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltPanelAccent, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltPanelAccent"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.AltTableAccent, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="AltTableAccent"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="AltBackground"
+																		Color="{Binding Model.AltBackground}" />
+					<local:ColorSwatchControl Label="AltForeground"
+																		Color="{Binding Model.AltForeground}" />
+					<local:ColorSwatchControl Label="AltMapBase"
+																		Color="{Binding Model.AltMapBase}" />
+					<local:ColorSwatchControl Label="AltPanelBackground"
+																		Color="{Binding Model.AltPanelBackground}" />
+					<local:ColorSwatchControl Label="AltPanelForeground"
+																		Color="{Binding Model.AltPanelForeground}" />
+					<local:ColorSwatchControl Label="AltPanelAccent"
+																		Color="{Binding Model.AltPanelAccent}" />
+					<local:ColorSwatchControl Label="AltTableAccent"
+																		Color="{Binding Model.AltTableAccent}" />
 				</StackPanel>
 			</Expander>
 		</StackPanel>

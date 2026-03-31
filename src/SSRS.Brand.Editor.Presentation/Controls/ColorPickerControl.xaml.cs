@@ -17,6 +17,25 @@ public partial class ColorPickerControl : UserControl
 	private bool _isDraggingCanvas;
 
 	/// <summary>
+	/// Identifies the <see cref="ColorApplied"/> routed event.
+	/// </summary>
+	public static readonly RoutedEvent ColorAppliedEvent =
+		EventManager.RegisterRoutedEvent(
+			nameof(ColorApplied),
+			RoutingStrategy.Bubble,
+			typeof(RoutedEventHandler),
+			typeof(ColorPickerControl));
+
+	/// <summary>
+	/// Occurs when the user clicks the Apply button to confirm the selected color.
+	/// </summary>
+	public event RoutedEventHandler ColorApplied
+	{
+		add => AddHandler(ColorAppliedEvent, value);
+		remove => RemoveHandler(ColorAppliedEvent, value);
+	}
+
+	/// <summary>
 	/// Identifies the <see cref="SelectedColor"/> dependency property.
 	/// </summary>
 	public static readonly DependencyProperty SelectedColorProperty =
@@ -171,7 +190,10 @@ public partial class ColorPickerControl : UserControl
 		=> TryApplyHex();
 
 	private void HexApplyButton_Click(object sender, RoutedEventArgs e)
-		=> TryApplyHex();
+	{
+		TryApplyHex();
+		RaiseEvent(new RoutedEventArgs(ColorAppliedEvent));
+	}
 
 	private void TryApplyHex()
 	{

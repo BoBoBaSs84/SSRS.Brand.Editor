@@ -4,31 +4,11 @@
 						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 						 xmlns:vm="clr-namespace:SSRS.Brand.Editor.Application.ViewModels;assembly=SSRS.Brand.Editor.Application"
-						 xmlns:conv="clr-namespace:SSRS.Brand.Editor.Presentation.Converters"
+						 xmlns:local="clr-namespace:SSRS.Brand.Editor.Presentation.Controls"
 						 mc:Ignorable="d"
 						 d:DataContext="{d:DesignInstance Type=vm:InterfaceColorsViewModel}"
 						 d:Background="WhiteSmoke"
 						 d:Width="380">
-	<UserControl.Resources>
-		<conv:DrawingColorToBrushConverter x:Key="ColorToBrush" />
-		<Style x:Key="SwatchRect"
-					 TargetType="Rectangle">
-			<Setter Property="Width"
-							Value="24" />
-			<Setter Property="Height"
-							Value="24" />
-			<Setter Property="Stroke"
-							Value="Gray" />
-			<Setter Property="StrokeThickness"
-							Value="1" />
-			<Setter Property="RadiusX"
-							Value="2" />
-			<Setter Property="RadiusY"
-							Value="2" />
-			<Setter Property="Margin"
-							Value="0,0,8,0" />
-		</Style>
-	</UserControl.Resources>
 	<ScrollViewer VerticalScrollBarVisibility="Auto"
 								Padding="8">
 		<StackPanel Margin="8">
@@ -42,66 +22,18 @@
 								IsExpanded="True"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Primary, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Primary"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.Primary, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryAlt, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryAlt"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.PrimaryAlt, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryAlt2, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryAlt2"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.PrimaryAlt2, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryAlt3, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryAlt3"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.PrimaryAlt3, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryAlt4, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryAlt4"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.PrimaryAlt4, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-						<TextBlock Text="{Binding Model.PrimaryContrast, Converter={StaticResource ColorToBrush}, StringFormat={}{0}}"
-											 VerticalAlignment="Center"
-											 Foreground="Gray" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Primary"
+																		Color="{Binding Model.Primary}" />
+					<local:ColorSwatchControl Label="PrimaryAlt"
+																		Color="{Binding Model.PrimaryAlt}" />
+					<local:ColorSwatchControl Label="PrimaryAlt2"
+																		Color="{Binding Model.PrimaryAlt2}" />
+					<local:ColorSwatchControl Label="PrimaryAlt3"
+																		Color="{Binding Model.PrimaryAlt3}" />
+					<local:ColorSwatchControl Label="PrimaryAlt4"
+																		Color="{Binding Model.PrimaryAlt4}" />
+					<local:ColorSwatchControl Label="PrimaryContrast"
+																		Color="{Binding Model.PrimaryContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -109,41 +41,16 @@
 			<Expander Header="Secondary"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Secondary, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Secondary"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.SecondaryAlt, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="SecondaryAlt"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.SecondaryAlt2, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="SecondaryAlt2"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.SecondaryAlt3, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="SecondaryAlt3"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.SecondaryContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="SecondaryContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Secondary"
+																		Color="{Binding Model.Secondary}" />
+					<local:ColorSwatchControl Label="SecondaryAlt"
+																		Color="{Binding Model.SecondaryAlt}" />
+					<local:ColorSwatchControl Label="SecondaryAlt2"
+																		Color="{Binding Model.SecondaryAlt2}" />
+					<local:ColorSwatchControl Label="SecondaryAlt3"
+																		Color="{Binding Model.SecondaryAlt3}" />
+					<local:ColorSwatchControl Label="SecondaryContrast"
+																		Color="{Binding Model.SecondaryContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -151,41 +58,16 @@
 			<Expander Header="Neutral Primary"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralPrimary, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralPrimary"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralPrimaryAlt, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralPrimaryAlt"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralPrimaryAlt2, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralPrimaryAlt2"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralPrimaryAlt3, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralPrimaryAlt3"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralPrimaryContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralPrimaryContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="NeutralPrimary"
+																		Color="{Binding Model.NeutralPrimary}" />
+					<local:ColorSwatchControl Label="NeutralPrimaryAlt"
+																		Color="{Binding Model.NeutralPrimaryAlt}" />
+					<local:ColorSwatchControl Label="NeutralPrimaryAlt2"
+																		Color="{Binding Model.NeutralPrimaryAlt2}" />
+					<local:ColorSwatchControl Label="NeutralPrimaryAlt3"
+																		Color="{Binding Model.NeutralPrimaryAlt3}" />
+					<local:ColorSwatchControl Label="NeutralPrimaryContrast"
+																		Color="{Binding Model.NeutralPrimaryContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -193,41 +75,16 @@
 			<Expander Header="Neutral Secondary"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralSecondary, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralSecondary"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralSecondaryAlt, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralSecondaryAlt"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralSecondaryAlt2, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralSecondaryAlt2"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralSecondaryAlt3, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralSecondaryAlt3"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralSecondaryContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralSecondaryContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="NeutralSecondary"
+																		Color="{Binding Model.NeutralSecondary}" />
+					<local:ColorSwatchControl Label="NeutralSecondaryAlt"
+																		Color="{Binding Model.NeutralSecondaryAlt}" />
+					<local:ColorSwatchControl Label="NeutralSecondaryAlt2"
+																		Color="{Binding Model.NeutralSecondaryAlt2}" />
+					<local:ColorSwatchControl Label="NeutralSecondaryAlt3"
+																		Color="{Binding Model.NeutralSecondaryAlt3}" />
+					<local:ColorSwatchControl Label="NeutralSecondaryContrast"
+																		Color="{Binding Model.NeutralSecondaryContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -235,41 +92,16 @@
 			<Expander Header="Neutral Tertiary"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralTertiary, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralTertiary"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralTertiaryAlt, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralTertiaryAlt"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralTertiaryAlt2, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralTertiaryAlt2"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralTertiaryAlt3, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralTertiaryAlt3"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.NeutralTertiaryContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="NeutralTertiaryContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="NeutralTertiary"
+																		Color="{Binding Model.NeutralTertiary}" />
+					<local:ColorSwatchControl Label="NeutralTertiaryAlt"
+																		Color="{Binding Model.NeutralTertiaryAlt}" />
+					<local:ColorSwatchControl Label="NeutralTertiaryAlt2"
+																		Color="{Binding Model.NeutralTertiaryAlt2}" />
+					<local:ColorSwatchControl Label="NeutralTertiaryAlt3"
+																		Color="{Binding Model.NeutralTertiaryAlt3}" />
+					<local:ColorSwatchControl Label="NeutralTertiaryContrast"
+																		Color="{Binding Model.NeutralTertiaryContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -277,62 +109,22 @@
 			<Expander Header="Status"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Danger, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Danger"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.DangerContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="DangerContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Success, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Success"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.SuccessContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="SuccessContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Warning, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Warning"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.WarningContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="WarningContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Info, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Info"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.InfoContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="InfoContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Danger"
+																		Color="{Binding Model.Danger}" />
+					<local:ColorSwatchControl Label="DangerContrast"
+																		Color="{Binding Model.DangerContrast}" />
+					<local:ColorSwatchControl Label="Success"
+																		Color="{Binding Model.Success}" />
+					<local:ColorSwatchControl Label="SuccessContrast"
+																		Color="{Binding Model.SuccessContrast}" />
+					<local:ColorSwatchControl Label="Warning"
+																		Color="{Binding Model.Warning}" />
+					<local:ColorSwatchControl Label="WarningContrast"
+																		Color="{Binding Model.WarningContrast}" />
+					<local:ColorSwatchControl Label="Info"
+																		Color="{Binding Model.Info}" />
+					<local:ColorSwatchControl Label="InfoContrast"
+																		Color="{Binding Model.InfoContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -340,62 +132,22 @@
 			<Expander Header="KPI"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiGood, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiGood"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiGoodContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiGoodContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiBad, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiBad"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiBadContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiBadContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiNeutral, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiNeutral"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiNeutralContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiNeutralContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiNone, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiNone"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.KpiNoneContrast, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="KpiNoneContrast"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="KpiGood"
+																		Color="{Binding Model.KpiGood}" />
+					<local:ColorSwatchControl Label="KpiGoodContrast"
+																		Color="{Binding Model.KpiGoodContrast}" />
+					<local:ColorSwatchControl Label="KpiBad"
+																		Color="{Binding Model.KpiBad}" />
+					<local:ColorSwatchControl Label="KpiBadContrast"
+																		Color="{Binding Model.KpiBadContrast}" />
+					<local:ColorSwatchControl Label="KpiNeutral"
+																		Color="{Binding Model.KpiNeutral}" />
+					<local:ColorSwatchControl Label="KpiNeutralContrast"
+																		Color="{Binding Model.KpiNeutralContrast}" />
+					<local:ColorSwatchControl Label="KpiNone"
+																		Color="{Binding Model.KpiNone}" />
+					<local:ColorSwatchControl Label="KpiNoneContrast"
+																		Color="{Binding Model.KpiNoneContrast}" />
 				</StackPanel>
 			</Expander>
 
@@ -403,48 +155,18 @@
 			<Expander Header="Icons"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.ItemTypeIconColor, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="ItemTypeIconColor"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.ReportIconBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="ReportIconBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.ExcelIconBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="ExcelIconBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.FolderIconBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="FolderIconBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.DatasetIconBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="DatasetIconBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.OtherIconBackground, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="OtherIconBackground"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="ItemTypeIconColor"
+																		Color="{Binding Model.ItemTypeIconColor}" />
+					<local:ColorSwatchControl Label="ReportIconBackground"
+																		Color="{Binding Model.ReportIconBackground}" />
+					<local:ColorSwatchControl Label="ExcelIconBackground"
+																		Color="{Binding Model.ExcelIconBackground}" />
+					<local:ColorSwatchControl Label="FolderIconBackground"
+																		Color="{Binding Model.FolderIconBackground}" />
+					<local:ColorSwatchControl Label="DatasetIconBackground"
+																		Color="{Binding Model.DatasetIconBackground}" />
+					<local:ColorSwatchControl Label="OtherIconBackground"
+																		Color="{Binding Model.OtherIconBackground}" />
 				</StackPanel>
 			</Expander>
 
@@ -452,27 +174,12 @@
 			<Expander Header="Buttons"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryButton, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryButton"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryButtonHover, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryButtonHover"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.PrimaryButtonPressed, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="PrimaryButtonPressed"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="PrimaryButton"
+																		Color="{Binding Model.PrimaryButton}" />
+					<local:ColorSwatchControl Label="PrimaryButtonHover"
+																		Color="{Binding Model.PrimaryButtonHover}" />
+					<local:ColorSwatchControl Label="PrimaryButtonPressed"
+																		Color="{Binding Model.PrimaryButtonPressed}" />
 				</StackPanel>
 			</Expander>
 
@@ -480,27 +187,12 @@
 			<Expander Header="Links"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.Link, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="Link"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.LinkHover, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="LinkHover"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.LinkVisited, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="LinkVisited"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="Link"
+																		Color="{Binding Model.Link}" />
+					<local:ColorSwatchControl Label="LinkHover"
+																		Color="{Binding Model.LinkHover}" />
+					<local:ColorSwatchControl Label="LinkVisited"
+																		Color="{Binding Model.LinkVisited}" />
 				</StackPanel>
 			</Expander>
 
@@ -508,20 +200,10 @@
 			<Expander Header="Controls"
 								Margin="0,0,0,4">
 				<StackPanel Margin="4">
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.RadioButtonCheckBox, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="RadioButtonCheckBox"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
-					<DockPanel Margin="2">
-						<Rectangle Style="{StaticResource SwatchRect}"
-											 Fill="{Binding Model.RadioButtonCheckBoxHover, Converter={StaticResource ColorToBrush}}" />
-						<TextBlock Text="RadioButtonCheckBoxHover"
-											 Width="140"
-											 VerticalAlignment="Center" />
-					</DockPanel>
+					<local:ColorSwatchControl Label="RadioButtonCheckBox"
+																		Color="{Binding Model.RadioButtonCheckBox}" />
+					<local:ColorSwatchControl Label="RadioButtonCheckBoxHover"
+																		Color="{Binding Model.RadioButtonCheckBoxHover}" />
 				</StackPanel>
 			</Expander>
 		</StackPanel>
