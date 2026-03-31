@@ -1,0 +1,294 @@
+<UserControl x:Class="SSRS.Brand.Editor.Presentation.Controls.ColorPickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:Width="260"
+             d:Background="WhiteSmoke">
+	<UserControl.Resources>
+		<Style x:Key="SliderStyle"
+           TargetType="Slider">
+			<Setter Property="Minimum"
+              Value="0" />
+			<Setter Property="Maximum"
+              Value="255" />
+			<Setter Property="SmallChange"
+              Value="1" />
+			<Setter Property="LargeChange"
+              Value="16" />
+			<Setter Property="VerticalAlignment"
+              Value="Center" />
+		</Style>
+		<Style x:Key="ChannelLabel"
+           TargetType="TextBlock">
+			<Setter Property="Width"
+              Value="14" />
+			<Setter Property="VerticalAlignment"
+              Value="Center" />
+			<Setter Property="FontWeight"
+              Value="SemiBold" />
+			<Setter Property="Margin"
+              Value="0,0,4,0" />
+		</Style>
+		<Style x:Key="ChannelValue"
+           TargetType="TextBox">
+			<Setter Property="Width"
+              Value="36" />
+			<Setter Property="TextAlignment"
+              Value="Right" />
+			<Setter Property="VerticalAlignment"
+              Value="Center" />
+			<Setter Property="Margin"
+              Value="4,0,0,0" />
+		</Style>
+	</UserControl.Resources>
+
+	<Border BorderBrush="LightGray"
+          BorderThickness="1"
+          CornerRadius="4"
+          Padding="8">
+		<StackPanel>
+
+			<!-- Preview -->
+			<Grid Margin="0,0,0,8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Hue / Saturation canvas -->
+				<Border Grid.Column="0"
+                Height="120"
+                CornerRadius="2"
+                ClipToBounds="True"
+                Margin="0,0,8,0">
+					<Grid>
+						<!-- Hue gradient (left=0, right=360 degrees) -->
+						<Rectangle x:Name="HueGradientRect">
+							<Rectangle.Fill>
+								<LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="1,0">
+									<GradientStop Color="#FFFF0000"
+                                Offset="0" />
+									<GradientStop Color="#FFFFFF00"
+                                Offset="0.167" />
+									<GradientStop Color="#FF00FF00"
+                                Offset="0.333" />
+									<GradientStop Color="#FF00FFFF"
+                                Offset="0.500" />
+									<GradientStop Color="#FF0000FF"
+                                Offset="0.667" />
+									<GradientStop Color="#FFFF00FF"
+                                Offset="0.833" />
+									<GradientStop Color="#FFFF0000"
+                                Offset="1" />
+								</LinearGradientBrush>
+							</Rectangle.Fill>
+						</Rectangle>
+						<!-- White overlay (left=white, right=transparent) -->
+						<Rectangle>
+							<Rectangle.Fill>
+								<LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="1,0">
+									<GradientStop Color="#FFFFFFFF"
+                                Offset="0" />
+									<GradientStop Color="#00FFFFFF"
+                                Offset="1" />
+								</LinearGradientBrush>
+							</Rectangle.Fill>
+						</Rectangle>
+						<!-- Black overlay (top=transparent, bottom=black) -->
+						<Rectangle>
+							<Rectangle.Fill>
+								<LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="0,1">
+									<GradientStop Color="#00000000"
+                                Offset="0" />
+									<GradientStop Color="#FF000000"
+                                Offset="1" />
+								</LinearGradientBrush>
+							</Rectangle.Fill>
+						</Rectangle>
+						<!-- Crosshair cursor -->
+						<Canvas x:Name="SatBrightCanvas"
+                    Background="Transparent"
+                    MouseLeftButtonDown="SatBrightCanvas_MouseLeftButtonDown"
+                    MouseLeftButtonUp="SatBrightCanvas_MouseLeftButtonUp"
+                    MouseMove="SatBrightCanvas_MouseMove">
+							<Ellipse x:Name="Crosshair"
+                       Width="10"
+                       Height="10"
+                       Stroke="White"
+                       StrokeThickness="2"
+                       Fill="Transparent"
+                       Canvas.Left="0"
+                       Canvas.Top="0"
+                       IsHitTestVisible="False" />
+						</Canvas>
+					</Grid>
+				</Border>
+
+				<!-- Color preview swatches -->
+				<StackPanel Grid.Column="1"
+                    Width="48">
+					<TextBlock Text="New"
+                     FontSize="10"
+                     HorizontalAlignment="Center"
+                     Foreground="Gray" />
+					<Rectangle x:Name="NewColorRect"
+                     Height="44"
+                     RadiusX="2"
+                     RadiusY="2"
+                     Stroke="Gray"
+                     StrokeThickness="1"
+                     Margin="0,2,0,2" />
+					<TextBlock Text="Old"
+                     FontSize="10"
+                     HorizontalAlignment="Center"
+                     Foreground="Gray" />
+					<Rectangle x:Name="OldColorRect"
+                     Height="44"
+                     RadiusX="2"
+                     RadiusY="2"
+                     Stroke="Gray"
+                     StrokeThickness="1"
+                     Margin="0,2,0,0" />
+				</StackPanel>
+			</Grid>
+
+			<!-- Hue slider -->
+			<Grid Margin="0,0,0,4"
+            Height="16">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Border CornerRadius="8"
+                Height="14"
+                ClipToBounds="True">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+							<GradientStop Color="#FFFF0000"
+                    Offset="0" />
+							<GradientStop Color="#FFFFFF00"
+                    Offset="0.167" />
+							<GradientStop Color="#FF00FF00"
+                    Offset="0.333" />
+							<GradientStop Color="#FF00FFFF"
+                    Offset="0.500" />
+							<GradientStop Color="#FF0000FF"
+                    Offset="0.667" />
+							<GradientStop Color="#FFFF00FF"
+                    Offset="0.833" />
+							<GradientStop Color="#FFFF0000"
+                    Offset="1" />
+						</LinearGradientBrush>
+					</Border.Background>
+				</Border>
+				<Slider x:Name="HueSlider"
+                Style="{StaticResource SliderStyle}"
+                Minimum="0"
+                Maximum="360"
+                Background="Transparent"
+                ValueChanged="HueSlider_ValueChanged" />
+			</Grid>
+
+			<!-- R slider -->
+			<DockPanel Margin="0,4,0,0">
+				<TextBlock Text="R"
+                   Style="{StaticResource ChannelLabel}" />
+				<TextBox x:Name="RedTextBox"
+                 Style="{StaticResource ChannelValue}"
+                 DockPanel.Dock="Right"
+                 LostFocus="ChannelTextBox_LostFocus"
+                 PreviewTextInput="ChannelTextBox_PreviewTextInput" />
+				<Slider x:Name="RedSlider"
+                Style="{StaticResource SliderStyle}"
+                ValueChanged="RgbSlider_ValueChanged">
+					<Slider.Background>
+						<LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+							<GradientStop x:Name="RedStart"
+                    Color="#FF000000"
+                    Offset="0" />
+							<GradientStop x:Name="RedEnd"
+                    Color="#FFFF0000"
+                    Offset="1" />
+						</LinearGradientBrush>
+					</Slider.Background>
+				</Slider>
+			</DockPanel>
+
+			<!-- G slider -->
+			<DockPanel Margin="0,4,0,0">
+				<TextBlock Text="G"
+                   Style="{StaticResource ChannelLabel}" />
+				<TextBox x:Name="GreenTextBox"
+                 Style="{StaticResource ChannelValue}"
+                 DockPanel.Dock="Right"
+                 LostFocus="ChannelTextBox_LostFocus"
+                 PreviewTextInput="ChannelTextBox_PreviewTextInput" />
+				<Slider x:Name="GreenSlider"
+                Style="{StaticResource SliderStyle}"
+                ValueChanged="RgbSlider_ValueChanged">
+					<Slider.Background>
+						<LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+							<GradientStop x:Name="GreenStart"
+                    Color="#FF000000"
+                    Offset="0" />
+							<GradientStop x:Name="GreenEnd"
+                    Color="#FF00FF00"
+                    Offset="1" />
+						</LinearGradientBrush>
+					</Slider.Background>
+				</Slider>
+			</DockPanel>
+
+			<!-- B slider -->
+			<DockPanel Margin="0,4,0,0">
+				<TextBlock Text="B"
+                   Style="{StaticResource ChannelLabel}" />
+				<TextBox x:Name="BlueTextBox"
+                 Style="{StaticResource ChannelValue}"
+                 DockPanel.Dock="Right"
+                 LostFocus="ChannelTextBox_LostFocus"
+                 PreviewTextInput="ChannelTextBox_PreviewTextInput" />
+				<Slider x:Name="BlueSlider"
+                Style="{StaticResource SliderStyle}"
+                ValueChanged="RgbSlider_ValueChanged">
+					<Slider.Background>
+						<LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+							<GradientStop x:Name="BlueStart"
+                    Color="#FF000000"
+                    Offset="0" />
+							<GradientStop x:Name="BlueEnd"
+                    Color="#FF0000FF"
+                    Offset="1" />
+						</LinearGradientBrush>
+					</Slider.Background>
+				</Slider>
+			</DockPanel>
+
+			<!-- Hex input -->
+			<DockPanel Margin="0,8,0,0">
+				<TextBlock Text="#"
+                   VerticalAlignment="Center"
+                   Margin="0,0,2,0" />
+				<Button Content="Apply"
+                DockPanel.Dock="Right"
+                Padding="8,2"
+                Click="HexApplyButton_Click" />
+				<TextBox x:Name="HexTextBox"
+                 MaxLength="6"
+                 CharacterCasing="Upper"
+                 VerticalAlignment="Center"
+                 Margin="0,0,4,0"
+                 LostFocus="HexTextBox_LostFocus" />
+			</DockPanel>
+
+		</StackPanel>
+	</Border>
+</UserControl>
