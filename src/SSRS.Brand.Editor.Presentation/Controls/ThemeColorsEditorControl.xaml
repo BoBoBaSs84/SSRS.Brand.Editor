@@ -12,6 +12,7 @@
 						 d:Width="380">
 	<UserControl.Resources>
 		<conv:DrawingColorToBrushConverter x:Key="ColorToBrush" />
+		<conv:IndexToVisibilityConverter x:Key="IndexToVisibility" />
 		<Style x:Key="SwatchRect"
 					 TargetType="Rectangle">
 			<Setter Property="Width"
@@ -60,8 +61,11 @@
 							<Run Text=" data point(s)" />
 						</TextBlock>
 					</DockPanel>
-					<ItemsControl ItemsSource="{Binding DataPoints}">
-						<ItemsControl.ItemTemplate>
+					<ListBox ItemsSource="{Binding DataPoints}"
+									 SelectedIndex="{Binding SelectedDataPointIndex}"
+									 HorizontalContentAlignment="Stretch"
+									 Margin="0,0,0,8">
+						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<DockPanel Margin="2">
 									<Rectangle Style="{StaticResource SwatchRect}"
@@ -71,8 +75,11 @@
 														 Text="{Binding Converter={StaticResource ColorToBrush}, StringFormat={}{0}}" />
 								</DockPanel>
 							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
+						</ListBox.ItemTemplate>
+					</ListBox>
+					<local:ColorSwatchControl Label="Selected Data Point"
+																		Color="{Binding SelectedDataPoint}"
+																		Visibility="{Binding SelectedDataPointIndex, Converter={StaticResource IndexToVisibility}}" />
 				</StackPanel>
 			</Expander>
 
