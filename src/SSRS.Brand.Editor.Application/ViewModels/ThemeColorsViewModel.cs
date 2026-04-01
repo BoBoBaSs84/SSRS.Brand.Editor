@@ -41,7 +41,13 @@ public sealed class ThemeColorsViewModel(ThemeColorsModel model) : ViewModelBase
 	public Color SelectedDataPoint
 	{
 		get => _selectedDataPoint;
-		set => SetProperty(ref _selectedDataPoint, value);
+		set
+		{
+			SetProperty(ref _selectedDataPoint, value);
+
+			if (_selectedDataPointIndex >= 0 && _selectedDataPointIndex < model.DataPoints.Count)
+				model.DataPoints[_selectedDataPointIndex] = value;
+		}
 	}
 
 	/// <summary>
@@ -50,7 +56,17 @@ public sealed class ThemeColorsViewModel(ThemeColorsModel model) : ViewModelBase
 	public int SelectedDataPointIndex
 	{
 		get => _selectedDataPointIndex;
-		set => SetProperty(ref _selectedDataPointIndex, value);
+		set
+		{
+			SetProperty(ref _selectedDataPointIndex, value);
+			_removeDataPointCommand?.RaiseCanExecuteChanged();
+
+			if (value >= 0 && value < model.DataPoints.Count)
+			{
+				_selectedDataPoint = model.DataPoints[value];
+				RaisePropertyChanged(nameof(SelectedDataPoint));
+			}
+		}
 	}
 
 	/// <summary>
