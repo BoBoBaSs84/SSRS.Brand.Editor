@@ -1,0 +1,81 @@
+name: Continuous Deployment
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Build, Test & Publish
+    runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/v}"
+          echo "VERSION=${TAG_NAME}" >> "$GITHUB_OUTPUT"
+          echo "Extracted version: ${TAG_NAME}"
+
+      - name: Restore dependencies
+        run: dotnet restore SSRS.Brand.Editor.slnx
+
+      - name: Build solution
+        run: >
+          dotnet build SSRS.Brand.Editor.slnx
+          --configuration Release
+          --no-restore
+          -p:VersionPrefix=${{ steps.version.outputs.VERSION }}
+          -p:VersionSuffix=
+          -p:FileVersion=${{ steps.version.outputs.VERSION }}
+          -p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+      - name: Run tests
+        run: dotnet test SSRS.Brand.Editor.slnx --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+
+      - name: Publish application
+        run: >
+          dotnet publish src/SSRS.Brand.Editor/SSRS.Brand.Editor.csproj
+          --configuration Release
+          --no-build
+          --runtime win-x64
+          --output ./publish
+          -p:VersionPrefix=${{ steps.version.outputs.VERSION }}
+
+      - name: Archive published output
+        run: Compress-Archive -Path ./publish/* -DestinationPath ./artifacts/SSRS.Brand.Editor-win-x64-${{ steps.version.outputs.VERSION }}.zip
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: SSRS.Brand.Editor
+          path: ./artifacts/SSRS.Brand.Editor-${{ steps.version.outputs.VERSION }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ steps.version.outputs.VERSION }}
+          generate_release_notes: true
+          files: ./artifacts/SSRS.Brand.Editor-${{ steps.version.outputs.VERSION }}.zip

@@ -1,17 +1,22 @@
 name: Continuous Integration
 
-permissions:
-  contents: read
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
   build:
+    name: Build and Test
     runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
     - name: Checkout
@@ -25,10 +30,10 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore SSRS.Brand.Editor.slnx
       
     - name: Build
-      run: dotnet build --no-restore --configuration release --verbosity minimal
+      run: dotnet build SSRS.Brand.Editor.slnx --no-restore --configuration release --verbosity minimal
       
     - name: Test
-      run: dotnet test --no-build --configuration release --verbosity minimal
+      run: dotnet test SSRS.Brand.Editor.slnx --no-build --configuration release --verbosity minimal

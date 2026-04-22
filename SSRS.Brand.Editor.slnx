@@ -1,7 +1,5 @@
 <Solution>
-  <Folder Name="/docs/">
-    <File Path="docs/SPECIFICATION.md" />
-  </Folder>
+  <Folder Name="/docs/" />
   <Folder Name="/docs/examples/">
     <File Path="docs/examples/colors.json" />
     <File Path="docs/examples/logo.png" />
@@ -14,11 +12,9 @@
     <File Path="CODEOWNERS" />
     <File Path="CODE_OF_CONDUCT.md" />
     <File Path="Directory.Build.props" />
-    <File Path="Directory.Build.targets" />
     <File Path="Directory.Packages.props" />
     <File Path="LICENSE" />
     <File Path="README.md" />
-    <File Path="test.runsettings" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/SSRS.Brand.Editor.Application/SSRS.Brand.Editor.Application.csproj" />
