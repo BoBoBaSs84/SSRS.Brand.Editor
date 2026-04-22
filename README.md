@@ -28,7 +28,7 @@ The SSRS Brand Editor is a desktop application designed to simplify the process 
 
 To install the SSRS Brand Editor, follow these steps:
 
-1. Download the latest release from the [Releases] section of the GitHub repository.
+1. Download the latest release from the [Releases](https://github.com/BoBoBaSs84/SSRS.Brand.Editor/releases) section of the GitHub repository.
 2. Run the apllication and open an existing brand package or create a new one to start customizing your SSRS portal.
 
 ## Contributing
