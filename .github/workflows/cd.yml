@@ -27,9 +27,9 @@ jobs:
       - name: Extract version from tag
         id: version
         run: |
-          TAG_NAME="${GITHUB_REF#refs/tags/v}"
-          echo "VERSION=${TAG_NAME}" >> "$GITHUB_OUTPUT"
-          echo "Extracted version: ${TAG_NAME}"
+          $tagName = "$env:GITHUB_REF" -replace '^refs/tags/v', ''
+          echo "VERSION=$tagName" >> $env:GITHUB_OUTPUT
+          echo "Extracted version: $tagName"
 
       - name: Restore dependencies
         run: dotnet restore SSRS.Brand.Editor.slnx
@@ -58,19 +58,22 @@ jobs:
         run: >
           dotnet publish src/SSRS.Brand.Editor/SSRS.Brand.Editor.csproj
           --configuration Release
-          --no-build
           --runtime win-x64
           --output ./publish
           -p:VersionPrefix=${{ steps.version.outputs.VERSION }}
+          -p:VersionSuffix=
+          -p:FileVersion=${{ steps.version.outputs.VERSION }}
 
       - name: Archive published output
-        run: Compress-Archive -Path ./publish/* -DestinationPath ./artifacts/SSRS.Brand.Editor-win-x64-${{ steps.version.outputs.VERSION }}.zip
+        run: |
+          New-Item -ItemType Directory -Path ./artifacts -Force | Out-Null
+          Compress-Archive -Path ./publish/* -DestinationPath ./artifacts/SSRS.Brand.Editor.win-x64.${{ steps.version.outputs.VERSION }}.zip
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:
           name: SSRS.Brand.Editor
-          path: ./artifacts/SSRS.Brand.Editor-${{ steps.version.outputs.VERSION }}.zip
+          path: ./artifacts/SSRS.Brand.Editor.win-x64.${{ steps.version.outputs.VERSION }}.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
@@ -78,4 +81,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ steps.version.outputs.VERSION }}
           generate_release_notes: true
-          files: ./artifacts/SSRS.Brand.Editor-${{ steps.version.outputs.VERSION }}.zip
+          files: ./artifacts/SSRS.Brand.Editor.win-x64.${{ steps.version.outputs.VERSION }}.zip
