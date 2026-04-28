@@ -3,6 +3,10 @@
 		<UseWPF>True</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="BB84.SourceGenerators">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
 	</ItemGroup>
 	<ItemGroup>

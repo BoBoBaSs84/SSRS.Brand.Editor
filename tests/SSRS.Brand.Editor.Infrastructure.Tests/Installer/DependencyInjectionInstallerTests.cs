@@ -16,23 +16,23 @@ namespace SSRS.Brand.Editor.Infrastructure.Tests.Installer;
 public sealed class DependencyInjectionInstallerTests : InfrastructureTestBase
 {
 	private readonly Mock<IHostEnvironment> _hostEnvironmentMock;
+	private readonly ServiceCollection _sut;
 
 	public DependencyInjectionInstallerTests()
 	{
 		_hostEnvironmentMock = new();
+		_sut = new();
 	}
-
 
 	[TestMethod]
 	[TestCategory("DependencyInjection")]
 	public void RegisterInfrastructureServicesForDevelopmentTest()
 	{
 		_hostEnvironmentMock.Setup(x => x.EnvironmentName).Returns("Development");
-		ServiceCollection services = new();
 
-		services.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
+		_sut.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
 
-		Assert.AreEqual(45, services.Count);
+		Assert.HasCount(44, _sut);
 	}
 
 	[TestMethod]
@@ -40,10 +40,9 @@ public sealed class DependencyInjectionInstallerTests : InfrastructureTestBase
 	public void RegisterInfrastructureServicesForProductionTest()
 	{
 		_hostEnvironmentMock.Setup(x => x.EnvironmentName).Returns("Production");
-		ServiceCollection services = new();
 
-		services.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
+		_sut.RegisterInfrastructureServices(_hostEnvironmentMock.Object);
 
-		Assert.AreEqual(33, services.Count);
+		Assert.HasCount(32, _sut);
 	}
 }
