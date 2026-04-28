@@ -8,8 +8,8 @@ using System.Windows;
 
 using Moq;
 
+using SSRS.Brand.Editor.Application.Abstractions.Application.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Application.Services;
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Services;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels;

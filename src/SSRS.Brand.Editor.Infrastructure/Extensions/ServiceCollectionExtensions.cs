@@ -76,7 +76,6 @@ internal static class ServiceCollectionExtensions
 	internal static IServiceCollection RegisterServices(this IServiceCollection services)
 	{
 		services.AddSingleton<IBrandPackageService, BrandPackageService>();
-		services.AddSingleton<IProviderService, ProviderService>();
 		services.AddSingleton<IWebService, WebService>();
 
 		return services;

@@ -44,6 +44,7 @@ internal static class ServiceCollectionExtensions
 	{
 		services.AddSingleton<IEventService, EventService>();
 		services.AddSingleton<INavigationService, NavigationService>();
+		services.AddSingleton<IProviderService, ProviderService>();
 
 		services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider
 			=> viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));

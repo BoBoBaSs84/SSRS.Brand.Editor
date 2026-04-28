@@ -5,7 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 using Moq;
 
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
+using SSRS.Brand.Editor.Application.Abstractions.Application.Providers;
 using SSRS.Brand.Editor.Application.Abstractions.Presentation.Services;
 using SSRS.Brand.Editor.Application.ViewModels;
 using SSRS.Brand.Editor.Domain.Models;

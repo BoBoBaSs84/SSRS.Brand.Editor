@@ -1,18 +1,12 @@
-﻿// Copyright: 2025 Robert Peter Meyer
-// License: MIT
-//
-// This source code is licensed under the MIT license found in the
-// LICENSE file in the root directory of this source tree.
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
-using SSRS.Brand.Editor.Application.Abstractions.Infrastructure.Providers;
+using SSRS.Brand.Editor.Application.Abstractions.Application.Providers;
 
-namespace SSRS.Brand.Editor.Infrastructure.Providers;
+namespace SSRS.Brand.Editor.Application.Providers;
 
 /// <summary>
 /// The implementation for the date time provider contract.
 /// </summary>
-/// <inheritdoc cref="IDateTimeProvider"/>
 [ExcludeFromCodeCoverage(Justification = "This class is a simple wrapper around the System.DateTime class.")]
 internal sealed class DateTimeProvider : IDateTimeProvider
 {
