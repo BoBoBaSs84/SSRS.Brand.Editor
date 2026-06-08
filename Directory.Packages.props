@@ -3,9 +3,9 @@
     <ManagePackageVersionsCentrally>True</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="BB84.Extensions" Version="4.3.520" />
-    <PackageVersion Include="BB84.Notifications" Version="4.2.417" />
-    <PackageVersion Include="BB84.SourceGenerators" Version="2.0.529" />
+    <PackageVersion Include="BB84.Extensions" Version="4.3.603" />
+    <PackageVersion Include="BB84.Notifications" Version="4.3.604" />
+    <PackageVersion Include="BB84.SourceGenerators" Version="2.1.607" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.8" />
