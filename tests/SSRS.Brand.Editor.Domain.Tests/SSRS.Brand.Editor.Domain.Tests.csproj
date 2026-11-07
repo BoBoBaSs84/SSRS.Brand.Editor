@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSTest.Sdk">
   <PropertyGroup />
   <ItemGroup>
     <PackageReference Include="Moq" />
-    <PackageReference Include="MSTest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\SSRS.Brand.Editor.Domain\SSRS.Brand.Editor.Domain.csproj" />
