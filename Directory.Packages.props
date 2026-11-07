@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="BB84.Extensions" Version="5.0.1027" />
     <PackageVersion Include="BB84.Notifications" Version="5.0.726" />
-    <PackageVersion Include="BB84.SourceGenerators" Version="2.6.1101" />
+    <PackageVersion Include="BB84.SourceGenerators" Version="2.6.1103" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.14" />
